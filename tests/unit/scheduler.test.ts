@@ -1,0 +1,34 @@
+import { afterEach, expect, it, vi } from 'vitest';
+import { Scheduler } from '../../src/core/scheduler';
+afterEach(() => { vi.useRealTimers(); document.body.innerHTML = ''; });
+it('父子任务合并且属性任务不遍历后代', async () => {
+  vi.useFakeTimers();
+  document.body.innerHTML = '<section><div><span>text</span></div></section>';
+  const calls: Node[] = [];
+  const queue = new Scheduler(node => calls.push(node));
+  const section = document.querySelector('section')!;
+  queue.enqueue(section.firstChild!);
+  queue.enqueue(section);
+  queue.enqueue(section.firstChild!);
+  await vi.runAllTimersAsync();
+  expect(new Set(calls).size).toBe(calls.length);
+  expect(calls).toHaveLength(4);
+  calls.length = 0;
+  queue.enqueue(section, false);
+  await vi.runAllTimersAsync();
+  expect(calls).toEqual([section]);
+  queue.stop();
+});
+it('断开节点和停止队列后不再执行', async () => {
+  vi.useFakeTimers();
+  document.body.innerHTML = '<span>text</span>';
+  const process = vi.fn();
+  const queue = new Scheduler(process);
+  const span = document.querySelector('span')!;
+  queue.enqueue(span); span.remove();
+  await vi.runAllTimersAsync();
+  expect(process).not.toHaveBeenCalled();
+  queue.enqueue(document.body); queue.stop();
+  await vi.runAllTimersAsync();
+  expect(process).not.toHaveBeenCalled();
+});

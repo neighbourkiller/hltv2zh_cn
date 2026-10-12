@@ -1,0 +1,435 @@
+<!-- 2026-10-09 赛事统计实页 DOM；移除广告/脚本，图表本身未运行。 -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>.smartphone-only{display:none}.hidden{display:none}input{min-height:20px}</style>
+</head>
+<body>
+<a class="nav-link" href="/stats">Stats</a>
+<main class="contentCol">
+<div class="stats-section">
+<div class="event-hub">
+<a href="/events/8244/esl-pro-league-season-24" class="event-hub-top">
+<div class="event-hub-indicator event-live">Live</div>
+<img alt="ESL Pro League Season 24" src="https://img-cdn.hltv.org/eventbanner/O8mUqtBkc0jkcZqYU0gLai.png?ixlib=java-2.1.0&amp;w=1276&amp;s=06df7ce8ddada20a0207730e9392cc1f" class="event-hub-image">
+<div class="event-hub-title">ESL Pro League Season 24</div>
+</a>
+<div class="event-hub-bottom">
+<a href="/events/8244/esl-pro-league-season-24" class="event-hub-link ">Overview</a>
+<a href="/events/8244/matches" class="event-hub-link ">Matches</a>
+<a href="/results?event=8244" class="event-hub-link ">Results</a>
+<a href="/stats?event=8244" class="event-hub-link active">Stats</a>
+</div>
+</div>
+<div class="vspace">
+</div>
+<div class="stats-top-menu">
+<div class="tabs">
+<div class="tabs-left">
+<div class="stats-sub-navigation-title">
+<span class="tab-title">Event filter</span>
+<form action="" data-select-navigation="1">
+<select class="stats-sub-navigation-simple-filter-matchtype">
+<option data-link="/stats/maps?event=8244" selected="selected">All</option>
+<option data-link="/stats/maps?matchType=Majors&amp;event=8244">Majors</option>
+<option data-link="/stats/maps?matchType=BigEvents&amp;event=8244">Big events</option>
+<option data-link="/stats/maps?matchType=MvpEvents&amp;event=8244">MVP events</option>
+<option data-link="/stats/maps?matchType=Lan&amp;event=8244">LAN</option>
+<option data-link="/stats/maps?matchType=Online&amp;event=8244">Online</option>
+</select>
+</form>
+</div>
+<div class="stats-sub-navigation-title">
+<span class="tab-title">Time filter</span>
+<form action="" data-select-navigation="1">
+<select class="stats-sub-navigation-simple-filter-time">
+<option data-link="/stats/maps?startDate=all&amp;event=8244" selected="selected">All</option>
+<option data-link="/stats/maps?startDate=2026-09-08&amp;endDate=2026-10-08&amp;event=8244">Last month</option>
+<option data-link="/stats/maps?startDate=2026-07-08&amp;endDate=2026-10-08&amp;event=8244">Last 3 months</option>
+<option data-link="/stats/maps?startDate=2026-04-08&amp;endDate=2026-10-08&amp;event=8244">Last 6 months</option>
+<option data-link="/stats/maps?startDate=2025-10-08&amp;endDate=2026-10-08&amp;event=8244">Last 12 months</option>
+<option data-link="/stats/maps?startDate=2026-01-01&amp;endDate=2026-12-31&amp;event=8244">2026</option>
+<option data-link="/stats/maps?startDate=2025-01-01&amp;endDate=2025-12-31&amp;event=8244">2025</option>
+<option data-link="/stats/maps?startDate=2024-01-01&amp;endDate=2024-12-31&amp;event=8244">2024</option>
+<option data-link="/stats/maps?startDate=2023-01-01&amp;endDate=2023-12-31&amp;event=8244">2023</option>
+<option data-link="/stats/maps?startDate=2022-01-01&amp;endDate=2022-12-31&amp;event=8244">2022</option>
+<option data-link="/stats/maps?startDate=2021-01-01&amp;endDate=2021-12-31&amp;event=8244">2021</option>
+<option data-link="/stats/maps?startDate=2020-01-01&amp;endDate=2020-12-31&amp;event=8244">2020</option>
+<option data-link="/stats/maps?startDate=2019-01-01&amp;endDate=2019-12-31&amp;event=8244">2019</option>
+<option data-link="/stats/maps?startDate=2018-01-01&amp;endDate=2018-12-31&amp;event=8244">2018</option>
+<option data-link="/stats/maps?startDate=2017-01-01&amp;endDate=2017-12-31&amp;event=8244">2017</option>
+<option data-link="/stats/maps?startDate=2016-01-01&amp;endDate=2016-12-31&amp;event=8244">2016</option>
+<option data-link="/stats/maps?startDate=2015-01-01&amp;endDate=2015-12-31&amp;event=8244">2015</option>
+<option data-link="/stats/maps?startDate=2014-01-01&amp;endDate=2014-12-31&amp;event=8244">2014</option>
+<option data-link="/stats/maps?startDate=2013-01-01&amp;endDate=2013-12-31&amp;event=8244">2013</option>
+<option data-link="/stats/maps?startDate=2012-01-01&amp;endDate=2012-12-31&amp;event=8244">2012</option>
+</select>
+</form>
+</div>
+<div class="stats-sub-navigation-title">
+<span class="tab-title">Ranking (both teams)</span>
+<form action="" data-select-navigation="1">
+<select class="stats-sub-navigation-simple-filter-matchtype">
+<option data-link="/stats/maps?event=8244" selected="selected">All</option>
+<option data-link="/stats/maps?event=8244&amp;rankingFilter=Top5">Top 5</option>
+<option data-link="/stats/maps?event=8244&amp;rankingFilter=Top10">Top 10</option>
+<option data-link="/stats/maps?event=8244&amp;rankingFilter=Top20">Top 20</option>
+<option data-link="/stats/maps?event=8244&amp;rankingFilter=Top30">Top 30</option>
+<option data-link="/stats/maps?event=8244&amp;rankingFilter=Top50">Top 50</option>
+</select>
+</form>
+</div>
+<div class="stats-sub-navigation-title map-filter">
+<span class="tab-title">Map filter</span>
+<div class="stats-sub-navigation-simple-filter-map">All</div>
+</div>
+<div class="stats-sub-navigation-simple-filter-map-hover hidden">
+<div class="stats-sub-map-grid">
+<div class="stats-sub-map">
+<a href="/stats/maps?event=8244" class="a-reset active">All</a>
+</div>
+<div class="stats-sub-map">
+<a href="/stats/maps?event=8244&amp;maps=de_ancient" class="a-reset ">Ancient</a>
+</div>
+<div class="stats-sub-map">
+<a href="/stats/maps?event=8244&amp;maps=de_anubis" class="a-reset ">Anubis</a>
+</div>
+<div class="stats-sub-map">
+<a href="/stats/maps?event=8244&amp;maps=de_cache" class="a-reset ">Cache</a>
+</div>
+<div class="stats-sub-map">
+<a href="/stats/maps?event=8244&amp;maps=de_dust2" class="a-reset ">Dust2</a>
+</div>
+<div class="stats-sub-map">
+<a href="/stats/maps?event=8244&amp;maps=de_inferno" class="a-reset ">Inferno</a>
+</div>
+<div class="stats-sub-map">
+<a href="/stats/maps?event=8244&amp;maps=de_mirage" class="a-reset ">Mirage</a>
+</div>
+<div class="stats-sub-map">
+<a href="/stats/maps?event=8244&amp;maps=de_nuke" class="a-reset ">Nuke</a>
+</div>
+<div class="stats-sub-map">
+<a href="/stats/maps?event=8244&amp;maps=de_cobblestone" class="a-reset ">Cobblestone</a>
+</div>
+<div class="stats-sub-map">
+<a href="/stats/maps?event=8244&amp;maps=de_overpass" class="a-reset ">Overpass</a>
+</div>
+<div class="stats-sub-map">
+<a href="/stats/maps?event=8244&amp;maps=de_season" class="a-reset ">Season</a>
+</div>
+<div class="stats-sub-map">
+<a href="/stats/maps?event=8244&amp;maps=de_train" class="a-reset ">Train</a>
+</div>
+<div class="stats-sub-map">
+<a href="/stats/maps?event=8244&amp;maps=de_tuscan" class="a-reset ">Tuscan</a>
+</div>
+<div class="stats-sub-map">
+<a href="/stats/maps?event=8244&amp;maps=de_vertigo" class="a-reset ">Vertigo</a>
+</div>
+</div>
+</div>
+<div class="stats-sub-navigation-title">
+<span class="tab-title">Version</span>
+<form action="" data-select-navigation="1">
+<select class="stats-sub-navigation-simple-filter-version">
+<option data-link="/stats/maps?event=8244" selected="selected">Both</option>
+<option data-link="/stats/maps?csVersion=CS2&amp;event=8244">CS2</option>
+<option data-link="/stats/maps?csVersion=CSGO&amp;event=8244">CSGO</option>
+</select>
+</form>
+</div>
+</div>
+</div>
+</div>
+<div class="BZ4Bl4KkTN " data-berykguzow="StatsTop" data-hixuoqkfqi="6837" id="">
+</div>
+<div class="vspace">
+</div>
+<h1 class="standard-headline">Maps</h1>
+<nav class="g-grid maps-navigation">
+<a href="/stats/maps/map/32/Mirage?showKills=true&amp;showDeaths=false&amp;firstKillsOnly=false&amp;allowEmpty=false&amp;showKillDataset=true&amp;showDeathDataset=false&amp;event=8244" class="col-custom maps-navigation-link">
+<div class="maps-navigation-map">
+<img src="/img/static/statsmatchmaps/mirage.png" class="maps-navigation-img">
+</div>
+<div class="maps-navigation-desc">Mirage</div>
+</a>
+<a href="/stats/maps/map/31/Dust2?showKills=true&amp;showDeaths=false&amp;firstKillsOnly=false&amp;allowEmpty=false&amp;showKillDataset=true&amp;showDeathDataset=false&amp;event=8244" class="col-custom maps-navigation-link">
+<div class="maps-navigation-map">
+<img src="/img/static/statsmatchmaps/dust2.png" class="maps-navigation-img">
+</div>
+<div class="maps-navigation-desc">Dust2</div>
+</a>
+<a href="/stats/maps/map/29/Cache?showKills=true&amp;showDeaths=false&amp;firstKillsOnly=false&amp;allowEmpty=false&amp;showKillDataset=true&amp;showDeathDataset=false&amp;event=8244" class="col-custom maps-navigation-link">
+<div class="maps-navigation-map">
+<img src="/img/static/statsmatchmaps/cache.png" class="maps-navigation-img">
+</div>
+<div class="maps-navigation-desc">Cache</div>
+</a>
+<a href="/stats/maps/map/48/Anubis?showKills=true&amp;showDeaths=false&amp;firstKillsOnly=false&amp;allowEmpty=false&amp;showKillDataset=true&amp;showDeathDataset=false&amp;event=8244" class="col-custom maps-navigation-link">
+<div class="maps-navigation-map">
+<img src="/img/static/statsmatchmaps/anubis.png" class="maps-navigation-img">
+</div>
+<div class="maps-navigation-desc">Anubis</div>
+</a>
+<a href="/stats/maps/map/34/Nuke?showKills=true&amp;showDeaths=false&amp;firstKillsOnly=false&amp;allowEmpty=false&amp;showKillDataset=true&amp;showDeathDataset=false&amp;event=8244" class="col-custom maps-navigation-link">
+<div class="maps-navigation-map">
+<img src="/img/static/statsmatchmaps/nuke.png" class="maps-navigation-img">
+</div>
+<div class="maps-navigation-desc">Nuke</div>
+</a>
+<a href="/stats/maps/map/47/Ancient?showKills=true&amp;showDeaths=false&amp;firstKillsOnly=false&amp;allowEmpty=false&amp;showKillDataset=true&amp;showDeathDataset=false&amp;event=8244" class="col-custom maps-navigation-link">
+<div class="maps-navigation-map">
+<img src="/img/static/statsmatchmaps/ancient.png" class="maps-navigation-img">
+</div>
+<div class="maps-navigation-desc">Ancient</div>
+</a>
+<a href="/stats/maps/map/33/Inferno?showKills=true&amp;showDeaths=false&amp;firstKillsOnly=false&amp;allowEmpty=false&amp;showKillDataset=true&amp;showDeathDataset=false&amp;event=8244" class="col-custom maps-navigation-link">
+<div class="maps-navigation-map">
+<img src="/img/static/statsmatchmaps/inferno.png" class="maps-navigation-img">
+</div>
+<div class="maps-navigation-desc">Inferno</div>
+</a>
+</nav>
+<div class="standard-headline">Distribution of maps played</div>
+<div class="standard-box">
+<worker-ignore style="display: block; height: 300px" class="graph " data-chartjs-config="{&quot;data&quot;:{&quot;labels&quot;:[&quot;Mirage&quot;,&quot;Dust2&quot;,&quot;Cache&quot;,&quot;Anubis&quot;,&quot;Nuke&quot;,&quot;Inferno&quot;,&quot;Ancient&quot;],&quot;datasets&quot;:[{&quot;data&quot;:[{&quot;category&quot;:&quot;Mirage&quot;,&quot;value&quot;:21.0,&quot;showLabel&quot;:true},{&quot;category&quot;:&quot;Dust2&quot;,&quot;value&quot;:15.0,&quot;showLabel&quot;:true},{&quot;category&quot;:&quot;Cache&quot;,&quot;value&quot;:12.0,&quot;showLabel&quot;:true},{&quot;category&quot;:&quot;Anubis&quot;,&quot;value&quot;:10.0,&quot;showLabel&quot;:true},{&quot;category&quot;:&quot;Nuke&quot;,&quot;value&quot;:8.0,&quot;showLabel&quot;:true},{&quot;category&quot;:&quot;Inferno&quot;,&quot;value&quot;:7.0,&quot;showLabel&quot;:true},{&quot;category&quot;:&quot;Ancient&quot;,&quot;value&quot;:7.0,&quot;showLabel&quot;:true}],&quot;backgroundColor&quot;:[&quot;#2C6EA4&quot;,&quot;#2D808B&quot;,&quot;#2D9171&quot;,&quot;#2F9B6A&quot;,&quot;#6B9644&quot;,&quot;#92993A&quot;,&quot;#B99F34&quot;],&quot;borderColor&quot;:&quot;rgba(0, 0, 0, 0.37)&quot;,&quot;borderWidth&quot;:1,&quot;parsing&quot;:{&quot;xAxisKey&quot;:&quot;value&quot;,&quot;yAxisKey&quot;:&quot;category&quot;},&quot;categoryPercentage&quot;:0.7,&quot;barPercentage&quot;:1.0}],&quot;type&quot;:&quot;bar&quot;},&quot;options&quot;:{&quot;layout&quot;:{&quot;padding&quot;:{&quot;right&quot;:44}},&quot;maintainAspectRatio&quot;:false,&quot;responsive&quot;:true,&quot;scales&quot;:{&quot;x&quot;:{&quot;min&quot;:0.0,&quot;ticks&quot;:{&quot;display&quot;:true,&quot;color&quot;:&quot;var(--text-color)&quot;},&quot;grid&quot;:{&quot;display&quot;:true,&quot;color&quot;:&quot;rgba(125, 125, 125, 0.3)&quot;},&quot;border&quot;:{&quot;display&quot;:false},&quot;title&quot;:{&quot;display&quot;:true,&quot;text&quot;:&quot;Times played&quot;,&quot;color&quot;:&quot;var(--text-color)&quot;,&quot;font&quot;:{&quot;weight&quot;:&quot;bold&quot;}}},&quot;y&quot;:{&quot;ticks&quot;:{&quot;color&quot;:&quot;var(--text-color)&quot;,&quot;autoSkip&quot;:false,&quot;maxRotation&quot;:0},&quot;grid&quot;:{&quot;display&quot;:false},&quot;border&quot;:{&quot;display&quot;:false},&quot;title&quot;:{&quot;display&quot;:true,&quot;text&quot;:&quot;Maps&quot;,&quot;color&quot;:&quot;var(--text-color)&quot;,&quot;font&quot;:{&quot;weight&quot;:&quot;bold&quot;}}}},&quot;plugins&quot;:{&quot;legend&quot;:{&quot;display&quot;:false,&quot;position&quot;:&quot;bottom&quot;,&quot;labels&quot;:{&quot;color&quot;:&quot;var(--text-color)&quot;,&quot;boxWidth&quot;:12,&quot;boxHeight&quot;:12}}},&quot;indexAxis&quot;:&quot;y&quot;,&quot;animation&quot;:false},&quot;addOns&quot;:[{&quot;axis&quot;:&quot;x&quot;,&quot;format&quot;:{&quot;forceDecimals&quot;:false,&quot;numberScale&quot;:false},&quot;splitWords&quot;:false,&quot;type&quot;:&quot;tickFormat&quot;},{&quot;format&quot;:{&quot;forceDecimals&quot;:false,&quot;numberScale&quot;:false},&quot;percentOfTotal&quot;:false,&quot;type&quot;:&quot;classicTooltip&quot;},{&quot;inside&quot;:false,&quot;rotate&quot;:false,&quot;color&quot;:&quot;var(--chart-value-color)&quot;,&quot;format&quot;:{&quot;forceDecimals&quot;:false,&quot;numberScale&quot;:false},&quot;outsideColor&quot;:&quot;var(--chart-value-color)&quot;,&quot;type&quot;:&quot;valueLabels&quot;}],&quot;type&quot;:&quot;bar&quot;}" data-chartjs-init="1">
+<canvas style="display: block; box-sizing: border-box; height: 300px; width: 638px;" width="957" height="450">
+</canvas>
+</worker-ignore>
+</div>
+<div class="section-spacer">
+</div>
+<div class="standard-headline">Distribution of T / CT wins on maps</div>
+<div class="standard-box">
+<worker-ignore style="display: block; height: 300px" class="graph " data-chartjs-config="{&quot;data&quot;:{&quot;labels&quot;:[&quot;Ancient&quot;,&quot;Anubis&quot;,&quot;Cache&quot;,&quot;Dust2&quot;,&quot;Inferno&quot;,&quot;Mirage&quot;,&quot;Nuke&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;CT&quot;,&quot;data&quot;:[{&quot;category&quot;:&quot;Ancient&quot;,&quot;value&quot;:48.3,&quot;showLabel&quot;:true},{&quot;category&quot;:&quot;Anubis&quot;,&quot;value&quot;:51.4,&quot;showLabel&quot;:true},{&quot;category&quot;:&quot;Cache&quot;,&quot;value&quot;:56.8,&quot;showLabel&quot;:true},{&quot;category&quot;:&quot;Dust2&quot;,&quot;value&quot;:51.0,&quot;showLabel&quot;:true},{&quot;category&quot;:&quot;Inferno&quot;,&quot;value&quot;:45.9,&quot;showLabel&quot;:true},{&quot;category&quot;:&quot;Mirage&quot;,&quot;value&quot;:55.3,&quot;showLabel&quot;:true},{&quot;category&quot;:&quot;Nuke&quot;,&quot;value&quot;:53.9,&quot;showLabel&quot;:true}],&quot;backgroundColor&quot;:[&quot;#2C6EA4&quot;,&quot;#2C6EA4&quot;,&quot;#2C6EA4&quot;,&quot;#2C6EA4&quot;,&quot;#2C6EA4&quot;,&quot;#2C6EA4&quot;,&quot;#2C6EA4&quot;],&quot;borderColor&quot;:&quot;rgba(0, 0, 0, 0.37)&quot;,&quot;borderWidth&quot;:1,&quot;parsing&quot;:{&quot;xAxisKey&quot;:&quot;category&quot;,&quot;yAxisKey&quot;:&quot;value&quot;},&quot;categoryPercentage&quot;:0.8,&quot;barPercentage&quot;:0.9},{&quot;label&quot;:&quot;TERRORIST&quot;,&quot;data&quot;:[{&quot;category&quot;:&quot;Ancient&quot;,&quot;value&quot;:51.7,&quot;showLabel&quot;:true},{&quot;category&quot;:&quot;Anubis&quot;,&quot;value&quot;:48.6,&quot;showLabel&quot;:true},{&quot;category&quot;:&quot;Cache&quot;,&quot;value&quot;:43.2,&quot;showLabel&quot;:true},{&quot;category&quot;:&quot;Dust2&quot;,&quot;value&quot;:49.0,&quot;showLabel&quot;:true},{&quot;category&quot;:&quot;Inferno&quot;,&quot;value&quot;:54.1,&quot;showLabel&quot;:true},{&quot;category&quot;:&quot;Mirage&quot;,&quot;value&quot;:44.7,&quot;showLabel&quot;:true},{&quot;category&quot;:&quot;Nuke&quot;,&quot;value&quot;:46.1,&quot;showLabel&quot;:true}],&quot;backgroundColor&quot;:[&quot;#E0A42D&quot;,&quot;#E0A42D&quot;,&quot;#E0A42D&quot;,&quot;#E0A42D&quot;,&quot;#E0A42D&quot;,&quot;#E0A42D&quot;,&quot;#E0A42D&quot;],&quot;borderColor&quot;:&quot;rgba(0, 0, 0, 0.37)&quot;,&quot;borderWidth&quot;:1,&quot;parsing&quot;:{&quot;xAxisKey&quot;:&quot;category&quot;,&quot;yAxisKey&quot;:&quot;value&quot;},&quot;categoryPercentage&quot;:0.8,&quot;barPercentage&quot;:0.9}],&quot;type&quot;:&quot;bar&quot;},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:false,&quot;responsive&quot;:true,&quot;scales&quot;:{&quot;x&quot;:{&quot;ticks&quot;:{&quot;color&quot;:&quot;var(--text-color)&quot;,&quot;autoSkip&quot;:false,&quot;maxRotation&quot;:45},&quot;grid&quot;:{&quot;display&quot;:false},&quot;border&quot;:{&quot;display&quot;:false}},&quot;y&quot;:{&quot;min&quot;:0.0,&quot;ticks&quot;:{&quot;display&quot;:true,&quot;color&quot;:&quot;var(--text-color)&quot;},&quot;grid&quot;:{&quot;display&quot;:true,&quot;color&quot;:&quot;rgba(125, 125, 125, 0.3)&quot;},&quot;border&quot;:{&quot;display&quot;:false}}},&quot;plugins&quot;:{&quot;legend&quot;:{&quot;display&quot;:true,&quot;position&quot;:&quot;bottom&quot;,&quot;labels&quot;:{&quot;color&quot;:&quot;var(--text-color)&quot;,&quot;boxWidth&quot;:12,&quot;boxHeight&quot;:12}}},&quot;animation&quot;:false},&quot;addOns&quot;:[{&quot;axis&quot;:&quot;y&quot;,&quot;format&quot;:{&quot;forceDecimals&quot;:false,&quot;suffix&quot;:&quot;%&quot;,&quot;numberScale&quot;:false},&quot;splitWords&quot;:false,&quot;type&quot;:&quot;tickFormat&quot;},{&quot;format&quot;:{&quot;forceDecimals&quot;:false,&quot;suffix&quot;:&quot;%&quot;,&quot;numberScale&quot;:false},&quot;percentOfTotal&quot;:false,&quot;type&quot;:&quot;classicTooltip&quot;},{&quot;inside&quot;:true,&quot;rotate&quot;:true,&quot;color&quot;:&quot;#fff&quot;,&quot;format&quot;:{&quot;forceDecimals&quot;:false,&quot;suffix&quot;:&quot;%&quot;,&quot;numberScale&quot;:false},&quot;outsideColor&quot;:&quot;var(--chart-value-color)&quot;,&quot;type&quot;:&quot;valueLabels&quot;},{&quot;axis&quot;:&quot;y&quot;,&quot;lines&quot;:[{&quot;start&quot;:50.0,&quot;end&quot;:50.0,&quot;zone&quot;:true,&quot;label&quot;:&quot;50%&quot;,&quot;color&quot;:&quot;#7d7d7d&quot;,&quot;width&quot;:2,&quot;labelAtEnd&quot;:false,&quot;onTop&quot;:false}],&quot;type&quot;:&quot;referenceLines&quot;}],&quot;type&quot;:&quot;bar&quot;}" data-chartjs-init="1">
+<canvas style="display: block; box-sizing: border-box; height: 300px; width: 638px;" width="957" height="450">
+</canvas>
+</worker-ignore>
+</div>
+</div>
+</main>
+<div class="sidebar-con">
+<div class="sidebar-box ">
+<div class="sidebar-headline">Event filter</div>
+<div class="sidebar-first-level">
+<div class="stats-section stats-sidebar">
+<div class="context-item">
+<a href="/stats/maps" class="deselect">
+<i class=" fa fa-times" aria-hidden="true">
+</i>
+</a>
+<img alt="ESL Pro League Season 24" src="https://img-cdn.hltv.org/eventlogo/PhVPy7kXO_J_nfTng7a87h.png?ixlib=java-2.1.0&amp;w=200&amp;s=7a1dd4079a079fb5c5133dea996cc5f0" class="context-item-image" srcset="https://img-cdn.hltv.org/eventlogo/PhVPy7kXO_J_nfTng7a87h.png?ixlib=java-2.1.0&amp;w=400&amp;s=c0aedfdc29d3c83494b063e81e987cf6 2x" title="ESL Pro League Season 24">
+<span class="context-item-name">ESL Pro League Season 24</span>
+</div>
+</div>
+</div>
+</div>
+<div class="sidebar-box ">
+<div class="sidebar-headline">Navigation</div>
+<div class="sidebar-second-level">
+<div class="stats-section stats-team stats-sidebar">
+<a href="/stats?event=8244" class="sidebar-single-line-item">
+<span class="" title="">Overview</span>
+</a>
+<a href="/stats/players?event=8244" class="sidebar-single-line-item">
+<span class="" title="">Players</span>
+</a>
+<a href="/stats/teams?event=8244" class="sidebar-single-line-item">
+<span class="" title="">Teams</span>
+</a>
+<a href="/stats/matches?event=8244" class="sidebar-single-line-item">
+<span class="" title="">Matches</span>
+</a>
+<a href="/stats/events?event=8244" class="sidebar-single-line-item">
+<span class="" title="">Events</span>
+</a>
+<a href="/stats/maps?event=8244" class="sidebar-single-line-item selected">
+<span class="" title="">Maps</span>
+</a>
+<a href="/stats/leaderboards?event=8244" class="sidebar-single-line-item">
+<span class="" title="">Leaderboards</span>
+</a>
+<a href="/stats/aces?event=8244" class="sidebar-single-line-item">
+<span class="" title="">Aces</span>
+</a>
+<a href="/stats/events/clutches/8244/all/esl-pro-league-season-24" class="sidebar-single-line-item">
+<span class="" title="">Clutches</span>
+</a>
+<a href="/stats/players/compare" class="sidebar-single-line-item">
+<span class="" title="">Compare</span>
+</a>
+</div>
+</div>
+</div>
+<a href="/legacystats" class="legacy-stats-section-button">1.6 stats section<img src="/img/static/stats/cs-icon.png">
+</a>
+<div class="sidebar-box ">
+<div class="sidebar-headline">Search stats</div>
+<div class="sidebar-third-level">
+<div class="stats-section stats-sidebar">
+<div class="search-input-con" title="Search the stats section for teams, players and events, from here you can easily add them to your context.">
+<div class="search-typeahead">
+<input type="text" class="search-input navsearchinput" data-stats-search-url="/stats/search?event=8244&amp;term=" placeholder="Add to context..">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sidebar-box ">
+<div class="sidebar-headline">Version</div>
+<div class="sidebar-forth-level">
+<div>
+<div class="filter-column-con">
+<div class="filter-column-content">
+<div class="filter-column-content">
+<a href="/stats/maps?event=8244" class="sidebar-single-line-item selected" title=""> Both </a>
+<a href="/stats/maps?csVersion=CS2&amp;event=8244" class="sidebar-single-line-item " title="Only show matches from CS2"> CS2 </a>
+<a href="/stats/maps?csVersion=CSGO&amp;event=8244" class="sidebar-single-line-item " title="Only show matches from CSGO"> CSGO </a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sidebar-box ">
+<div class="sidebar-headline">Filters</div>
+<div class="sidebar-fifth-level">
+<div>
+<div class="filter-column-con">
+<div class="filter-column-header open">Event type<span class="fa fa-caret-down">
+</span>
+<span class="fa fa-caret-up">
+</span>
+</div>
+<div class="filter-column-content  ">
+<div class="filter-column-content">
+<a href="/stats/maps?event=8244" class="sidebar-single-line-item selected" title=""> All matches </a>
+<a href="/stats/maps?matchType=Majors&amp;event=8244" class="sidebar-single-line-item " title="Only show matches from majors"> Majors </a>
+<a href="/stats/maps?matchType=BigEvents&amp;event=8244" class="sidebar-single-line-item " title="Only show matches from events classified as a 'Big Event'"> Big events </a>
+<a href="/stats/maps?matchType=MvpEvents&amp;event=8244" class="sidebar-single-line-item " title="Only show matches from events which have an MVP"> MVP events </a>
+<a href="/stats/maps?matchType=Lan&amp;event=8244" class="sidebar-single-line-item " title="Only show matches played on LAN"> LAN </a>
+<a href="/stats/maps?matchType=Online&amp;event=8244" class="sidebar-single-line-item " title="Only show matches played online"> Online </a>
+</div>
+</div>
+<div class="filter-column-header open">Time<span class="fa fa-caret-down">
+</span>
+<span class="fa fa-caret-up">
+</span>
+</div>
+<div class="filter-column-content  ">
+<div class="clearfix">
+<a href="/stats/maps?startDate=all&amp;event=8244" class="sidebar-single-line-item selected"> All time</a>
+<a href="/stats/maps?startDate=2026-09-08&amp;endDate=2026-10-08&amp;event=8244" class="sidebar-single-line-item "> Last month</a>
+<a href="/stats/maps?startDate=2026-07-08&amp;endDate=2026-10-08&amp;event=8244" class="sidebar-single-line-item "> Last 3 months</a>
+<a href="/stats/maps?startDate=2026-04-08&amp;endDate=2026-10-08&amp;event=8244" class="sidebar-single-line-item "> Last 6 months</a>
+<a href="/stats/maps?startDate=2025-10-08&amp;endDate=2026-10-08&amp;event=8244" class="sidebar-single-line-item "> Last 12 months</a>
+<a href="/stats/maps?startDate=2026-01-01&amp;endDate=2026-12-31&amp;event=8244" class="sidebar-single-line-item "> 2026</a>
+<a href="/stats/maps?startDate=2025-01-01&amp;endDate=2025-12-31&amp;event=8244" class="sidebar-single-line-item "> 2025</a>
+<a href="/stats/maps?startDate=2024-01-01&amp;endDate=2024-12-31&amp;event=8244" class="sidebar-single-line-item "> 2024</a>
+<a href="/stats/maps?startDate=2023-01-01&amp;endDate=2023-12-31&amp;event=8244" class="sidebar-single-line-item "> 2023</a>
+<a href="/stats/maps?startDate=2022-01-01&amp;endDate=2022-12-31&amp;event=8244" class="sidebar-single-line-item "> 2022</a>
+<a href="/stats/maps?startDate=2021-01-01&amp;endDate=2021-12-31&amp;event=8244" class="sidebar-single-line-item "> 2021</a>
+<a href="/stats/maps?startDate=2020-01-01&amp;endDate=2020-12-31&amp;event=8244" class="sidebar-single-line-item "> 2020</a>
+<a href="/stats/maps?startDate=2019-01-01&amp;endDate=2019-12-31&amp;event=8244" class="sidebar-single-line-item "> 2019</a>
+<a href="/stats/maps?startDate=2018-01-01&amp;endDate=2018-12-31&amp;event=8244" class="sidebar-single-line-item "> 2018</a>
+<a href="/stats/maps?startDate=2017-01-01&amp;endDate=2017-12-31&amp;event=8244" class="sidebar-single-line-item "> 2017</a>
+<a href="/stats/maps?startDate=2016-01-01&amp;endDate=2016-12-31&amp;event=8244" class="sidebar-single-line-item "> 2016</a>
+<a href="/stats/maps?startDate=2015-01-01&amp;endDate=2015-12-31&amp;event=8244" class="sidebar-single-line-item "> 2015</a>
+<a href="/stats/maps?startDate=2014-01-01&amp;endDate=2014-12-31&amp;event=8244" class="sidebar-single-line-item "> 2014</a>
+<a href="/stats/maps?startDate=2013-01-01&amp;endDate=2013-12-31&amp;event=8244" class="sidebar-single-line-item "> 2013</a>
+<a href="/stats/maps?startDate=2012-01-01&amp;endDate=2012-12-31&amp;event=8244" class="sidebar-single-line-item "> 2012</a>
+<div class="padded-content">
+<input name="startDate" class="filter-date" placeholder="开始日期">
+<input name="endDate" class="filter-date" placeholder="结束日期">
+</div>
+</div>
+</div>
+<div class="filter-column-header open">Ranking (both teams)<span class="fa fa-caret-down">
+</span>
+<span class="fa fa-caret-up">
+</span>
+</div>
+<div class="filter-column-content  ">
+<div class="filter-column-content">
+<a href="/stats/maps?event=8244" class="sidebar-single-line-item selected" title=""> All </a>
+<a href="/stats/maps?event=8244&amp;rankingFilter=Top5" class="sidebar-single-line-item " title="Only maps where both teams were in the top 5 within 30 days (before or after) of the map"> Top 5 </a>
+<a href="/stats/maps?event=8244&amp;rankingFilter=Top10" class="sidebar-single-line-item " title="Only maps where both teams were in the top 10 within 30 days (before or after) of the map"> Top 10 </a>
+<a href="/stats/maps?event=8244&amp;rankingFilter=Top20" class="sidebar-single-line-item " title="Only maps where both teams were in the top 20 within 30 days (before or after) of the map"> Top 20 </a>
+<a href="/stats/maps?event=8244&amp;rankingFilter=Top30" class="sidebar-single-line-item " title="Only maps where both teams were in the top 30 within 30 days (before or after) of the map"> Top 30 </a>
+<a href="/stats/maps?event=8244&amp;rankingFilter=Top50" class="sidebar-single-line-item " title="Only maps where both teams were in the top 50 within 30 days (before or after) of the map"> Top 50 </a>
+</div>
+</div>
+<div class="filter-column-header open">Best Of X<span class="fa fa-caret-down">
+</span>
+<span class="fa fa-caret-up">
+</span>
+</div>
+<div class="filter-column-content  ">
+<div class="filter-column-content">
+<a href="/stats/maps?event=8244" class="sidebar-single-line-item selected" title=""> All </a>
+<a href="/stats/maps?event=8244&amp;bestOfX=BestOf1" class="sidebar-single-line-item " title=""> Best of 1 </a>
+<a href="/stats/maps?event=8244&amp;bestOfX=BestOf3" class="sidebar-single-line-item " title=""> Best of 3 </a>
+<a href="/stats/maps?event=8244&amp;bestOfX=BestOf5" class="sidebar-single-line-item " title=""> Best of 5 </a>
+</div>
+</div>
+<div class="filter-column-header open">Valve Ranked<span class="fa fa-caret-down">
+</span>
+<span class="fa fa-caret-up">
+</span>
+</div>
+<div class="filter-column-content  ">
+<div class="filter-column-content">
+<a href="/stats/maps?event=8244" class="sidebar-single-line-item selected" title=""> Both </a>
+<a href="/stats/maps?event=8244&amp;valveRanked=RANKED" class="sidebar-single-line-item " title="Only show valve ranked events"> Ranked </a>
+<a href="/stats/maps?event=8244&amp;valveRanked=UNRANKED" class="sidebar-single-line-item " title="Only show unranked events"> Unranked </a>
+</div>
+</div>
+<div class="filter-column-header open">Match type<span class="fa fa-caret-down">
+</span>
+<span class="fa fa-caret-up">
+</span>
+</div>
+<div class="filter-column-content  ">
+<div class="filter-column-content">
+<a href="/stats/maps?event=8244" class="sidebar-single-line-item selected" title=""> All matches </a>
+<a href="/stats/maps?event=8244&amp;playoffMatchType=GRAND_FINAL" class="sidebar-single-line-item " title="Only show grand final matches"> Grand final </a>
+<a href="/stats/maps?event=8244&amp;playoffMatchType=PLAYOFFS" class="sidebar-single-line-item " title="Only show playoff matches"> Playoffs </a>
+<a href="/stats/maps?event=8244&amp;playoffMatchType=PRE_PLAYOFF" class="sidebar-single-line-item " title="Only show pre-playoff matches"> Pre-playoff </a>
+</div>
+</div>
+<div class="filter-column-header open">Maps<span class="fa fa-caret-down">
+</span>
+<span class="fa fa-caret-up">
+</span>
+</div>
+<div class="filter-column-content  ">
+<div class="filter-column-content">
+<a href="/stats/maps?event=8244" class="sidebar-single-line-item selected" title=""> All </a>
+<a href="/stats/maps?event=8244&amp;maps=de_ancient" class="sidebar-single-line-item " title=""> Ancient </a>
+<a href="/stats/maps?event=8244&amp;maps=de_anubis" class="sidebar-single-line-item " title=""> Anubis </a>
+<a href="/stats/maps?event=8244&amp;maps=de_cache" class="sidebar-single-line-item " title=""> Cache </a>
+<a href="/stats/maps?event=8244&amp;maps=de_dust2" class="sidebar-single-line-item " title=""> Dust2 </a>
+<a href="/stats/maps?event=8244&amp;maps=de_inferno" class="sidebar-single-line-item " title=""> Inferno </a>
+<a href="/stats/maps?event=8244&amp;maps=de_mirage" class="sidebar-single-line-item " title=""> Mirage </a>
+<a href="/stats/maps?event=8244&amp;maps=de_nuke" class="sidebar-single-line-item " title=""> Nuke </a>
+<a href="/stats/maps?event=8244&amp;maps=de_cobblestone" class="sidebar-single-line-item " title=""> Cobblestone </a>
+<a href="/stats/maps?event=8244&amp;maps=de_overpass" class="sidebar-single-line-item " title=""> Overpass </a>
+<a href="/stats/maps?event=8244&amp;maps=de_season" class="sidebar-single-line-item " title=""> Season </a>
+<a href="/stats/maps?event=8244&amp;maps=de_train" class="sidebar-single-line-item " title=""> Train </a>
+<a href="/stats/maps?event=8244&amp;maps=de_tuscan" class="sidebar-single-line-item " title=""> Tuscan </a>
+<a href="/stats/maps?event=8244&amp;maps=de_vertigo" class="sidebar-single-line-item " title=""> Vertigo </a>
+</div>
+</div>
+<div class="filter-column-map-count-con">
+<div class="text-ellipsis">Maps in filter</div>
+<div class="filter-column-map-count">80</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

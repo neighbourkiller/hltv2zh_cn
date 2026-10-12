@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-10",
+  "version": "0.1.14",
+  "runtime": "independent in-app browser; temporary full userscript with stubbed GM APIs; no persistent install",
+  "transfer": {
+    "title": "Counter-Strike 转会",
+    "movement": "HooXi 转为替补，所属队伍： Astralis",
+    "optionValues": true,
+    "entities": true,
+    "links": true,
+    "dates": true
+  },
+  "fantasy": {
+    "title": "Fantasy 2026年秋季赛季",
+    "values": true,
+    "entities": true,
+    "links": true,
+    "topLabel": "回到榜首",
+    "topHref": "/fantasy?offset=0"
+  },
+  "operations": {
+    "transferRanking": "ranking=Top5",
+    "transferCombined": "startDate=2026-09-10&endDate=2026-10-10&ranking=Top5&freeAgentsOnly=true",
+    "transferCountry": "country=Ethiopia; native autocomplete click; empty .transfers-grouped",
+    "transferNext": "page=1; new rows translated",
+    "fantasyEarlierMonth": true,
+    "fantasyMonthExpand": true,
+    "fantasyTabs": [
+      "season",
+      "celebrity",
+      "custom"
+    ],
+    "fantasyGuestHint": "登录后即可使用自定义排行榜",
+    "fantasyNext": "offset=10; placements 11-20",
+    "fantasySearch": "synthetic query; input retained, autocomplete empty"
+  },
+  "submitted": false,
+  "scriptSha256": "74e42983a00c30c3b5e02651d62176ad1ef61f7225d1f7431314e8368b8291ec"
+}

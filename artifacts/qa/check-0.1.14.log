@@ -1,0 +1,117 @@
+npm notice run hltv-zh-cn@0.1.14 check
+npm notice run npm run typecheck && npm test && npm run build && npm run test:browser
+npm notice run hltv-zh-cn@0.1.14 typecheck
+npm notice run tsc --noEmit
+npm notice run hltv-zh-cn@0.1.14 test
+npm notice run vitest run
+
+ RUN  v5.0.3 D:/develop/Projects/hltv2zh_cn
+
+
+ Test Files  15 passed (15)
+      Tests  79 passed (79)
+   Start at  17:04:30
+   Duration  6.21s (environment 46%, tests 43%, transform 6%, import 5%)
+
+npm notice run hltv-zh-cn@0.1.14 build
+npm notice run node scripts/build.mjs
+已构建 HLTV 简体中文 0.1.14
+npm notice run hltv-zh-cn@0.1.14 test:browser
+npm notice run playwright test
+
+Running 84 tests using 2 workers
+
+(node:23144) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:26960) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  2 [desktop] › tests\browser\userscript.spec.ts:32:1 › 阶段 D：转会筛选、嵌套实体、动态换行与真实空结构 (435ms)
+  ok  1 [desktop] › tests\browser\userscript.spec.ts:63:1 › 阶段 D：Fantasy 原节点展开、三类排行榜替换、数值与实体保持 (536ms)
+  ok  3 [desktop] › tests\browser\userscript.spec.ts:104:1 › 阶段 D：新增菜单独立关闭、配置保存和未采样子路由保持 (192ms)
+  ok  4 [desktop] › tests\browser\userscript.spec.ts:117:1 › 阶段 D：Fantasy 关闭恢复原文，动态未知状态与正文反例保持 (171ms)
+  ok  6 [desktop] › tests\browser\userscript.spec.ts:164:1 › 阶段 C：推荐空状态保留图标、动态生成的提示和正文保护 (141ms)
+  ok  5 [desktop] › tests\browser\userscript.spec.ts:133:1 › 阶段 C：比赛经济切换保持原监听器、数值、节点和 Rating 版本 (269ms)
+  ok  8 [desktop] › tests\browser\userscript.spec.ts:205:1 › 阶段 C：选手快速多杀、构建产物模块关闭及英文恢复 (137ms)
+  ok  7 [desktop] › tests\browser\userscript.spec.ts:178:1 › 阶段 C：统计筛选、排序和分页的夹具监听器保持，专项 tooltip 保留数字 (241ms)
+  ok  9 [desktop] › tests\browser\userscript.spec.ts:215:1 › 动态机制：class 状态进出、实体先写入和轮次原监听器保持 (341ms)
+  ok 10 [desktop] › tests\browser\userscript.spec.ts:246:1 › 动态机制：停止高频回写后冷却到期自动翻译最终内容 (459ms)
+  ok 12 [desktop] › tests\browser\userscript.spec.ts:308:1 › 从战队 V社排名入口进入详情，五分项切换与说明/表格保持，阵容查询参数不变 (440ms)
+  ok 11 [desktop] › tests\browser\userscript.spec.ts:284:1 › 战队七标签页/FAQ/关注伪元素、原链接和赛事正文保持，可进入 HLTV 排名详情 (687ms)
+  ok 13 [desktop] › tests\browser\userscript.spec.ts:325:1 › 战队及两类排名详情菜单独立持久化，更新标题/实体保护和旧偏好保持 (358ms)
+  ok 14 [desktop] › tests\browser\userscript.spec.ts:340:1 › V社全球/区域排名、官方日期跳转、积分/旧阵容和拆分节点保持 (364ms)
+  ok 15 [desktop] › tests\browser\userscript.spec.ts:366:1 › VRS 邀请卡片整页汉化、名额数字/赛事实体保持与赛事入口跳转 (209ms)
+  ok 16 [desktop] › tests\browser\userscript.spec.ts:389:1 › Valve/VRS 模块分别持久化，动态日期/积分恢复源文案且旧偏好保持 (372ms)
+  ok 17 [desktop] › tests\browser\userscript.spec.ts:411:1 › 世界排名拆分节点汉化、展开监听器保持、区域菜单跳转及历史日期筛选 (366ms)
+  ok 18 [desktop] › tests\browser\userscript.spec.ts:444:1 › 排名原 Text/新队伍动态更新、输入与正文保持，菜单开关刷新持久化 (249ms)
+  ok 20 [desktop] › tests\browser\userscript.spec.ts:482:1 › 全站地图覆盖未适配路由、缩写、属性及动态节点，下拉原值与实体受保护 (158ms)
+  ok 19 [desktop] › tests\browser\userscript.spec.ts:461:1 › 赛事统计概览/地图页、双侧筛选和导航汉化，赛事上下文及实体数据保持 (494ms)
+  ok 21 [desktop] › tests\browser\userscript.spec.ts:499:1 › 新默认中文地图，英文偏好和全站地图开关可以保存且互相独立 (234ms)
+  ok 23 [desktop] › tests\browser\userscript.spec.ts:543:1 › 对比模块的地图偏好/动态摘要/旧配置与独立开关，输入及数据保持 (427ms)
+  ok 22 [desktop] › tests\browser\userscript.spec.ts:511:1 › 从完整对比入口进入双选手页面，双侧筛选/指标/走势/表格汉化且移除链接可用 (473ms)
+  ok 24 [desktop] › tests\browser\userscript.spec.ts:564:1 › 空白对比页兼容旧设置，搜索提示汉化且保留用户输入和端点 (111ms)
+  ok 25 [desktop] › tests\browser\userscript.spec.ts:573:1 › 筛选两名选手为 2026 后，Rating 3.0 新指标及 KPR/KAST 汉化，侧栏与动态更新保持 (349ms)
+  ok 26 [desktop] › tests\browser\userscript.spec.ts:609:1 › 比赛阵容对比指标及双端按钮汉化，保留 Rating、缩写和跳转参数 (505ms)
+  ok 27 [desktop] › tests\browser\userscript.spec.ts:641:1 › 阵容切换重新生成英文按钮后继续翻译，原点击事件/数据保留，停用后恢复 (260ms)
+  ok 28 [desktop] › tests\browser\userscript.spec.ts:675:1 › 赛事实页结构：完整栏目、动态对阵及控件监听器与原数据保持 (455ms)
+  ok 29 [desktop] › tests\browser\userscript.spec.ts:721:1 › 赛事详情模块兼容旧配置及不同赛事，地图菜单和独立开关持久化 (444ms)
+  ok 31 [desktop] › tests\browser\userscript.spec.ts:772:1 › 统计整页展开指标、筛选值、动态计数与模块菜单兼容旧设置 (285ms)
+  ok 30 [desktop] › tests\browser\userscript.spec.ts:734:1 › 选手资料整页、隐藏标签页及完整统计跳转，原节点与实体保持 (383ms)
+  ok 32 [desktop] › tests\browser\userscript.spec.ts:810:1 › 不同选手统计子页仍汉化，停用资料模块移除关注按钮译文 (235ms)
+  ok 33 [desktop] › tests\browser\userscript.spec.ts:830:1 › 实页侧栏结构回归：赞助、排名、更新时间、赛事与周最佳 (160ms)
+  ok 34 [desktop] › tests\browser\userscript.spec.ts:858:1 › 单文件产物翻译首页，保留图标、内容和计数 (154ms)
+  ok 36 [desktop] › tests\browser\userscript.spec.ts:897:1 › 比赛筛选仍可操作，原属性和输入内容保留 (177ms)
+  ok 37 [desktop] › tests\browser\userscript.spec.ts:910:1 › 详情 BP、日期与倒计时翻译，比分不变 (162ms)
+  ok 35 [desktop] › tests\browser\userscript.spec.ts:875:1 › 原 Text、动态节点与属性更新，空闲后停止写入 (593ms)
+  ok 38 [desktop] › tests\browser\userscript.spec.ts:925:1 › 赛果分页及日期正确，分页链接仍可导航 (197ms)
+  ok 39 [desktop] › tests\browser\userscript.spec.ts:934:1 › GM 菜单模拟：保存地图偏好、刷新生效及停用 (204ms)
+  ok 40 [desktop] › tests\browser\userscript.spec.ts:944:1 › 验证页和 betting 路由不执行翻译 (154ms)
+  ok 41 [desktop] › tests\browser\userscript.spec.ts:954:1 › 赛事日期嵌套节点保持原位，移动已翻译节点后按新区域恢复 (141ms)
+(node:5136) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 42 [desktop] › tests\browser\userscript.spec.ts:967:1 › 批量插入处理完整且无重复副作用 (469ms)
+(node:29484) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 43 [narrow] › tests\browser\userscript.spec.ts:32:1 › 阶段 D：转会筛选、嵌套实体、动态换行与真实空结构 (343ms)
+  ok 45 [narrow] › tests\browser\userscript.spec.ts:104:1 › 阶段 D：新增菜单独立关闭、配置保存和未采样子路由保持 (223ms)
+  ok 46 [narrow] › tests\browser\userscript.spec.ts:117:1 › 阶段 D：Fantasy 关闭恢复原文，动态未知状态与正文反例保持 (158ms)
+  ok 44 [narrow] › tests\browser\userscript.spec.ts:63:1 › 阶段 D：Fantasy 原节点展开、三类排行榜替换、数值与实体保持 (413ms)
+  ok 48 [narrow] › tests\browser\userscript.spec.ts:164:1 › 阶段 C：推荐空状态保留图标、动态生成的提示和正文保护 (109ms)
+  ok 47 [narrow] › tests\browser\userscript.spec.ts:133:1 › 阶段 C：比赛经济切换保持原监听器、数值、节点和 Rating 版本 (236ms)
+  ok 50 [narrow] › tests\browser\userscript.spec.ts:205:1 › 阶段 C：选手快速多杀、构建产物模块关闭及英文恢复 (154ms)
+  ok 49 [narrow] › tests\browser\userscript.spec.ts:178:1 › 阶段 C：统计筛选、排序和分页的夹具监听器保持，专项 tooltip 保留数字 (267ms)
+  ok 51 [narrow] › tests\browser\userscript.spec.ts:215:1 › 动态机制：class 状态进出、实体先写入和轮次原监听器保持 (343ms)
+  ok 52 [narrow] › tests\browser\userscript.spec.ts:246:1 › 动态机制：停止高频回写后冷却到期自动翻译最终内容 (457ms)
+  ok 54 [narrow] › tests\browser\userscript.spec.ts:308:1 › 从战队 V社排名入口进入详情，五分项切换与说明/表格保持，阵容查询参数不变 (445ms)
+  ok 53 [narrow] › tests\browser\userscript.spec.ts:284:1 › 战队七标签页/FAQ/关注伪元素、原链接和赛事正文保持，可进入 HLTV 排名详情 (664ms)
+  ok 56 [narrow] › tests\browser\userscript.spec.ts:340:1 › V社全球/区域排名、官方日期跳转、积分/旧阵容和拆分节点保持 (342ms)
+  ok 55 [narrow] › tests\browser\userscript.spec.ts:325:1 › 战队及两类排名详情菜单独立持久化，更新标题/实体保护和旧偏好保持 (358ms)
+  ok 57 [narrow] › tests\browser\userscript.spec.ts:366:1 › VRS 邀请卡片整页汉化、名额数字/赛事实体保持与赛事入口跳转 (199ms)
+  ok 58 [narrow] › tests\browser\userscript.spec.ts:389:1 › Valve/VRS 模块分别持久化，动态日期/积分恢复源文案且旧偏好保持 (385ms)
+  ok 59 [narrow] › tests\browser\userscript.spec.ts:411:1 › 世界排名拆分节点汉化、展开监听器保持、区域菜单跳转及历史日期筛选 (378ms)
+  ok 60 [narrow] › tests\browser\userscript.spec.ts:444:1 › 排名原 Text/新队伍动态更新、输入与正文保持，菜单开关刷新持久化 (244ms)
+  ok 62 [narrow] › tests\browser\userscript.spec.ts:482:1 › 全站地图覆盖未适配路由、缩写、属性及动态节点，下拉原值与实体受保护 (167ms)
+  ok 61 [narrow] › tests\browser\userscript.spec.ts:461:1 › 赛事统计概览/地图页、双侧筛选和导航汉化，赛事上下文及实体数据保持 (459ms)
+  ok 63 [narrow] › tests\browser\userscript.spec.ts:499:1 › 新默认中文地图，英文偏好和全站地图开关可以保存且互相独立 (265ms)
+  ok 64 [narrow] › tests\browser\userscript.spec.ts:511:1 › 从完整对比入口进入双选手页面，双侧筛选/指标/走势/表格汉化且移除链接可用 (414ms)
+  ok 66 [narrow] › tests\browser\userscript.spec.ts:564:1 › 空白对比页兼容旧设置，搜索提示汉化且保留用户输入和端点 (107ms)
+  ok 65 [narrow] › tests\browser\userscript.spec.ts:543:1 › 对比模块的地图偏好/动态摘要/旧配置与独立开关，输入及数据保持 (493ms)
+  ok 67 [narrow] › tests\browser\userscript.spec.ts:573:1 › 筛选两名选手为 2026 后，Rating 3.0 新指标及 KPR/KAST 汉化，侧栏与动态更新保持 (352ms)
+  ok 68 [narrow] › tests\browser\userscript.spec.ts:609:1 › 比赛阵容对比指标及双端按钮汉化，保留 Rating、缩写和跳转参数 (431ms)
+  ok 69 [narrow] › tests\browser\userscript.spec.ts:641:1 › 阵容切换重新生成英文按钮后继续翻译，原点击事件/数据保留，停用后恢复 (229ms)
+  ok 70 [narrow] › tests\browser\userscript.spec.ts:675:1 › 赛事实页结构：完整栏目、动态对阵及控件监听器与原数据保持 (424ms)
+  ok 71 [narrow] › tests\browser\userscript.spec.ts:721:1 › 赛事详情模块兼容旧配置及不同赛事，地图菜单和独立开关持久化 (432ms)
+  ok 72 [narrow] › tests\browser\userscript.spec.ts:734:1 › 选手资料整页、隐藏标签页及完整统计跳转，原节点与实体保持 (417ms)
+  ok 73 [narrow] › tests\browser\userscript.spec.ts:772:1 › 统计整页展开指标、筛选值、动态计数与模块菜单兼容旧设置 (299ms)
+  ok 74 [narrow] › tests\browser\userscript.spec.ts:810:1 › 不同选手统计子页仍汉化，停用资料模块移除关注按钮译文 (221ms)
+  ok 75 [narrow] › tests\browser\userscript.spec.ts:830:1 › 实页侧栏结构回归：赞助、排名、更新时间、赛事与周最佳 (208ms)
+  ok 76 [narrow] › tests\browser\userscript.spec.ts:858:1 › 单文件产物翻译首页，保留图标、内容和计数 (147ms)
+  ok 78 [narrow] › tests\browser\userscript.spec.ts:897:1 › 比赛筛选仍可操作，原属性和输入内容保留 (175ms)
+  ok 79 [narrow] › tests\browser\userscript.spec.ts:910:1 › 详情 BP、日期与倒计时翻译，比分不变 (156ms)
+  ok 77 [narrow] › tests\browser\userscript.spec.ts:875:1 › 原 Text、动态节点与属性更新，空闲后停止写入 (584ms)
+  ok 80 [narrow] › tests\browser\userscript.spec.ts:925:1 › 赛果分页及日期正确，分页链接仍可导航 (188ms)
+  ok 81 [narrow] › tests\browser\userscript.spec.ts:934:1 › GM 菜单模拟：保存地图偏好、刷新生效及停用 (206ms)
+  ok 82 [narrow] › tests\browser\userscript.spec.ts:944:1 › 验证页和 betting 路由不执行翻译 (152ms)
+  ok 83 [narrow] › tests\browser\userscript.spec.ts:954:1 › 赛事日期嵌套节点保持原位，移动已翻译节点后按新区域恢复 (147ms)
+  ok 84 [narrow] › tests\browser\userscript.spec.ts:967:1 › 批量插入处理完整且无重复副作用 (479ms)
+
+  84 passed (14.8s)

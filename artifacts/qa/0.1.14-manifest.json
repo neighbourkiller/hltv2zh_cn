@@ -1,0 +1,29 @@
+{
+  "version": "0.1.14",
+  "clientDate": "2026-10-10",
+  "checkedAt": "2026-10-10T13:39:34.690Z",
+  "files": {
+    "dist/hltv-zh-cn.user.js": "74e42983a00c30c3b5e02651d62176ad1ef61f7225d1f7431314e8368b8291ec",
+    "dist/hltv-zh-cn.meta.js": "f5cd5c133ae7f5bf4999944eb5102d3b1c361279e04c5a14d50bf27ba553bf91",
+    "artifacts/releases/0.1.13/hltv-zh-cn.user.js": "f2bd15326ee5e2e5e57c455f6adf7eabec50cad614b7bfe51c79865b4752df05",
+    "artifacts/releases/0.1.13/hltv-zh-cn.meta.js": "de77dd43f77646768780e958c55871aec9041f91da1d448ed66d0807b463d1db"
+  },
+  "validation": {
+    "typecheck": true,
+    "unitDom": 79,
+    "browser": 84,
+    "viewport": [
+      "1440x900",
+      "390x844"
+    ],
+    "stageDSelectedScope": [
+      "transfers",
+      "fantasy overview"
+    ],
+    "liveTemporaryRun": true,
+    "tampermonkeyInstallation": false,
+    "metadataUnchangedExceptVersion": true,
+    "stageCStatsLiveInteraction": "pending from Stage C",
+    "vrsSimulator": "deferred; Fantasy overview selected for this version"
+  }
+}

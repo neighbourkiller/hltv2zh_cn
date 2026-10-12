@@ -1,0 +1,51 @@
+import { readFileSync } from 'node:fs';
+import { afterEach, expect, it } from 'vitest';
+import { rules } from '../../src/adapters';
+import { TranslationEngine } from '../../src/core/engine';
+import { walk } from '../../src/core/walker';
+import { defaults } from '../../src/features/settings';
+const fixture = readFileSync('tests/fixtures/home-sidebar.html', 'utf8');
+afterEach(() => { document.body.innerHTML = ''; });
+function setup() {
+  document.body.innerHTML = new DOMParser().parseFromString(fixture, 'text/html').body.innerHTML;
+  const engine = new TranslationEngine(rules, 'home', defaults());
+  const run = () => { for (const node of walk(document.body)) engine.process(node); };
+  return { engine, run };
+}
+it('用户反馈的五类遗漏均汉化，赞助图、排名链接和实体保持', () => {
+  const { run, engine } = setup();
+  const anchor = document.querySelector('a.block[href="/ranking/teams"]')!;
+  const br = anchor.querySelector('br');
+  const date = anchor.querySelectorAll('span')[1];
+  const logo = document.querySelector('.presented-by-img img');
+  run();
+  expect([...document.querySelectorAll('.presented-by-row h1')].map(e => e.textContent)).toEqual(['颁奖给', '排名']);
+  expect(anchor.firstChild!.nodeValue).toBe('完整排名');
+  expect(anchor.querySelector('span')!.textContent).toBe('最后更新： ');
+  expect(date.textContent).toBe('10月5日');
+  expect(anchor.querySelector('br')).toBe(br);
+  expect(anchor.querySelectorAll('span')[1]).toBe(date);
+  expect(anchor.getAttribute('href')).toBe('/ranking/teams');
+  expect(document.querySelector('.presented-by-img img')).toBe(logo);
+  expect(document.querySelector('h1 > a[href^="https://www.faceit.com"]')!.textContent).toBe('FPL 排名');
+  expect(document.querySelector('a.block[href^="https://www.faceit.com"]')!.textContent).toBe('完整排名');
+  expect(document.querySelector('.playerOfTheWeekCategory')!.textContent).toBe('本周最佳选手');
+  expect(document.querySelector('.playerOfTheWeekPlayerName')!.textContent).toBe('Spinx');
+  expect(document.querySelector('.playerOfTheWeekData')!.textContent).toBe('1.39');
+  expect(document.querySelector('.playerOfTheWeekTitle')!.textContent).toBe('Rating 3.0');
+  expect(document.querySelector('.newstext')!.textContent).toContain('Complete ranking');
+  expect(document.querySelector('.thread-message-text')!.textContent).toContain('AWARD BY');
+  const writes = engine.metrics.writes; run(); expect(engine.metrics.writes).toBe(writes);
+});
+it('倒计时和观看人数保留数值，排名日期更新后重译且可恢复', () => {
+  const { run, engine } = setup(); run();
+  expect(document.querySelector('.eventcountdown')!.textContent).toBe('6 天后');
+  expect(document.querySelector('.streams-viewers')!.textContent).toBe('3,541 人观看');
+  expect(document.querySelector('.event > .live')!.textContent).toBe('进行中');
+  expect(document.querySelector('.upcomingeventname')!.textContent).toBe('Thunderpick WC');
+  const date = document.querySelectorAll('a.block[href="/ranking/teams"] span')[1];
+  date.firstChild!.nodeValue = '12th of Oct'; run(); expect(date.textContent).toBe('10月12日');
+  const config = defaults(); config.modules.common = false; engine.configure(config); run();
+  expect(date.textContent).toBe('12th of Oct');
+  expect(document.querySelector('.playerOfTheWeekCategory')!.textContent).toBe('Player of the week');
+});

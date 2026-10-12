@@ -1,0 +1,70 @@
+npm notice run hltv-zh-cn@0.1.13 npx
+npm notice run playwright test --project=desktop --grep 阶段 D：转会筛选|阶段 D：Fantasy 原节点
+
+Running 2 tests using 2 workers
+
+(node:23116) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:6736) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 [desktop] › tests\browser\userscript.spec.ts:63:1 › 阶段 D：Fantasy 原节点展开、三类排行榜替换、数值与实体保持 (5.3s)
+  x  2 [desktop] › tests\browser\userscript.spec.ts:32:1 › 阶段 D：转会筛选、嵌套实体、动态换行与真实空结构 (5.3s)
+
+
+  1) [desktop] › tests\browser\userscript.spec.ts:32:1 › 阶段 D：转会筛选、嵌套实体、动态换行与真实空结构 ─────────────────
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator:  locator('.transfer .standard-headline')
+    Expected: "Counter-Strike 转会"
+    Received: "Counter-Strike transfers"
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveText" locator('.transfer .standard-headline') with timeout 5000ms
+      - waiting for locator('.transfer .standard-headline')
+        14 × locator resolved to <h1 class="standard-headline">Counter-Strike transfers</h1>
+           - unexpected value "Counter-Strike transfers"
+
+
+      32 | test('阶段 D：转会筛选、嵌套实体、动态换行与真实空结构', async ({ page }) => {
+      33 |   await open(page, '/transfers', {schemaVersion:2,maps:'zh-CN'}, transfersD);
+    > 34 |   await expect(page.locator('.transfer .standard-headline')).toHaveText('Counter-Strike 转会');
+         |                                                              ^
+      35 |   await expect(page.locator('.transfer-team-status').filter({hasText:'替补'}).first()).toHaveText('替补');
+      36 |   await expect(page.locator('.transfer-movement').filter({hasText:'回归主力阵容'})).toHaveCount(1);
+      37 |   await expect(page.locator('.transfer-movement').filter({hasText:'担任教练'})).toHaveCount(1);
+        at D:\develop\Projects\hltv2zh_cn\tests\browser\userscript.spec.ts:34:62
+
+    Error Context: test-results\userscript-阶段-D：转会筛选、嵌套实体、动态换行与真实空结构-desktop\error-context.md
+
+  2) [desktop] › tests\browser\userscript.spec.ts:63:1 › 阶段 D：Fantasy 原节点展开、三类排行榜替换、数值与实体保持 ────────
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator:  locator('.season-headline').first()
+    Expected: "Fantasy 2026年秋季赛季"
+    Received: "Fantasy Fall season 2026"
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveText" locator('.season-headline').first() with timeout 5000ms
+      - waiting for locator('.season-headline').first()
+        14 × locator resolved to <h1 class="season-headline">Fantasy Fall season 2026</h1>
+           - unexpected value "Fantasy Fall season 2026"
+
+
+      63 | test('阶段 D：Fantasy 原节点展开、三类排行榜替换、数值与实体保持', async ({ page }) => {
+      64 |   await open(page,'/fantasy',{schemaVersion:2,maps:'zh-CN'},fantasyD);
+    > 65 |   await expect(page.locator('.season-headline').first()).toHaveText('Fantasy 2026年秋季赛季');
+         |                                                          ^
+      66 |   await expect(page.locator('.game-name').first()).toHaveText('Ancient');
+      67 |   await expect(page.locator('.leaderboard-table td.player').first()).toHaveText('Ancient');
+      68 |   const numbers = await page.locator('.points-table td,.prize-box,.leaderboard-table td.points').allTextContents();
+        at D:\develop\Projects\hltv2zh_cn\tests\browser\userscript.spec.ts:65:58
+
+    Error Context: test-results\userscript-阶段-D：Fantasy-原节点展开、三类排行榜替换、数值与实体保持-desktop\error-context.md
+
+  2 failed
+    [desktop] › tests\browser\userscript.spec.ts:32:1 › 阶段 D：转会筛选、嵌套实体、动态换行与真实空结构 ──────────────────
+    [desktop] › tests\browser\userscript.spec.ts:63:1 › 阶段 D：Fantasy 原节点展开、三类排行榜替换、数值与实体保持 ─────────

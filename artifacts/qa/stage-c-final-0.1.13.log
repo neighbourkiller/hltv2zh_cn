@@ -1,0 +1,23 @@
+npm notice run hltv-zh-cn@0.1.13 test:browser
+npm notice run playwright test --grep 阶段 C
+
+Running 8 tests using 2 workers
+
+(node:38428) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:32108) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 2 [desktop] › tests\browser\userscript.spec.ts:58:1 › 阶段 C：推荐空状态保留图标、动态生成的提示和正文保护 (264ms)
+  ok 1 [desktop] › tests\browser\userscript.spec.ts:27:1 › 阶段 C：比赛经济切换保持原监听器、数值、节点和 Rating 版本 (379ms)
+  ok 3 [desktop] › tests\browser\userscript.spec.ts:72:1 › 阶段 C：统计筛选、排序和分页的夹具监听器保持，专项 tooltip 保留数字 (258ms)
+  ok 4 [desktop] › tests\browser\userscript.spec.ts:99:1 › 阶段 C：选手快速多杀、构建产物模块关闭及英文恢复 (165ms)
+(node:41100) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:32868) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 6 [narrow] › tests\browser\userscript.spec.ts:58:1 › 阶段 C：推荐空状态保留图标、动态生成的提示和正文保护 (233ms)
+  ok 5 [narrow] › tests\browser\userscript.spec.ts:27:1 › 阶段 C：比赛经济切换保持原监听器、数值、节点和 Rating 版本 (395ms)
+  ok 7 [narrow] › tests\browser\userscript.spec.ts:72:1 › 阶段 C：统计筛选、排序和分页的夹具监听器保持，专项 tooltip 保留数字 (272ms)
+  ok 8 [narrow] › tests\browser\userscript.spec.ts:99:1 › 阶段 C：选手快速多杀、构建产物模块关闭及英文恢复 (158ms)
+
+  8 passed (2.2s)

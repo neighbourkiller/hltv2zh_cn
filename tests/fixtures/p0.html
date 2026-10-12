@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>HLTV DOM sample — local fixture</title><style>.pagination-next::before { content: '›'; } .pagination-next { display: inline-block; padding: 8px; }</style></head><body>
+<!-- 当日 DOM 的最小结构样本，使用虚构实体，不含第三方脚本或账号数据。不是完整网站镜像。 -->
+<nav><a class="nav-link" href="/">News</a><a class="nav-link" href="/matches">Matches</a><a class="nav-link" href="/results">Results</a><a class="nav-link" href="/stats">Stats<div class="dropdown-icon"><svg width="10" height="5"><path d="M1 1L5 4L9 1"></path></svg></div></a>
+<a href="/events" class="dropdown-link"><div class="text-ellipsis">All events</div></a><div class="navsignin">Sign in</div></nav>
+<div class="nav-popup-elm"><span title="Choose a website theme.">Theme</span><span class="right slider"><span class="toggleUserTheme" data-url="/profile/settings/changetheme?theme=day">Day</span></span></div>
+<form><input name="username" placeholder="Username"><input type="password" name="password" placeholder="Password"><span class="remember-me"><label><input type="checkbox" name="autologin">Remember me</label></span><button type="button" class="login-button">Login</button></form>
+<section id="home"><h2 class="newsheader">Today's news</h2><a class="newsline article" href="/news/123/example"><div class="newstext">Players sign for Online</div><div class="newstc"><div class="newsrecent">2 hours ago</div><div>70 comments</div></div></a><a class="button-more" href="/news/archive/2026/october">More news</a></section>
+<div class="streams-header">Top streams</div><div class="streams-filter"><span>All</span><span class="streams-filter-viewers">(45)</span></div>
+<section id="matches"><h2 class="upcoming-headline">Live Counter-Strike matches</h2><div class="matches-sidebar-filter-wrapper"><h3>Match filters</h3><label class="matches-filter-name" for="Europe"><div class="matches-filter-name-text">Europe (28)</div><input id="Europe" type="checkbox" name="Europe" data-filter="region" data-filter-value="Europe"></label></div><div class="matches-sort-by-toggle" data-chronologically="">Time</div><div class="calendar-month">OCTOBER</div><div class="calendar-day">Mon</div><span data-time-format="EEE">Thu</span><div class="match-meta match-meta-live">Live</div><div class="match-stage">Quarterfinal</div></section>
+<section id="results"><h1 class="standard-headline">Featured results</h1><div class="standard-headline">Results for October 8th 2026</div><span class="pagination-data">1 - 100 of 123863 </span><a href="/results?offset=100" class="pagination-next"><i aria-hidden="true"></i></a></section>
+<section id="detail"><div class="timeAndEvent"><div class="time" data-time-format="HH:mm" data-unix="1791450000000">17:00</div><div class="date" data-time-format="do 'of' MMMM y" data-unix="1791450000000">8th of October 2026</div><div class="countdown">1d : 6h : 20m : 44s</div></div><div class="standard-box veto-box"><div class="padding preformatted-text">Best of 3 (Online)
+
+* Round of 16
+
+English stream: <a href="https://example.com/stream">example.com/stream</a></div></div><div class="veto-box"><div class="padding"><div>1. Train removed Anubis</div><div>2. Just Players picked Ancient</div><div>3. Nuke was left over</div></div></div><div class="mapname">Ancient</div><a href="/team/1/players">Players</a><span data-livescore-current-map-score="2">2</span></section>
+<section id="events"><h1 class="event-status-headline">Ongoing events</h1><span data-time-format="MMM do" data-unix="1791021600000">Oct 3rd</span><span> - <span data-time-format="MMM do" data-unix="1791712800000">Oct 11th</span></span></section>
+<div class="thread-message-text">Matches are fun</div><div contenteditable="true"><span class="nav-link">News</span></div><textarea>News</textarea>
+<div id="dynamic"></div>
+</body></html>

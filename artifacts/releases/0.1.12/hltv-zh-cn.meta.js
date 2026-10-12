@@ -1,0 +1,12 @@
+// ==UserScript==
+// @name HLTV 简体中文
+// @namespace hltv2zh-cn
+// @description HLTV 界面汉化：导航、比赛/赛果/赛事、选手资料/数据/对比、战队资料、HLTV/V社排名及详情、VRS 邀请；保护实体、正文与数值
+// @match https://www.hltv.org/*
+// @run-at document-end
+// @grant GM_getValue
+// @grant GM_setValue
+// @grant GM_registerMenuCommand
+// @noframes
+// @version 0.1.12
+// ==/UserScript==

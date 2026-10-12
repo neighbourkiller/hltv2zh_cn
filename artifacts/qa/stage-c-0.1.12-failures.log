@@ -1,0 +1,101 @@
+npm notice run hltv-zh-cn@0.1.13 test:browser
+npm notice run playwright test --project=desktop --grep 阶段 C：比赛|阶段 C：推荐|阶段 C：选手
+
+Running 3 tests using 2 workers
+
+(node:28500) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:41124) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 [desktop] › tests\browser\userscript.spec.ts:27:1 › 阶段 C：比赛经济切换保持原监听器、数值、节点和 Rating 版本 (5.1s)
+  x  1 [desktop] › tests\browser\userscript.spec.ts:58:1 › 阶段 C：推荐空状态保留图标、动态生成的提示和正文保护 (5.1s)
+(node:9124) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  3 [desktop] › tests\browser\userscript.spec.ts:99:1 › 阶段 C：选手快速多杀、构建产物模块关闭及英文恢复 (5.1s)
+
+
+  1) [desktop] › tests\browser\userscript.spec.ts:27:1 › 阶段 C：比赛经济切换保持原监听器、数值、节点和 Rating 版本 ────────
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator:  locator('.roundSwing')
+    Expected: "影响力"
+    Received: "Swing"
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveText" locator('.roundSwing') with timeout 5000ms
+      - waiting for locator('.roundSwing')
+        14 × locator resolved to <td class="roundSwing" title="How much, on average, a player changed their team's chances of winning a round based on team economy, side, kills, deaths, damage, trading, and flash assists">Swing</td>
+           - unexpected value "Swing"
+
+
+      27 | test('阶段 C：比赛经济切换保持原监听器、数值、节点和 Rating 版本', async ({ page }) => {
+      28 |   await open(page, '/matches/2398751/example', undefined, matchDetailC);
+    > 29 |   await expect(page.locator('.roundSwing')).toHaveText('影响力');
+         |                                             ^
+      30 |   await expect(page.locator('.adr.eco-adjusted-data')).toHaveAttribute('title', '每回合平均伤害，已根据经济进行调整。');
+      31 |   await expect(page.locator('.rating')).toHaveText('Rating3.0');
+      32 |   await page.evaluate(() => {
+        at D:\develop\Projects\hltv2zh_cn\tests\browser\userscript.spec.ts:29:45
+
+    Error Context: test-results\userscript-阶段-C：比赛经济切换保持原监听器、数值、节点和-Rating-版本-desktop\error-context.md
+
+  2) [desktop] › tests\browser\userscript.spec.ts:58:1 › 阶段 C：推荐空状态保留图标、动态生成的提示和正文保护 ───────────────
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator:  locator('#for-you-empty-div > b')
+    Expected: "暂时没有为你推荐的比赛。"
+    Received: "No matches for you yet."
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveText" locator('#for-you-empty-div > b') with timeout 5000ms
+      - waiting for locator('#for-you-empty-div > b')
+        14 × locator resolved to <b>No matches for you yet.</b>
+           - unexpected value "No matches for you yet."
+
+
+      58 | test('阶段 C：推荐空状态保留图标、动态生成的提示和正文保护', async ({ page }) => {
+      59 |   await open(page, '/matches', undefined, matchRecommendation);
+    > 60 |   await expect(page.locator('#for-you-empty-div > b')).toHaveText('暂时没有为你推荐的比赛。');
+         |                                                        ^
+      61 |   await expect(page.locator('#for-you-empty-div > i')).toHaveCount(1);
+      62 |   await expect(page.locator('.match-teamname')).toHaveText('Ancient');
+      63 |   await page.evaluate(() => {
+        at D:\develop\Projects\hltv2zh_cn\tests\browser\userscript.spec.ts:60:56
+
+    Error Context: test-results\userscript-阶段-C：推荐空状态保留图标、动态生成的提示和正文保护-desktop\error-context.md
+
+  3) [desktop] › tests\browser\userscript.spec.ts:99:1 › 阶段 C：选手快速多杀、构建产物模块关闭及英文恢复 ─────────────────
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator:  locator('.toggle-fast-multi-kills-only > a').first()
+    Expected: "仅显示快速多杀"
+    Received: "Fast multi-kills only"
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveText" locator('.toggle-fast-multi-kills-only > a').first() with timeout 5000ms
+      - waiting for locator('.toggle-fast-multi-kills-only > a').first()
+        14 × locator resolved to <a href="?show=fast">Fast multi-kills only</a>
+           - unexpected value "Fast multi-kills only"
+
+
+       99 | test('阶段 C：选手快速多杀、构建产物模块关闭及英文恢复', async ({ page }) => {
+      100 |   await open(page, '/stats/players/multikills/21167/two/donk', undefined, statisticsSpecialty);
+    > 101 |   await expect(page.locator('.toggle-fast-multi-kills-only > a').first()).toHaveText('仅显示快速多杀');
+          |                                                                           ^
+      102 |   await expect(page.locator('#fast > b')).toHaveText('快速多杀：');
+      103 |   await open(page, '/stats/players/multikills/21167/two/donk', { schemaVersion: 2, maps: 'en', modules: { 'player-stats': false } }, statisticsSpecialty);
+      104 |   await expect(page.locator('.toggle-fast-multi-kills-only > a').first()).toHaveText('Fast multi-kills only');
+        at D:\develop\Projects\hltv2zh_cn\tests\browser\userscript.spec.ts:101:75
+
+    Error Context: test-results\userscript-阶段-C：选手快速多杀、构建产物模块关闭及英文恢复-desktop\error-context.md
+
+  3 failed
+    [desktop] › tests\browser\userscript.spec.ts:27:1 › 阶段 C：比赛经济切换保持原监听器、数值、节点和 Rating 版本 ─────────
+    [desktop] › tests\browser\userscript.spec.ts:58:1 › 阶段 C：推荐空状态保留图标、动态生成的提示和正文保护 ────────────────
+    [desktop] › tests\browser\userscript.spec.ts:99:1 › 阶段 C：选手快速多杀、构建产物模块关闭及英文恢复 ──────────────────

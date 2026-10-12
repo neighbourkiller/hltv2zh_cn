@@ -1,0 +1,850 @@
+<!-- 2026-10-09 赛事统计实页 DOM；移除广告/脚本，图表本身未运行。 -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>.smartphone-only{display:none}.hidden{display:none}input{min-height:20px}</style>
+</head>
+<body>
+<a class="nav-link" href="/stats">Stats</a>
+<main class="contentCol">
+<div class="stats-section">
+<div class="event-hub">
+<a href="/events/8244/esl-pro-league-season-24" class="event-hub-top">
+<div class="event-hub-indicator event-live">Live</div>
+<img alt="ESL Pro League Season 24" src="https://img-cdn.hltv.org/eventbanner/O8mUqtBkc0jkcZqYU0gLai.png?ixlib=java-2.1.0&amp;w=1276&amp;s=06df7ce8ddada20a0207730e9392cc1f" class="event-hub-image">
+<div class="event-hub-title">ESL Pro League Season 24</div>
+</a>
+<div class="event-hub-bottom">
+<a href="/events/8244/esl-pro-league-season-24" class="event-hub-link ">Overview</a>
+<a href="/events/8244/matches" class="event-hub-link ">Matches</a>
+<a href="/results?event=8244" class="event-hub-link ">Results</a>
+<a href="/stats?event=8244" class="event-hub-link active">Stats</a>
+</div>
+</div>
+<div class="vspace">
+</div>
+<div class="stats-top-menu">
+<div class="tabs">
+<div class="tabs-left">
+<div class="stats-sub-navigation-title">
+<span class="tab-title">Event filter</span>
+<form action="" data-select-navigation="1">
+<select class="stats-sub-navigation-simple-filter-matchtype">
+<option data-link="/stats?event=8244" selected="selected">All</option>
+<option data-link="/stats?matchType=Majors&amp;event=8244">Majors</option>
+<option data-link="/stats?matchType=BigEvents&amp;event=8244">Big events</option>
+<option data-link="/stats?matchType=MvpEvents&amp;event=8244">MVP events</option>
+<option data-link="/stats?matchType=Lan&amp;event=8244">LAN</option>
+<option data-link="/stats?matchType=Online&amp;event=8244">Online</option>
+</select>
+</form>
+</div>
+<div class="stats-sub-navigation-title">
+<span class="tab-title">Time filter</span>
+<form action="" data-select-navigation="1">
+<select class="stats-sub-navigation-simple-filter-time">
+<option data-link="/stats?startDate=all&amp;event=8244" selected="selected">All</option>
+<option data-link="/stats?startDate=2026-09-08&amp;endDate=2026-10-08&amp;event=8244">Last month</option>
+<option data-link="/stats?startDate=2026-07-08&amp;endDate=2026-10-08&amp;event=8244">Last 3 months</option>
+<option data-link="/stats?startDate=2026-04-08&amp;endDate=2026-10-08&amp;event=8244">Last 6 months</option>
+<option data-link="/stats?startDate=2025-10-08&amp;endDate=2026-10-08&amp;event=8244">Last 12 months</option>
+<option data-link="/stats?startDate=2026-01-01&amp;endDate=2026-12-31&amp;event=8244">2026</option>
+<option data-link="/stats?startDate=2025-01-01&amp;endDate=2025-12-31&amp;event=8244">2025</option>
+<option data-link="/stats?startDate=2024-01-01&amp;endDate=2024-12-31&amp;event=8244">2024</option>
+<option data-link="/stats?startDate=2023-01-01&amp;endDate=2023-12-31&amp;event=8244">2023</option>
+<option data-link="/stats?startDate=2022-01-01&amp;endDate=2022-12-31&amp;event=8244">2022</option>
+<option data-link="/stats?startDate=2021-01-01&amp;endDate=2021-12-31&amp;event=8244">2021</option>
+<option data-link="/stats?startDate=2020-01-01&amp;endDate=2020-12-31&amp;event=8244">2020</option>
+<option data-link="/stats?startDate=2019-01-01&amp;endDate=2019-12-31&amp;event=8244">2019</option>
+<option data-link="/stats?startDate=2018-01-01&amp;endDate=2018-12-31&amp;event=8244">2018</option>
+<option data-link="/stats?startDate=2017-01-01&amp;endDate=2017-12-31&amp;event=8244">2017</option>
+<option data-link="/stats?startDate=2016-01-01&amp;endDate=2016-12-31&amp;event=8244">2016</option>
+<option data-link="/stats?startDate=2015-01-01&amp;endDate=2015-12-31&amp;event=8244">2015</option>
+<option data-link="/stats?startDate=2014-01-01&amp;endDate=2014-12-31&amp;event=8244">2014</option>
+<option data-link="/stats?startDate=2013-01-01&amp;endDate=2013-12-31&amp;event=8244">2013</option>
+<option data-link="/stats?startDate=2012-01-01&amp;endDate=2012-12-31&amp;event=8244">2012</option>
+</select>
+</form>
+</div>
+<div class="stats-sub-navigation-title">
+<span class="tab-title">Opponent ranking</span>
+<form action="" data-select-navigation="1">
+<select class="stats-sub-navigation-simple-filter-matchtype">
+<option data-link="/stats?event=8244" selected="selected">All</option>
+<option data-link="/stats?event=8244&amp;rankingFilter=Top5">Top 5</option>
+<option data-link="/stats?event=8244&amp;rankingFilter=Top10">Top 10</option>
+<option data-link="/stats?event=8244&amp;rankingFilter=Top20">Top 20</option>
+<option data-link="/stats?event=8244&amp;rankingFilter=Top30">Top 30</option>
+<option data-link="/stats?event=8244&amp;rankingFilter=Top50">Top 50</option>
+</select>
+</form>
+</div>
+<div class="stats-sub-navigation-title map-filter">
+<span class="tab-title">Map filter</span>
+<div class="stats-sub-navigation-simple-filter-map">All</div>
+</div>
+<div class="stats-sub-navigation-simple-filter-map-hover hidden">
+<div class="stats-sub-map-grid">
+<div class="stats-sub-map">
+<a href="/stats?event=8244" class="a-reset active">All</a>
+</div>
+<div class="stats-sub-map">
+<a href="/stats?event=8244&amp;maps=de_ancient" class="a-reset ">Ancient</a>
+</div>
+<div class="stats-sub-map">
+<a href="/stats?event=8244&amp;maps=de_anubis" class="a-reset ">Anubis</a>
+</div>
+<div class="stats-sub-map">
+<a href="/stats?event=8244&amp;maps=de_cache" class="a-reset ">Cache</a>
+</div>
+<div class="stats-sub-map">
+<a href="/stats?event=8244&amp;maps=de_dust2" class="a-reset ">Dust2</a>
+</div>
+<div class="stats-sub-map">
+<a href="/stats?event=8244&amp;maps=de_inferno" class="a-reset ">Inferno</a>
+</div>
+<div class="stats-sub-map">
+<a href="/stats?event=8244&amp;maps=de_mirage" class="a-reset ">Mirage</a>
+</div>
+<div class="stats-sub-map">
+<a href="/stats?event=8244&amp;maps=de_nuke" class="a-reset ">Nuke</a>
+</div>
+<div class="stats-sub-map">
+<a href="/stats?event=8244&amp;maps=de_cobblestone" class="a-reset ">Cobblestone</a>
+</div>
+<div class="stats-sub-map">
+<a href="/stats?event=8244&amp;maps=de_overpass" class="a-reset ">Overpass</a>
+</div>
+<div class="stats-sub-map">
+<a href="/stats?event=8244&amp;maps=de_season" class="a-reset ">Season</a>
+</div>
+<div class="stats-sub-map">
+<a href="/stats?event=8244&amp;maps=de_train" class="a-reset ">Train</a>
+</div>
+<div class="stats-sub-map">
+<a href="/stats?event=8244&amp;maps=de_tuscan" class="a-reset ">Tuscan</a>
+</div>
+<div class="stats-sub-map">
+<a href="/stats?event=8244&amp;maps=de_vertigo" class="a-reset ">Vertigo</a>
+</div>
+</div>
+</div>
+<div class="stats-sub-navigation-title">
+<span class="tab-title">Version</span>
+<form action="" data-select-navigation="1">
+<select class="stats-sub-navigation-simple-filter-version">
+<option data-link="/stats?event=8244" selected="selected">Both</option>
+<option data-link="/stats?event=8244&amp;csVersion=CS2">CS2</option>
+<option data-link="/stats?event=8244&amp;csVersion=CSGO">CSGO</option>
+</select>
+</form>
+</div>
+</div>
+</div>
+</div>
+<div class="BZ4Bl4KkTN " data-ddzyhtbikk="StatsTop" data-jxhqwhjclt="6837" id="">
+</div>
+<div class="vspace">
+</div>
+<div class="columns">
+<div class="col">
+<div class="standard-headline">Top players</div>
+<div class="top-x-box standard-box">
+<div class="playerPicture">
+<img alt="Robin 'ropz' Kool" src="https://img-cdn.hltv.org/playerbodyshot/YQ9kQQ3aop1JZQE9xJ140r.png?bg=3e4c54&amp;h=100&amp;ixlib=java-2.1.0&amp;rect=117%2C8%2C467%2C467&amp;w=100&amp;s=0e87b5b49a484b8191bf18fb0bb5209c" class="img" title="Robin 'ropz' Kool">
+</div>
+<img alt="Estonia" src="/img/static/flags/30x20/EE.gif" class="country gtSmartphone-only flag" title="Estonia">
+<a href="/stats/players/11816/ropz?event=8244" class="name" data-tooltip-id="uniqueTooltipId--1802258236">ropz</a>
+<div class="hidden" id="uniqueTooltipId--1802258236">
+<div class="stats-section context-tooltip">
+<a href="/stats/players/11816/ropz?event=8244" class="context-button">
+<i class=" fa fa-user" aria-hidden="true">
+</i>Go to Player</a>
+<a href="/stats/players/11816/ropz?event=8244" class="context-button">
+<i class=" fa fa-bar-chart" aria-hidden="true">
+</i>Add to context</a>
+</div>
+</div>
+<div class="flex-placeholder">
+</div>
+<div class="rating">
+<span class="bold">1.40</span>
+<br>Rating 3.0</div>
+<div class="average gtSmartphone-only">
+<span class="bold">8</span>
+<br>Maps</div>
+</div>
+<div class="top-x-box standard-box">
+<div class="playerPicture">
+<img alt="Lotan 'Spinx' Giladi" src="https://img-cdn.hltv.org/playerbodyshot/hm9ckLb3eD78VZSpRT8sH-.png?bg=3e4c54&amp;h=100&amp;ixlib=java-2.1.0&amp;rect=121%2C8%2C467%2C467&amp;w=100&amp;s=30d004b8a047489d50b173d4854a5612" class="img" title="Lotan 'Spinx' Giladi">
+</div>
+<img alt="Israel" src="/img/static/flags/30x20/IL.gif" class="country gtSmartphone-only flag" title="Israel">
+<a href="/stats/players/18221/spinx?event=8244" class="name" data-tooltip-id="uniqueTooltipId--1834053590">Spinx</a>
+<div class="hidden" id="uniqueTooltipId--1834053590">
+<div class="stats-section context-tooltip">
+<a href="/stats/players/18221/spinx?event=8244" class="context-button">
+<i class=" fa fa-user" aria-hidden="true">
+</i>Go to Player</a>
+<a href="/stats/players/18221/spinx?event=8244" class="context-button">
+<i class=" fa fa-bar-chart" aria-hidden="true">
+</i>Add to context</a>
+</div>
+</div>
+<div class="flex-placeholder">
+</div>
+<div class="rating">
+<span class="bold">1.39</span>
+<br>Rating 3.0</div>
+<div class="average gtSmartphone-only">
+<span class="bold">6</span>
+<br>Maps</div>
+</div>
+<div class="top-x-box standard-box">
+<div class="playerPicture">
+<img alt="Shahar 'flameZ' Shushan" src="https://img-cdn.hltv.org/playerbodyshot/LUQi5dX9boyO0uDadUGht5.png?bg=3e4c54&amp;h=100&amp;ixlib=java-2.1.0&amp;rect=121%2C8%2C467%2C467&amp;w=100&amp;s=ce93fe004f9085d1603f3ca148364b5b" class="img" title="Shahar 'flameZ' Shushan">
+</div>
+<img alt="Israel" src="/img/static/flags/30x20/IL.gif" class="country gtSmartphone-only flag" title="Israel">
+<a href="/stats/players/16693/flamez?event=8244" class="name" data-tooltip-id="uniqueTooltipId-1563053748">flameZ</a>
+<div class="hidden" id="uniqueTooltipId-1563053748">
+<div class="stats-section context-tooltip">
+<a href="/stats/players/16693/flamez?event=8244" class="context-button">
+<i class=" fa fa-user" aria-hidden="true">
+</i>Go to Player</a>
+<a href="/stats/players/16693/flamez?event=8244" class="context-button">
+<i class=" fa fa-bar-chart" aria-hidden="true">
+</i>Add to context</a>
+</div>
+</div>
+<div class="flex-placeholder">
+</div>
+<div class="rating">
+<span class="bold">1.32</span>
+<br>Rating 3.0</div>
+<div class="average gtSmartphone-only">
+<span class="bold">8</span>
+<br>Maps</div>
+</div>
+<div class="top-x-box standard-box">
+<div class="playerPicture">
+<img alt="Ádám 'torzsi' Torzsás" src="https://img-cdn.hltv.org/playerbodyshot/g9uOgg5eleoDQBL3oISgCU.png?bg=3e4c54&amp;h=100&amp;ixlib=java-2.1.0&amp;rect=117%2C8%2C467%2C467&amp;w=100&amp;s=483e997e9aa851035521262aaf64926a" class="img" title="Ádám 'torzsi' Torzsás">
+</div>
+<img alt="Hungary" src="/img/static/flags/30x20/HU.gif" class="country gtSmartphone-only flag" title="Hungary">
+<a href="/stats/players/18072/torzsi?event=8244" class="name" data-tooltip-id="uniqueTooltipId-428222029">torzsi</a>
+<div class="hidden" id="uniqueTooltipId-428222029">
+<div class="stats-section context-tooltip">
+<a href="/stats/players/18072/torzsi?event=8244" class="context-button">
+<i class=" fa fa-user" aria-hidden="true">
+</i>Go to Player</a>
+<a href="/stats/players/18072/torzsi?event=8244" class="context-button">
+<i class=" fa fa-bar-chart" aria-hidden="true">
+</i>Add to context</a>
+</div>
+</div>
+<div class="flex-placeholder">
+</div>
+<div class="rating">
+<span class="bold">1.32</span>
+<br>Rating 3.0</div>
+<div class="average gtSmartphone-only">
+<span class="bold">6</span>
+<br>Maps</div>
+</div>
+<div class="top-x-box standard-box">
+<div class="playerPicture">
+<img alt="William 'mezii' Merriman" src="https://img-cdn.hltv.org/playerbodyshot/7GVUrVLAQkgnuovRkk5Bxw.png?bg=3e4c54&amp;h=100&amp;ixlib=java-2.1.0&amp;rect=117%2C8%2C467%2C467&amp;w=100&amp;s=e489a038a337ee7ed99723743ef3ba3c" class="img" title="William 'mezii' Merriman">
+</div>
+<img alt="United Kingdom" src="/img/static/flags/30x20/GB.gif" class="country gtSmartphone-only flag" title="United Kingdom">
+<a href="/stats/players/18462/mezii?event=8244" class="name" data-tooltip-id="uniqueTooltipId--919459234">mezii</a>
+<div class="hidden" id="uniqueTooltipId--919459234">
+<div class="stats-section context-tooltip">
+<a href="/stats/players/18462/mezii?event=8244" class="context-button">
+<i class=" fa fa-user" aria-hidden="true">
+</i>Go to Player</a>
+<a href="/stats/players/18462/mezii?event=8244" class="context-button">
+<i class=" fa fa-bar-chart" aria-hidden="true">
+</i>Add to context</a>
+</div>
+</div>
+<div class="flex-placeholder">
+</div>
+<div class="rating">
+<span class="bold">1.31</span>
+<br>Rating 3.0</div>
+<div class="average gtSmartphone-only">
+<span class="bold">8</span>
+<br>Maps</div>
+</div>
+<div class="top-x-box standard-box">
+<div class="playerPicture">
+<img alt="Mathieu 'ZywOo' Herbaut" src="https://img-cdn.hltv.org/playerbodyshot/blnoWFtH8GUJZjhr8H0P4u.png?bg=3e4c54&amp;h=100&amp;ixlib=java-2.1.0&amp;rect=121%2C8%2C467%2C467&amp;w=100&amp;s=3e2f64c057b9a697de74efc831d0e967" class="img" title="Mathieu 'ZywOo' Herbaut">
+</div>
+<img alt="France" src="/img/static/flags/30x20/FR.gif" class="country gtSmartphone-only flag" title="France">
+<a href="/stats/players/11893/zywoo?event=8244" class="name" data-tooltip-id="uniqueTooltipId--1185263399">ZywOo</a>
+<div class="hidden" id="uniqueTooltipId--1185263399">
+<div class="stats-section context-tooltip">
+<a href="/stats/players/11893/zywoo?event=8244" class="context-button">
+<i class=" fa fa-user" aria-hidden="true">
+</i>Go to Player</a>
+<a href="/stats/players/11893/zywoo?event=8244" class="context-button">
+<i class=" fa fa-bar-chart" aria-hidden="true">
+</i>Add to context</a>
+</div>
+</div>
+<div class="flex-placeholder">
+</div>
+<div class="rating">
+<span class="bold">1.30</span>
+<br>Rating 3.0</div>
+<div class="average gtSmartphone-only">
+<span class="bold">8</span>
+<br>Maps</div>
+</div>
+<div class="top-x-box standard-box">
+<div class="playerPicture">
+<img alt="Danil 'donk' Kryshkovets" src="https://img-cdn.hltv.org/playerbodyshot/xVbHhluSLk5eWQqcYL-bBY.png?bg=3e4c54&amp;h=100&amp;ixlib=java-2.1.0&amp;rect=121%2C8%2C467%2C467&amp;w=100&amp;s=0b24a757e912f0291f38c28122a58837" class="img" title="Danil 'donk' Kryshkovets">
+</div>
+<img alt="Russia" src="/img/static/flags/30x20/RU.gif" class="country gtSmartphone-only flag" title="Russia">
+<a href="/stats/players/21167/donk?event=8244" class="name" data-tooltip-id="uniqueTooltipId--71513392">donk</a>
+<div class="hidden" id="uniqueTooltipId--71513392">
+<div class="stats-section context-tooltip">
+<a href="/stats/players/21167/donk?event=8244" class="context-button">
+<i class=" fa fa-user" aria-hidden="true">
+</i>Go to Player</a>
+<a href="/stats/players/21167/donk?event=8244" class="context-button">
+<i class=" fa fa-bar-chart" aria-hidden="true">
+</i>Add to context</a>
+</div>
+</div>
+<div class="flex-placeholder">
+</div>
+<div class="rating">
+<span class="bold">1.28</span>
+<br>Rating 3.0</div>
+<div class="average gtSmartphone-only">
+<span class="bold">12</span>
+<br>Maps</div>
+</div>
+<div class="top-x-box standard-box">
+<div class="playerPicture">
+<img alt="Nikola 'NiKo' Kovač" src="https://img-cdn.hltv.org/playerbodyshot/ZPB6zop8FumkqqbHl8BGos.png?bg=3e4c54&amp;h=100&amp;ixlib=java-2.1.0&amp;rect=121%2C8%2C467%2C467&amp;w=100&amp;s=1d932f5c096c873de183a8427eb32561" class="img" title="Nikola 'NiKo' Kovač">
+</div>
+<img alt="Bosnia and Herzegovina" src="/img/static/flags/30x20/BA.gif" class="country gtSmartphone-only flag" title="Bosnia and Herzegovina">
+<a href="/stats/players/3741/niko?event=8244" class="name" data-tooltip-id="uniqueTooltipId--939148856">NiKo</a>
+<div class="hidden" id="uniqueTooltipId--939148856">
+<div class="stats-section context-tooltip">
+<a href="/stats/players/3741/niko?event=8244" class="context-button">
+<i class=" fa fa-user" aria-hidden="true">
+</i>Go to Player</a>
+<a href="/stats/players/3741/niko?event=8244" class="context-button">
+<i class=" fa fa-bar-chart" aria-hidden="true">
+</i>Add to context</a>
+</div>
+</div>
+<div class="flex-placeholder">
+</div>
+<div class="rating">
+<span class="bold">1.26</span>
+<br>Rating 3.0</div>
+<div class="average gtSmartphone-only">
+<span class="bold">10</span>
+<br>Maps</div>
+</div>
+</div>
+<div class="col">
+<div class="standard-headline">Top teams</div>
+<div class="top-x-box standard-box">
+<img alt="MOUZ" src="https://img-cdn.hltv.org/teamlogo/IejtXpquZnE8KqYPB1LNKw.svg?ixlib=java-2.1.0&amp;s=7fd33b8def053fbfd8fdbb58e3bdcd3c" class="img logo" title="MOUZ">
+<a href="/stats/teams/4494/mouz?event=8244" class="name" data-tooltip-id="uniqueTooltipId-2009513461">MOUZ</a>
+<div class="hidden" id="uniqueTooltipId-2009513461">
+<div class="stats-section context-tooltip">
+<a href="/stats/teams/4494/mouz?event=8244" class="context-button">
+<i class=" fa fa-users" aria-hidden="true">
+</i>Go to Team</a>
+<a href="/stats/teams/4494/mouz?event=8244" class="context-button">
+<i class=" fa fa-bar-chart" aria-hidden="true">
+</i>Add to context</a>
+</div>
+</div>
+<div class="flex-placeholder">
+</div>
+<div class="rating">
+<span class="bold">1.26</span>
+<br>Rating 3.0</div>
+<div class="average gtSmartphone-only">
+<span class="bold">6</span>
+<br>Maps</div>
+</div>
+<div class="top-x-box standard-box">
+<img alt="Vitality" src="https://img-cdn.hltv.org/teamlogo/ogcHrcCdzRvxbYvAz04KAN.png?ixlib=java-2.1.0&amp;w=50&amp;s=e1f6019aa9f274ffe45a5e99c88dbc02" class="img logo day-only" title="Vitality">
+<img alt="Vitality" src="https://img-cdn.hltv.org/teamlogo/yeXBldn9w8LZCgdElAenPs.png?ixlib=java-2.1.0&amp;w=50&amp;s=15eaba0b75250065d20162d2cb05e3e6" class="img logo night-only" title="Vitality">
+<a href="/stats/teams/9565/vitality?event=8244" class="name" data-tooltip-id="uniqueTooltipId--2109177">Vitality</a>
+<div class="hidden" id="uniqueTooltipId--2109177">
+<div class="stats-section context-tooltip">
+<a href="/stats/teams/9565/vitality?event=8244" class="context-button">
+<i class=" fa fa-users" aria-hidden="true">
+</i>Go to Team</a>
+<a href="/stats/teams/9565/vitality?event=8244" class="context-button">
+<i class=" fa fa-bar-chart" aria-hidden="true">
+</i>Add to context</a>
+</div>
+</div>
+<div class="flex-placeholder">
+</div>
+<div class="rating">
+<span class="bold">1.25</span>
+<br>Rating 3.0</div>
+<div class="average gtSmartphone-only">
+<span class="bold">8</span>
+<br>Maps</div>
+</div>
+<div class="top-x-box standard-box">
+<img alt="Falcons" src="https://img-cdn.hltv.org/teamlogo/4eJSkDQINNM6Tbs4WvLzkN.png?ixlib=java-2.1.0&amp;w=50&amp;s=d8c857ea47046f61eca695beab0d12ef" class="img logo" title="Falcons">
+<a href="/stats/teams/11283/falcons?event=8244" class="name" data-tooltip-id="uniqueTooltipId-80779947">Falcons</a>
+<div class="hidden" id="uniqueTooltipId-80779947">
+<div class="stats-section context-tooltip">
+<a href="/stats/teams/11283/falcons?event=8244" class="context-button">
+<i class=" fa fa-users" aria-hidden="true">
+</i>Go to Team</a>
+<a href="/stats/teams/11283/falcons?event=8244" class="context-button">
+<i class=" fa fa-bar-chart" aria-hidden="true">
+</i>Add to context</a>
+</div>
+</div>
+<div class="flex-placeholder">
+</div>
+<div class="rating">
+<span class="bold">1.09</span>
+<br>Rating 3.0</div>
+<div class="average gtSmartphone-only">
+<span class="bold">10</span>
+<br>Maps</div>
+</div>
+<div class="top-x-box standard-box">
+<img alt="Natus Vincere" src="https://img-cdn.hltv.org/teamlogo/9iMirAi7ArBLNU8p3kqUTZ.svg?ixlib=java-2.1.0&amp;s=4dd8635be16122656093ae9884675d0c" class="img logo" title="Natus Vincere">
+<a href="/stats/teams/4608/natus-vincere?event=8244" class="name" data-tooltip-id="uniqueTooltipId-1144802030">Natus Vincere</a>
+<div class="hidden" id="uniqueTooltipId-1144802030">
+<div class="stats-section context-tooltip">
+<a href="/stats/teams/4608/natus-vincere?event=8244" class="context-button">
+<i class=" fa fa-users" aria-hidden="true">
+</i>Go to Team</a>
+<a href="/stats/teams/4608/natus-vincere?event=8244" class="context-button">
+<i class=" fa fa-bar-chart" aria-hidden="true">
+</i>Add to context</a>
+</div>
+</div>
+<div class="flex-placeholder">
+</div>
+<div class="rating">
+<span class="bold">1.07</span>
+<br>Rating 3.0</div>
+<div class="average gtSmartphone-only">
+<span class="bold">13</span>
+<br>Maps</div>
+</div>
+<div class="top-x-box standard-box">
+<img alt="Spirit" src="https://img-cdn.hltv.org/teamlogo/syrtYYKR7sBRw3ZHy1YFX7.png?ixlib=java-2.1.0&amp;w=50&amp;s=40e66714687bec05ea422255b1c0099e" class="img logo day-only" title="Spirit">
+<img alt="Spirit" src="https://img-cdn.hltv.org/teamlogo/ywdn4tmAvXfllLeV2SkkvF.png?ixlib=java-2.1.0&amp;w=50&amp;s=9c70c7fbb048348f70f686acd2369c58" class="img logo night-only" title="Spirit">
+<a href="/stats/teams/7020/spirit?event=8244" class="name" data-tooltip-id="uniqueTooltipId-1496538459">Spirit</a>
+<div class="hidden" id="uniqueTooltipId-1496538459">
+<div class="stats-section context-tooltip">
+<a href="/stats/teams/7020/spirit?event=8244" class="context-button">
+<i class=" fa fa-users" aria-hidden="true">
+</i>Go to Team</a>
+<a href="/stats/teams/7020/spirit?event=8244" class="context-button">
+<i class=" fa fa-bar-chart" aria-hidden="true">
+</i>Add to context</a>
+</div>
+</div>
+<div class="flex-placeholder">
+</div>
+<div class="rating">
+<span class="bold">1.07</span>
+<br>Rating 3.0</div>
+<div class="average gtSmartphone-only">
+<span class="bold">12</span>
+<br>Maps</div>
+</div>
+<div class="top-x-box standard-box">
+<img alt="FURIA" src="https://img-cdn.hltv.org/teamlogo/mvNQc4csFGtxXk5guAh8m1.svg?ixlib=java-2.1.0&amp;s=11e5056829ad5d6c06c5961bbe76d20c" class="img logo" title="FURIA">
+<a href="/stats/teams/8297/furia?event=8244" class="name" data-tooltip-id="uniqueTooltipId--317598333">FURIA</a>
+<div class="hidden" id="uniqueTooltipId--317598333">
+<div class="stats-section context-tooltip">
+<a href="/stats/teams/8297/furia?event=8244" class="context-button">
+<i class=" fa fa-users" aria-hidden="true">
+</i>Go to Team</a>
+<a href="/stats/teams/8297/furia?event=8244" class="context-button">
+<i class=" fa fa-bar-chart" aria-hidden="true">
+</i>Add to context</a>
+</div>
+</div>
+<div class="flex-placeholder">
+</div>
+<div class="rating">
+<span class="bold">1.06</span>
+<br>Rating 3.0</div>
+<div class="average gtSmartphone-only">
+<span class="bold">12</span>
+<br>Maps</div>
+</div>
+<div class="top-x-box standard-box">
+<img alt="Aurora" src="https://img-cdn.hltv.org/teamlogo/yJzPNOeXlyiniNxanYJCrv.png?ixlib=java-2.1.0&amp;w=50&amp;s=2c08f70c2f2f8c2024a438ddcf19bbf1" class="img logo" title="Aurora">
+<a href="/stats/teams/11861/aurora?event=8244" class="name" data-tooltip-id="uniqueTooltipId-1542076096">Aurora</a>
+<div class="hidden" id="uniqueTooltipId-1542076096">
+<div class="stats-section context-tooltip">
+<a href="/stats/teams/11861/aurora?event=8244" class="context-button">
+<i class=" fa fa-users" aria-hidden="true">
+</i>Go to Team</a>
+<a href="/stats/teams/11861/aurora?event=8244" class="context-button">
+<i class=" fa fa-bar-chart" aria-hidden="true">
+</i>Add to context</a>
+</div>
+</div>
+<div class="flex-placeholder">
+</div>
+<div class="rating">
+<span class="bold">1.03</span>
+<br>Rating 3.0</div>
+<div class="average gtSmartphone-only">
+<span class="bold">10</span>
+<br>Maps</div>
+</div>
+<div class="top-x-box standard-box">
+<img alt="M80" src="https://img-cdn.hltv.org/teamlogo/YsaWwP_VrkbHzuhszuANEK.png?ixlib=java-2.1.0&amp;w=50&amp;s=47a8cff375da8242af9137a2a592b97d" class="img logo" title="M80">
+<a href="/stats/teams/12376/m80?event=8244" class="name" data-tooltip-id="uniqueTooltipId--1978488462">M80</a>
+<div class="hidden" id="uniqueTooltipId--1978488462">
+<div class="stats-section context-tooltip">
+<a href="/stats/teams/12376/m80?event=8244" class="context-button">
+<i class=" fa fa-users" aria-hidden="true">
+</i>Go to Team</a>
+<a href="/stats/teams/12376/m80?event=8244" class="context-button">
+<i class=" fa fa-bar-chart" aria-hidden="true">
+</i>Add to context</a>
+</div>
+</div>
+<div class="flex-placeholder">
+</div>
+<div class="rating">
+<span class="bold">1.02</span>
+<br>Rating 3.0</div>
+<div class="average gtSmartphone-only">
+<span class="bold">12</span>
+<br>Maps</div>
+</div>
+</div>
+</div>
+<div class="srek">
+<div class="BZ4Bl4KkTN " data-gmhpxmidoa="StatsOverview" data-hixuoqkfqi="5449" id="">
+</div>
+</div>
+<div class="vspace">
+</div>
+<div class="standard-headline">Top weapons</div>
+<div class="standard-box">
+<worker-ignore style="display: block; height: 300px" class="graph " data-chartjs-config="{&quot;data&quot;:{&quot;labels&quot;:[&quot;ak47&quot;,&quot;m4a1_silencer&quot;,&quot;m4a1&quot;,&quot;awp&quot;,&quot;galilar&quot;,&quot;glock&quot;,&quot;usp_silencer&quot;,&quot;mp9&quot;,&quot;deagle&quot;,&quot;other&quot;],&quot;datasets&quot;:[{&quot;data&quot;:[3517.0,1700.0,1134.0,1111.0,574.0,546.0,536.0,298.0,222.0,1042.0],&quot;backgroundColor&quot;:[&quot;#2C6EA4&quot;,&quot;#2D808B&quot;,&quot;#2D9171&quot;,&quot;#2F9B6A&quot;,&quot;#6B9644&quot;,&quot;#92993A&quot;,&quot;#B99F34&quot;,&quot;#E0A42D&quot;,&quot;#CD7F21&quot;,&quot;#BB5B14&quot;],&quot;borderColor&quot;:&quot;var(--boxed-background-color)&quot;,&quot;borderWidth&quot;:1}],&quot;doughnut&quot;:true,&quot;type&quot;:&quot;doughnut&quot;},&quot;options&quot;:{&quot;layout&quot;:{&quot;padding&quot;:{&quot;top&quot;:16,&quot;bottom&quot;:16}},&quot;maintainAspectRatio&quot;:false,&quot;responsive&quot;:true,&quot;plugins&quot;:{&quot;legend&quot;:{&quot;display&quot;:false,&quot;position&quot;:&quot;bottom&quot;,&quot;labels&quot;:{&quot;color&quot;:&quot;var(--text-color)&quot;,&quot;boxWidth&quot;:12,&quot;boxHeight&quot;:12}}},&quot;animation&quot;:false,&quot;cutout&quot;:&quot;50%&quot;},&quot;addOns&quot;:[{&quot;format&quot;:{&quot;forceDecimals&quot;:false,&quot;numberScale&quot;:false},&quot;percentOfTotal&quot;:true,&quot;type&quot;:&quot;classicTooltip&quot;},{&quot;type&quot;:&quot;pieLabels&quot;}],&quot;type&quot;:&quot;doughnut&quot;}" data-chartjs-init="1">
+<canvas style="display: block; box-sizing: border-box; height: 300px; width: 638px;" width="957" height="450">
+</canvas>
+</worker-ignore>
+</div>
+<div class="vspace">
+</div>
+</div>
+</main>
+<div class="sidebar-con">
+<div class="sidebar-box ">
+<div class="sidebar-headline">Event filter</div>
+<div class="sidebar-first-level">
+<div class="stats-section stats-sidebar">
+<div class="context-item">
+<a href="/stats" class="deselect">
+<i class=" fa fa-times" aria-hidden="true">
+</i>
+</a>
+<img alt="ESL Pro League Season 24" src="https://img-cdn.hltv.org/eventlogo/PhVPy7kXO_J_nfTng7a87h.png?ixlib=java-2.1.0&amp;w=200&amp;s=7a1dd4079a079fb5c5133dea996cc5f0" class="context-item-image" srcset="https://img-cdn.hltv.org/eventlogo/PhVPy7kXO_J_nfTng7a87h.png?ixlib=java-2.1.0&amp;w=400&amp;s=c0aedfdc29d3c83494b063e81e987cf6 2x" title="ESL Pro League Season 24">
+<span class="context-item-name">ESL Pro League Season 24</span>
+</div>
+</div>
+</div>
+</div>
+<div class="sidebar-box ">
+<div class="sidebar-headline">Navigation</div>
+<div class="sidebar-second-level">
+<div class="stats-section stats-team stats-sidebar">
+<a href="/stats?event=8244" class="sidebar-single-line-item selected">
+<span class="" title="">Overview</span>
+</a>
+<a href="/stats/players?event=8244" class="sidebar-single-line-item">
+<span class="" title="">Players</span>
+</a>
+<a href="/stats/teams?event=8244" class="sidebar-single-line-item">
+<span class="" title="">Teams</span>
+</a>
+<a href="/stats/matches?event=8244" class="sidebar-single-line-item">
+<span class="" title="">Matches</span>
+</a>
+<a href="/stats/events?event=8244" class="sidebar-single-line-item">
+<span class="" title="">Events</span>
+</a>
+<a href="/stats/maps?event=8244" class="sidebar-single-line-item">
+<span class="" title="">Maps</span>
+</a>
+<a href="/stats/leaderboards?event=8244" class="sidebar-single-line-item">
+<span class="" title="">Leaderboards</span>
+</a>
+<a href="/stats/aces?event=8244" class="sidebar-single-line-item">
+<span class="" title="">Aces</span>
+</a>
+<a href="/stats/events/clutches/8244/all/esl-pro-league-season-24" class="sidebar-single-line-item">
+<span class="" title="">Clutches</span>
+</a>
+<a href="/stats/players/compare" class="sidebar-single-line-item">
+<span class="" title="">Compare</span>
+</a>
+</div>
+</div>
+</div>
+<a href="/legacystats" class="legacy-stats-section-button">1.6 stats section<img src="/img/static/stats/cs-icon.png">
+</a>
+<div class="sidebar-box ">
+<div class="sidebar-headline">Search stats</div>
+<div class="sidebar-third-level">
+<div class="stats-section stats-sidebar">
+<div class="search-input-con" title="Search the stats section for teams, players and events, from here you can easily add them to your context.">
+<div class="search-typeahead">
+<input type="text" class="search-input navsearchinput" data-stats-search-url="/stats/search?event=8244&amp;term=" placeholder="Add to context..">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sidebar-box ">
+<div class="sidebar-headline">Version</div>
+<div class="sidebar-forth-level">
+<div>
+<div class="filter-column-con">
+<div class="filter-column-content">
+<div class="filter-column-content">
+<a href="/stats?event=8244" class="sidebar-single-line-item selected" title=""> Both </a>
+<a href="/stats?event=8244&amp;csVersion=CS2" class="sidebar-single-line-item " title="Only show matches from CS2"> CS2 </a>
+<a href="/stats?event=8244&amp;csVersion=CSGO" class="sidebar-single-line-item " title="Only show matches from CSGO"> CSGO </a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sidebar-box ">
+<div class="sidebar-headline">Filters</div>
+<div class="sidebar-fifth-level">
+<div>
+<div class="filter-column-con">
+<div class="filter-column-header open">Event type<span class="fa fa-caret-down">
+</span>
+<span class="fa fa-caret-up">
+</span>
+</div>
+<div class="filter-column-content  ">
+<div class="filter-column-content">
+<a href="/stats?event=8244" class="sidebar-single-line-item selected" title=""> All matches </a>
+<a href="/stats?matchType=Majors&amp;event=8244" class="sidebar-single-line-item " title="Only show matches from majors"> Majors </a>
+<a href="/stats?matchType=BigEvents&amp;event=8244" class="sidebar-single-line-item " title="Only show matches from events classified as a 'Big Event'"> Big events </a>
+<a href="/stats?matchType=MvpEvents&amp;event=8244" class="sidebar-single-line-item " title="Only show matches from events which have an MVP"> MVP events </a>
+<a href="/stats?matchType=Lan&amp;event=8244" class="sidebar-single-line-item " title="Only show matches played on LAN"> LAN </a>
+<a href="/stats?matchType=Online&amp;event=8244" class="sidebar-single-line-item " title="Only show matches played online"> Online </a>
+</div>
+</div>
+<div class="filter-column-header open">Time<span class="fa fa-caret-down">
+</span>
+<span class="fa fa-caret-up">
+</span>
+</div>
+<div class="filter-column-content  ">
+<div class="clearfix">
+<a href="/stats?startDate=all&amp;event=8244" class="sidebar-single-line-item selected"> All time</a>
+<a href="/stats?startDate=2026-09-08&amp;endDate=2026-10-08&amp;event=8244" class="sidebar-single-line-item "> Last month</a>
+<a href="/stats?startDate=2026-07-08&amp;endDate=2026-10-08&amp;event=8244" class="sidebar-single-line-item "> Last 3 months</a>
+<a href="/stats?startDate=2026-04-08&amp;endDate=2026-10-08&amp;event=8244" class="sidebar-single-line-item "> Last 6 months</a>
+<a href="/stats?startDate=2025-10-08&amp;endDate=2026-10-08&amp;event=8244" class="sidebar-single-line-item "> Last 12 months</a>
+<a href="/stats?startDate=2026-01-01&amp;endDate=2026-12-31&amp;event=8244" class="sidebar-single-line-item "> 2026</a>
+<a href="/stats?startDate=2025-01-01&amp;endDate=2025-12-31&amp;event=8244" class="sidebar-single-line-item "> 2025</a>
+<a href="/stats?startDate=2024-01-01&amp;endDate=2024-12-31&amp;event=8244" class="sidebar-single-line-item "> 2024</a>
+<a href="/stats?startDate=2023-01-01&amp;endDate=2023-12-31&amp;event=8244" class="sidebar-single-line-item "> 2023</a>
+<a href="/stats?startDate=2022-01-01&amp;endDate=2022-12-31&amp;event=8244" class="sidebar-single-line-item "> 2022</a>
+<a href="/stats?startDate=2021-01-01&amp;endDate=2021-12-31&amp;event=8244" class="sidebar-single-line-item "> 2021</a>
+<a href="/stats?startDate=2020-01-01&amp;endDate=2020-12-31&amp;event=8244" class="sidebar-single-line-item "> 2020</a>
+<a href="/stats?startDate=2019-01-01&amp;endDate=2019-12-31&amp;event=8244" class="sidebar-single-line-item "> 2019</a>
+<a href="/stats?startDate=2018-01-01&amp;endDate=2018-12-31&amp;event=8244" class="sidebar-single-line-item "> 2018</a>
+<a href="/stats?startDate=2017-01-01&amp;endDate=2017-12-31&amp;event=8244" class="sidebar-single-line-item "> 2017</a>
+<a href="/stats?startDate=2016-01-01&amp;endDate=2016-12-31&amp;event=8244" class="sidebar-single-line-item "> 2016</a>
+<a href="/stats?startDate=2015-01-01&amp;endDate=2015-12-31&amp;event=8244" class="sidebar-single-line-item "> 2015</a>
+<a href="/stats?startDate=2014-01-01&amp;endDate=2014-12-31&amp;event=8244" class="sidebar-single-line-item "> 2014</a>
+<a href="/stats?startDate=2013-01-01&amp;endDate=2013-12-31&amp;event=8244" class="sidebar-single-line-item "> 2013</a>
+<a href="/stats?startDate=2012-01-01&amp;endDate=2012-12-31&amp;event=8244" class="sidebar-single-line-item "> 2012</a>
+<div class="padded-content">
+<input name="startDate" class="filter-date" placeholder="开始日期">
+<input name="endDate" class="filter-date" placeholder="结束日期">
+</div>
+</div>
+</div>
+<div class="filter-column-header open">Opponent ranking<span class="fa fa-caret-down">
+</span>
+<span class="fa fa-caret-up">
+</span>
+</div>
+<div class="filter-column-content  ">
+<div class="filter-column-content">
+<a href="/stats?event=8244" class="sidebar-single-line-item selected" title=""> All </a>
+<a href="/stats?event=8244&amp;rankingFilter=Top5" class="sidebar-single-line-item " title="Only maps against an opponent that was in the top 5 of the HLTV ranking at the time of the map"> Top 5 </a>
+<a href="/stats?event=8244&amp;rankingFilter=Top10" class="sidebar-single-line-item " title="Only maps against an opponent that was in the top 10 of the HLTV ranking at the time of the map"> Top 10 </a>
+<a href="/stats?event=8244&amp;rankingFilter=Top20" class="sidebar-single-line-item " title="Only maps against an opponent that was in the top 20 of the HLTV ranking at the time of the map"> Top 20 </a>
+<a href="/stats?event=8244&amp;rankingFilter=Top30" class="sidebar-single-line-item " title="Only maps against an opponent that was in the top 30 of the HLTV ranking at the time of the map"> Top 30 </a>
+<a href="/stats?event=8244&amp;rankingFilter=Top50" class="sidebar-single-line-item " title="Only maps against an opponent that was in the top 50 of the HLTV ranking at the time of the map"> Top 50 </a>
+</div>
+</div>
+<div class="filter-column-header open">Best Of X<span class="fa fa-caret-down">
+</span>
+<span class="fa fa-caret-up">
+</span>
+</div>
+<div class="filter-column-content  ">
+<div class="filter-column-content">
+<a href="/stats?event=8244" class="sidebar-single-line-item selected" title=""> All </a>
+<a href="/stats?event=8244&amp;bestOfX=BestOf1" class="sidebar-single-line-item " title=""> Best of 1 </a>
+<a href="/stats?event=8244&amp;bestOfX=BestOf3" class="sidebar-single-line-item " title=""> Best of 3 </a>
+<a href="/stats?event=8244&amp;bestOfX=BestOf5" class="sidebar-single-line-item " title=""> Best of 5 </a>
+</div>
+</div>
+<div class="filter-column-header open">Valve Ranked<span class="fa fa-caret-down">
+</span>
+<span class="fa fa-caret-up">
+</span>
+</div>
+<div class="filter-column-content  ">
+<div class="filter-column-content">
+<a href="/stats?event=8244" class="sidebar-single-line-item selected" title=""> Both </a>
+<a href="/stats?event=8244&amp;valveRanked=RANKED" class="sidebar-single-line-item " title="Only show valve ranked events"> Ranked </a>
+<a href="/stats?event=8244&amp;valveRanked=UNRANKED" class="sidebar-single-line-item " title="Only show unranked events"> Unranked </a>
+</div>
+</div>
+<div class="filter-column-header open">Match type<span class="fa fa-caret-down">
+</span>
+<span class="fa fa-caret-up">
+</span>
+</div>
+<div class="filter-column-content  ">
+<div class="filter-column-content">
+<a href="/stats?event=8244" class="sidebar-single-line-item selected" title=""> All matches </a>
+<a href="/stats?event=8244&amp;playoffMatchType=GRAND_FINAL" class="sidebar-single-line-item " title="Only show grand final matches"> Grand final </a>
+<a href="/stats?event=8244&amp;playoffMatchType=PLAYOFFS" class="sidebar-single-line-item " title="Only show playoff matches"> Playoffs </a>
+<a href="/stats?event=8244&amp;playoffMatchType=PRE_PLAYOFF" class="sidebar-single-line-item " title="Only show pre-playoff matches"> Pre-playoff </a>
+</div>
+</div>
+<div class="filter-column-header open">Country<span class="fa fa-caret-down">
+</span>
+<span class="fa fa-caret-up">
+</span>
+</div>
+<div class="filter-column-content  ">
+<div class="padded-content search-typeahead">
+<input class="filter-player-input" data-country-search="[&quot;Albania&quot;,&quot;Algeria&quot;,&quot;Argentina&quot;,&quot;Australia&quot;,&quot;Austria&quot;,&quot;Belgium&quot;,&quot;Brazil&quot;,&quot;Bulgaria&quot;,&quot;Canada&quot;,&quot;China&quot;,&quot;Croatia&quot;,&quot;Cyprus&quot;,&quot;Czech Republic&quot;,&quot;Denmark&quot;,&quot;Egypt&quot;,&quot;Estonia&quot;,&quot;Ethiopia&quot;,&quot;Faroe Islands&quot;,&quot;Finland&quot;,&quot;France&quot;,&quot;Germany&quot;,&quot;Greece&quot;,&quot;Greenland&quot;,&quot;Hungary&quot;,&quot;Iceland&quot;,&quot;Ireland&quot;,&quot;Israel&quot;,&quot;Italy&quot;,&quot;Japan&quot;,&quot;Korea&quot;,&quot;Kuwait&quot;,&quot;Latvia&quot;,&quot;Liberia&quot;,&quot;Lithuania&quot;,&quot;Luxembourg&quot;,&quot;Malta&quot;,&quot;Mexico&quot;,&quot;Netherlands&quot;,&quot;New Zealand&quot;,&quot;Norway&quot;,&quot;Portugal&quot;,&quot;Romania&quot;,&quot;Russia&quot;,&quot;Slovakia&quot;,&quot;Slovenia&quot;,&quot;Spain&quot;,&quot;Sweden&quot;,&quot;Switzerland&quot;,&quot;Türkiye&quot;,&quot;Ukraine&quot;,&quot;United Kingdom&quot;,&quot;United States&quot;,&quot;Yugoslavia&quot;,&quot;Poland&quot;,&quot;Morocco&quot;,&quot;Other&quot;,&quot;South Africa&quot;,&quot;Iraq&quot;,&quot;Singapore&quot;,&quot;North Macedonia&quot;,&quot;Saudi Arabia&quot;,&quot;Libya&quot;,&quot;India&quot;,&quot;Chile&quot;,&quot;Belarus&quot;,&quot;Georgia&quot;,&quot;Serbia&quot;,&quot;Montenegro&quot;,&quot;Bosnia and Herzegovina&quot;,&quot;Taiwan&quot;,&quot;Kazakhstan&quot;,&quot;Venezuela&quot;,&quot;Jordan&quot;,&quot;United Arab Emirates&quot;,&quot;Peru&quot;,&quot;Tunisia&quot;,&quot;Pakistan&quot;,&quot;Ecuador&quot;,&quot;Panama&quot;,&quot;Bangladesh&quot;,&quot;Hong Kong&quot;,&quot;Malaysia&quot;,&quot;Sri Lanka&quot;,&quot;Uzbekistan&quot;,&quot;Azerbaijan&quot;,&quot;Philippines&quot;,&quot;Indonesia&quot;,&quot;Vietnam&quot;,&quot;Colombia&quot;,&quot;Moldova&quot;,&quot;Kyrgyzstan&quot;,&quot;Armenia&quot;,&quot;Thailand&quot;,&quot;Costa Rica&quot;,&quot;Reunion&quot;,&quot;Mongolia&quot;,&quot;Iran&quot;,&quot;Andorra&quot;,&quot;Liechtenstein&quot;,&quot;Guatemala&quot;,&quot;Syria&quot;,&quot;Lebanon&quot;,&quot;Brunei&quot;,&quot;Uruguay&quot;,&quot;Afghanistan&quot;,&quot;Paraguay&quot;,&quot;Nepal&quot;,&quot;Palestine&quot;,&quot;Macau&quot;,&quot;Bahrain&quot;,&quot;Bolivia&quot;,&quot;El Salvador&quot;,&quot;Dominican Republic&quot;,&quot;Maldives&quot;,&quot;Turkmenistan&quot;,&quot;Qatar&quot;,&quot;Myanmar&quot;,&quot;Cambodia&quot;,&quot;Laos&quot;,&quot;Namibia&quot;,&quot;Nigeria&quot;,&quot;Ivory Coast&quot;,&quot;Senegal&quot;,&quot;American Samoa&quot;,&quot;Angola&quot;,&quot;Antigua and Barbuda&quot;,&quot;Aruba&quot;,&quot;Bahamas&quot;,&quot;Barbados&quot;,&quot;Belize&quot;,&quot;Benin&quot;,&quot;Bermuda&quot;,&quot;Bhutan&quot;,&quot;Botswana&quot;,&quot;British Virgin Islands&quot;,&quot;Burkina Faso&quot;,&quot;Burundi&quot;,&quot;Cameroon&quot;,&quot;Cape Verde&quot;,&quot;Central African Republic&quot;,&quot;Chad&quot;,&quot;Comoros&quot;,&quot;Congo, Democratic Republic of&quot;,&quot;Congo, Republic of&quot;,&quot;Cook Islands&quot;,&quot;Cuba&quot;,&quot;Cayman Islands&quot;,&quot;Djibouti&quot;,&quot;Dominica&quot;,&quot;Equatorial Guinea&quot;,&quot;Eritrea&quot;,&quot;England&quot;,&quot;Fiji&quot;,&quot;Gabon&quot;,&quot;Gambia&quot;,&quot;Ghana&quot;,&quot;Grenada&quot;,&quot;Guinea&quot;,&quot;Guinea-Bissau&quot;,&quot;Guyana&quot;,&quot;Guam&quot;,&quot;Haiti&quot;,&quot;Honduras&quot;,&quot;Jamaica&quot;,&quot;Kenya&quot;,&quot;Kosovo&quot;,&quot;Lesotho&quot;,&quot;Madagascar&quot;,&quot;Malawi&quot;,&quot;Mali&quot;,&quot;Mauritania&quot;,&quot;Mauritius&quot;,&quot;Mozambique&quot;,&quot;Nicaragua&quot;,&quot;Niger&quot;,&quot;Oman&quot;,&quot;Papua New Guinea&quot;,&quot;Puerto Rico&quot;,&quot;Rwanda&quot;,&quot;Saint Kitts and Nevis&quot;,&quot;Saint Lucia&quot;,&quot;Saint Vincent and the Grenadines&quot;,&quot;Samoa&quot;,&quot;San Marino&quot;,&quot;São Tomé and Príncipe&quot;,&quot;Seychelles&quot;,&quot;Sierra Leone&quot;,&quot;Solomon Islands&quot;,&quot;Somalia&quot;,&quot;South Sudan&quot;,&quot;Sudan&quot;,&quot;Suriname&quot;,&quot;Eswatini &quot;,&quot;Scotland&quot;,&quot;Tajikistan&quot;,&quot;Tanzania&quot;,&quot;Timor-Leste&quot;,&quot;Togo&quot;,&quot;Tonga&quot;,&quot;Trinidad and Tobago&quot;,&quot;Uganda&quot;,&quot;United States Virgin Islands&quot;,&quot;Vanuatu&quot;,&quot;Wales&quot;,&quot;Yemen&quot;,&quot;Zambia&quot;,&quot;Zimbabwe&quot;,&quot;Monaco&quot;]" placeholder="搜索国家">
+</div>
+</div>
+<div class="filter-column-header open">Gender<span class="fa fa-caret-down">
+</span>
+<span class="fa fa-caret-up">
+</span>
+</div>
+<div class="filter-column-content  ">
+<div class="filter-column-content">
+<a href="/stats?event=8244" class="sidebar-single-line-item selected" title=""> All </a>
+<a href="/stats?event=8244&amp;gender=Men" class="sidebar-single-line-item " title="Only show male players and teams"> Men </a>
+<a href="/stats?event=8244&amp;gender=Women" class="sidebar-single-line-item " title="Only show female players and teams"> Women </a>
+</div>
+</div>
+<div class="filter-column-header open">Age<span class="fa fa-caret-down">
+</span>
+<span class="fa fa-caret-up">
+</span>
+</div>
+<div class="filter-column-content  ">
+<div class="padded-content clearfix">
+<div class="filter-age-range noUi-target noUi-ltr noUi-horizontal" data-filter-min="13" data-filter-max="40">
+<div class="noUi-base">
+<div class="noUi-origin" style="left: 0%;">
+<div class="noUi-handle noUi-handle-lower" data-handle="0" style="z-index: 5;">
+</div>
+</div>
+<div class="noUi-connect" style="left: 0%; right: 0%;">
+</div>
+<div class="noUi-origin" style="left: 100%;">
+<div class="noUi-handle noUi-handle-upper" data-handle="1" style="z-index: 4;">
+</div>
+</div>
+</div>
+</div>
+<div class="filter-column-age-con">
+<div class="text-ellipsis">Min age</div>
+<div>
+<input name="filter-min" class="filter-age-input" disabled="disabled">
+</div>
+</div>
+<div class="filter-column-age-con">
+<div class="text-ellipsis">Max age</div>
+<div>
+<input name="filter-max" class="filter-age-input" disabled="disabled">
+</div>
+</div>
+</div>
+</div>
+<div class="filter-column-header open">Maps<span class="fa fa-caret-down">
+</span>
+<span class="fa fa-caret-up">
+</span>
+</div>
+<div class="filter-column-content  ">
+<div class="filter-column-content">
+<a href="/stats?event=8244" class="sidebar-single-line-item selected" title=""> All </a>
+<a href="/stats?event=8244&amp;maps=de_ancient" class="sidebar-single-line-item " title=""> Ancient </a>
+<a href="/stats?event=8244&amp;maps=de_anubis" class="sidebar-single-line-item " title=""> Anubis </a>
+<a href="/stats?event=8244&amp;maps=de_cache" class="sidebar-single-line-item " title=""> Cache </a>
+<a href="/stats?event=8244&amp;maps=de_dust2" class="sidebar-single-line-item " title=""> Dust2 </a>
+<a href="/stats?event=8244&amp;maps=de_inferno" class="sidebar-single-line-item " title=""> Inferno </a>
+<a href="/stats?event=8244&amp;maps=de_mirage" class="sidebar-single-line-item " title=""> Mirage </a>
+<a href="/stats?event=8244&amp;maps=de_nuke" class="sidebar-single-line-item " title=""> Nuke </a>
+<a href="/stats?event=8244&amp;maps=de_cobblestone" class="sidebar-single-line-item " title=""> Cobblestone </a>
+<a href="/stats?event=8244&amp;maps=de_overpass" class="sidebar-single-line-item " title=""> Overpass </a>
+<a href="/stats?event=8244&amp;maps=de_season" class="sidebar-single-line-item " title=""> Season </a>
+<a href="/stats?event=8244&amp;maps=de_train" class="sidebar-single-line-item " title=""> Train </a>
+<a href="/stats?event=8244&amp;maps=de_tuscan" class="sidebar-single-line-item " title=""> Tuscan </a>
+<a href="/stats?event=8244&amp;maps=de_vertigo" class="sidebar-single-line-item " title=""> Vertigo </a>
+</div>
+</div>
+<div class="filter-column-map-count-con">
+<div class="text-ellipsis">Maps in filter</div>
+<div class="filter-column-map-count">80</div>
+</div>
+<div class="filter-column-min-map-count-con-con">
+<div class="filter-column-min-map-count-con">
+<div class="text-ellipsis">Min. maps:</div>
+<div class="filter-column-min-map-count">
+<input type="text" class="filter-column-min-map-count-input" id="uid-104702538" placeholder="0">
+</div>
+</div>
+<div>
+<div class="filter-single-range noUi-target noUi-ltr noUi-horizontal" data-filter-min="0" data-filter-max="15" data-filter-default="0" data-filter-input-id="uid-104702538" data-filter-query-name="minMapCount">
+<div class="noUi-base">
+<div class="noUi-origin" style="left: 0%;">
+<div class="noUi-handle noUi-handle-lower" data-handle="0" style="z-index: 4;">
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

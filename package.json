@@ -1,0 +1,26 @@
+{
+  "name": "hltv-zh-cn",
+  "version": "0.1.14",
+  "private": true,
+  "type": "module",
+  "description": "保留网站结构与数据的 HLTV 简体中文界面脚本",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "build": "node scripts/build.mjs",
+    "test:browser": "playwright test",
+    "check": "npm run typecheck && npm test && npm run build && npm run test:browser"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.0",
+    "@types/node": "26.6.4",
+    "esbuild": "0.28.2",
+    "jsdom": "30.1.2",
+    "typescript": "7.0.2",
+    "vitest": "5.0.3"
+  }
+}
+
