@@ -1,8 +1,7 @@
+import { statsNavigation, recentPeriods, matchFilters } from './shared';
 /** 完整对比页与单选手统计页独立；Rating 保留，KPR/KAST 按用户术语翻译。 */
 export const compareLabels = {
-  'All Time': '全部时间', 'Past month': '最近 1 个月', 'Past 3 months': '最近 3 个月',
-  'All matches': '全部比赛', Majors: 'Major 赛事', 'Big events': '大型赛事', 'MVP events': '设有 MVP 的赛事',
-  LAN: '线下赛', Online: '线上赛', 'All Maps': '全部地图',
+  ...recentPeriods, ...matchFilters, 'All Maps': '全部地图',
   'Add player': '添加选手', 'remove player': '移除选手',
   KPR: '每回合击杀', KAST: '不白给率',
   'Multi-kill rating': '多杀评分', 'Round Swing': '回合影响力',
@@ -15,6 +14,5 @@ export const compareLabels = {
 };
 
 export const compareNavigation = {
-  Navigation: '导航', Overview: '概览', Players: '选手', Teams: '战队', Matches: '比赛',
-  Events: '赛事', Maps: '地图', Leaderboards: '排行榜', Compare: '选手对比',
+  ...statsNavigation, Compare: '选手对比',
 };

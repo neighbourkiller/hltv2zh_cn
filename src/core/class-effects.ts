@@ -1,9 +1,10 @@
 import type { Page } from './types';
+import { protectionClasses } from './guards';
 
 // 仅跟踪会改变已核对规则归属的 class；不处理 hidden/active 等通用显示状态。
 // scope 必须稳定，不能依赖本次被切换的 class；移除目标 class 也要能恢复原文。
 const eventClasses = new Set(['team-tbd', 'team-name', 'round-header']);
-const protectedClasses = new Set(['newstext', 'thread-message-text', 'playerNickname', 'teamName']);
+const protectedClasses = new Set([...protectionClasses, 'statCell', 'hpCell', 'armorCell', 'weaponCell', 'moneyCell', 'killCell', 'assistCell', 'assistFlashCell', 'deathCell', 'adrCell']);
 export function classChangeRoot(element: Element, oldValue: string | null, page: Page): Element | undefined {
   const before = new Set((oldValue ?? '').split(/\s+/).filter(Boolean));
   const after = new Set(element.classList);

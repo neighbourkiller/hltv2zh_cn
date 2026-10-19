@@ -19,7 +19,7 @@ const text = (selector: string) => document.querySelector(selector)!.textContent
 it('战队/两类详情独立路由，新模块默认开启且旧设置保留', () => {
   expect(detectPage('/team/7020/spirit')).toBe('team'); expect(detectPage('/team/1')).toBe('team'); expect(detectPage('/teams')).toBe('other');
   expect(detectPage('/ranking/teams/2026/october/5/details/7020')).toBe('ranking-detail');
-  expect(detectPage('/valve-ranking/teams/details/2026/october/8')).toBe('valve-ranking-detail'); expect(detectPage('/valve-ranking/teams/event/8295')).toBe('other');
+  expect(detectPage('/valve-ranking/teams/details/2026/october/8')).toBe('valve-ranking-detail'); expect(detectPage('/valve-ranking/teams/event/8295')).toBe('vrs-forecast');
   const config = parseSettings({ schemaVersion: 2, maps: 'en', modules: { ranking: false, 'valve-ranking': false, player: false } });
   expect(config.modules.team).toBe(true); expect(config.modules['ranking-detail']).toBe(true); expect(config.modules['valve-ranking-detail']).toBe(true);
   expect(config.modules.ranking).toBe(false); expect(config.modules['valve-ranking']).toBe(false); expect(config.maps).toBe('en');

@@ -29,6 +29,10 @@ export const protectedSelector = [
   'a[href^="/coach/"]',
 ].join(',');
 export function protectedElement(element: Element): boolean {
+  // 仅放行资料卡的身份切换标签；链接实体名称与正文中的同形结构继续保护。
+  if (/^\/coach\/\d+(?:\/|$)/.test(element.ownerDocument.location.pathname)
+    && element.matches('.playerProfile .person-types > a.person-type > .role-name, .playerProfile .person-types > a.person-type > .primary-role')
+    && !element.parentElement?.parentElement?.closest(protectedSelector)) return false;
   // 转会卡片的固定状态位嵌在队伍链接中，只放行该直属槽位。
   // 链接、队伍名、徽标以及新闻/论坛内的同形结构继续受保护。
   if (element.matches('.transfer .transfer-team-container[href^="/team/"] > .transfer-team-status')
@@ -36,10 +40,14 @@ export function protectedElement(element: Element): boolean {
   return element.closest(protectedSelector) !== null;
 }
 
+/** 武器代码与地图同名时保留武器原文，不做地图替换。 */
+export const weaponSelector = '.stats-rows.standard-box';
+export const protectionClasses = new Set([...((protectedSelector + ',' + weaponSelector).matchAll(/\.([\w-]+)/g))].map(match => match[1]));
+
 /** 地图词条识别统计页实体链接；不影响其中明确 UI 文案的其他规则。 */
 export function protectedMapElement(element: Element): boolean {
   // team-tbd 只放行 TBD 文案；网站先写入真队名、稍后移除占位 class 时仍保护实体。
-  if (element.closest('.team-name')) return true;
+  if (element.closest('.team-name, ' + weaponSelector)) return true;
   const link = element.closest('a[href]');
   return !!link && /^\/(?:team\/\d+(?:\/|$)|stats\/(?:players|teams)\/\d+(?:\/|$)|skins\/)/.test(link.getAttribute('href') ?? '');
 }

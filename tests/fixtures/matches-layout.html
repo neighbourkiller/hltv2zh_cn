@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+/* 2026-10-16 /matches 实页标签尺寸与定位的最小复现；非完整网站镜像。 */
+body { margin: 8px; background: #1b2025; color: #c4cbd1; font-family: 'Open Sans', sans-serif; }
+.matches-v4 { max-width: 650px; }
+.match { display: flex; align-items: center; position: relative; padding: 24px 8px 10px; margin-bottom: 8px; background: #2d3843; }
+.match-info { display: flex; flex-direction: column; align-items: center; width: 47px; flex-shrink: 0; text-decoration: none; color: inherit; }
+.match-meta { width: 28px; padding: 0 4px; font-size: 10px; font-weight: 700; line-height: 15px; height: 15px; }
+.match-meta-live { background: #b40000; border-radius: 4px; text-align: center; }
+.match-teamname { flex: 1; padding-left: 12px; }
+.match-btn-wrapper { position: relative; display: flex; width: 104px; height: 30px; }
+.match-stage { position: absolute; right: -8px; top: -16px; height: 14px; padding: 0 4px; font-size: 10px; line-height: 14px; box-sizing: border-box; }
+.match-quarterfinal { width: 65px; background: #ac6527; }
+.match-btn { width: 30px; height: 30px; background: #26313b; color: inherit; }
+.matches-events .match-stage { position: relative; top: auto; right: auto; font-size: 9px; font-weight: 700; line-height: 13px; }
+.matches-events .match-event { display: flex; }
+</style></head><body><a class="nav-link">Matches</a><div class="matches-v4">
+<div class="matches-chronologically">
+  <div class="match"><a href="/matches/1/live" class="match-info"><div class="match-meta match-meta-live">LIVE</div><div class="match-meta">bo3</div></a><span class="match-teamname">FlyQuest / Abyssal</span></div>
+  <div class="match"><a href="/matches/2/upcoming" class="match-info"><div class="match-time">19:00</div><div class="match-meta">bo3</div></a><span class="match-teamname">fnatic / HEROIC</span><div class="match-btn-wrapper"><div class="match-stage match-quarterfinal">Quarterfinal</div><button class="match-btn" aria-label="Pin match">☆</button></div></div>
+</div>
+<div class="matches-events"><div class="match-event">Stake Pulse Beat III<div class="match-stage match-quarterfinal">Quarterfinal</div></div></div>
+</div><div id="dynamic"></div></body></html>

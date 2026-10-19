@@ -1,8 +1,8 @@
+import { lastPeriods } from './shared';
 export const transferLabels = {
   'Counter-Strike transfers': 'Counter-Strike 转会',
   'Date filter': '日期筛选', 'Ranking filter': '排名筛选', 'Country filter': '国家筛选',
-  'All time': '全部时间', 'Last month': '最近一个月', 'Last 3 months': '最近三个月',
-  'Last 6 months': '最近六个月', 'Last 12 months': '最近十二个月', All: '全部',
+  ...lastPeriods, All: '全部',
   'Top 5': '前 5 名', 'Top 10': '前 10 名', 'Top 20': '前 20 名',
   'Top 30': '前 30 名', 'Top 50': '前 50 名', 'Show free agents only': '仅显示自由选手',
 };

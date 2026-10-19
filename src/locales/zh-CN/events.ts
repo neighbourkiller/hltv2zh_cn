@@ -18,6 +18,9 @@ export const eventLabels = {
 };
 
 export const eventStages = {
+  'Single Elimination Bracket': '单败淘汰对阵图',
+  'Opening round': '首轮', "Winners' match": '胜者组比赛',
+  'Elimination match': '淘汰赛', 'Decider match': '出线决胜战',
   Playoffs: '淘汰赛', 'Group stage': '小组赛', 'Quarter-finals': '四分之一决赛', Quarters: '八强赛',
   'Semi-finals': '半决赛', Semis: '半决赛', 'Grand final': '总决赛', Final: '决赛',
   '3rd Place Decider Match': '季军决胜赛', Tiebreaker: '加赛', 'Round of 16': '十六强',
@@ -27,11 +30,13 @@ export const eventStages = {
 };
 
 export const eventWeekdays = {
+  Today: '今天', Tomorrow: '明天', Yesterday: '昨天',
   Monday: '周一', Tuesday: '周二', Wednesday: '周三', Thursday: '周四', Friday: '周五', Saturday: '周六', Sunday: '周日',
   Mon: '周一', Tue: '周二', Wed: '周三', Thu: '周四', Fri: '周五', Sat: '周六', Sun: '周日',
 };
 
 export const eventTooltips = {
+  'Invite chance if they reach the final here, and if not': '在本赛事进入决赛和未进入时的获邀概率',
   Collapse: '收起', Expand: '展开',
   'Collapse round': '收起本轮', 'Expand round': '展开本轮',
   'Go to all ranked events': '查看所有计入排名的赛事',

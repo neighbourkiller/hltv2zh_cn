@@ -114,3 +114,26 @@ it('延迟任务有容量上限、同节点取最早截止时间，满额先清�
   await vi.advanceTimersByTimeAsync(200); expect(retry).toHaveBeenLastCalledWith(nodes[2]);
   expect(queue.size).toBe(0); expect(vi.getTimerCount()).toBe(0); queue.stop();
 });
+
+it('隐式选项更新、替换、清空后值同步；显式值不被清理', async () => {
+  document.body.innerHTML = '<select><option>Train</option><option value="server">Train</option></select>';
+  runtime = start(document, rules, defaults()); await flush();
+  const [option, explicit] = [...document.querySelectorAll('option')];
+  expect(option.value).toBe('Train');
+  option.firstChild!.nodeValue = 'All'; await flush();
+  expect(option.value).toBe('All'); expect(option.hasAttribute('value')).toBe(false);
+  option.textContent = 'Train'; await flush(); option.textContent = 'Unknown'; await flush(); expect(option.value).toBe('Unknown');
+  option.textContent = 'Train'; await flush(); option.replaceChildren(); await flush(); expect(option.value).toBe('');
+  option.textContent = 'Train'; await flush(); option.value = 'site'; option.textContent = 'All'; await flush(); expect(option.value).toBe('site');
+  explicit.textContent = 'All'; await flush(); expect(explicit.value).toBe('server');
+});
+
+it('动态 href、昵称类和编辑区进入保护范围后恢复，离开后重译', async () => {
+  document.body.innerHTML = '<a href="/stats/maps"><span>Train</span></a><div id="nick">Train</div><div id="edit">Train</div>';
+  runtime = start(document, rules, defaults()); await flush();
+  const link = document.querySelector('a')!, nick = document.querySelector('#nick')!, edit = document.querySelector('#edit')!;
+  link.setAttribute('href', '/player/1/train'); nick.className = 'player-nick'; edit.setAttribute('contenteditable', 'true'); await flush();
+  expect([link, nick, edit].map(e => e.textContent)).toEqual(['Train', 'Train', 'Train']);
+  link.setAttribute('href', '/stats/maps'); nick.className = ''; edit.removeAttribute('contenteditable'); await flush();
+  expect([link, nick, edit].map(e => e.textContent)).toEqual(['列车停放站', '列车停放站', '列车停放站']);
+});

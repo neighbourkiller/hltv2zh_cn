@@ -20,3 +20,9 @@ export function relativeTime(source: string): string | undefined {
   const unit = ({ second: '秒', minute: '分钟', hour: '小时', day: '天', week: '周', month: '个月', year: '年' } as Record<string, string>)[m[2].toLowerCase()];
   return `${count}${unit}前`;
 }
+
+/** 排名日期筛选中的英文序数；保持 1–31 的既有范围。 */
+export function ordinalDay(text: string): string | undefined {
+  const m = /^(\d{1,2})(?:st|nd|rd|th)$/i.exec(text);
+  return m && +m[1] >= 1 && +m[1] <= 31 ? m[1] + '日' : undefined;
+}

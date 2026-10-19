@@ -8,10 +8,7 @@ export const rankingLabels = {
   'HLTV Team profile': 'HLTV 战队档案', 'Ranking details': '排名详情', 'NEW TEAM': '新上榜',
   Filters: '筛选', Year: '年份', Month: '月份', Day: '日期',
 };
-export const rankingMonths = {
-  January: '一月', February: '二月', March: '三月', April: '四月', May: '五月', June: '六月',
-  July: '七月', August: '八月', September: '九月', October: '十月', November: '十一月', December: '十二月',
-};
+export { months as rankingMonths } from './shared';
 /** 只用于区域筛选 UI 和排名标题，不翻译选手国旗或地点实体。 */
 export const rankingRegions: Record<string, string> = {
   'North America': '北美', 'South America': '南美', Europe: '欧洲', Asia: '亚洲', Americas: '美洲', Oceania: '大洋洲', Africa: '非洲',

@@ -2,7 +2,7 @@ import { exact } from '../core/rules';
 import type { Rule } from '../core/types';
 import { rankingLabels, rankingMonths, rankingNavigation, rankingRegions } from '../locales/zh-CN/ranking';
 import { valveLabels, valveRegions, vrsLabels } from '../locales/zh-CN/valve-ranking';
-import { dateText } from './templates';
+import { dateText, ordinalDay } from './templates';
 
 function navigationRules(module: 'valve-ranking' | 'vrs-invites'): Rule[] {
   return [
@@ -32,10 +32,7 @@ export const valveRankingRules: Rule[] = [
     const m = /^(\([\d,]+\s+)(?:Valve\s+)?points\)$/i.exec(text);
     return m ? `${m[1]}${/Valve/i.test(text) ? 'V社 ' : ''}积分)` : undefined;
   } },
-  { id: 'valve-ranking.day', module: 'valve-ranking', selector: '.filter-column-content a.sidebar-single-line-item[href^="/valve-ranking/teams/"]', translate: text => {
-    const m = /^(\d{1,2})(?:st|nd|rd|th)$/i.exec(text);
-    return m && +m[1] >= 1 && +m[1] <= 31 ? `${m[1]}日` : undefined;
-  } },
+  { id: 'valve-ranking.day', module: 'valve-ranking', selector: '.filter-column-content a.sidebar-single-line-item[href^="/valve-ranking/teams/"]', translate: ordinalDay },
 ];
 
 /** 邀请列表卡片的正式赛事名称、名额数字与 URL 保持原值。 */

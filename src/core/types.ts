@@ -1,4 +1,4 @@
-export type Page = 'home' | 'matches' | 'match-detail' | 'results' | 'events' | 'event-detail' | 'player' | 'player-stats' | 'player-compare' | 'statistics' | 'ranking' | 'valve-ranking' | 'vrs-invites' | 'team' | 'ranking-detail' | 'valve-ranking-detail' | 'transfers' | 'fantasy' | 'other';
+export type Page = 'home' | 'matches' | 'match-detail' | 'results' | 'events' | 'event-detail' | 'player' | 'player-stats' | 'player-compare' | 'statistics' | 'ranking' | 'valve-ranking' | 'vrs-invites' | 'team' | 'ranking-detail' | 'valve-ranking-detail' | 'transfers' | 'fantasy' | 'coach' | 'forum' | 'vrs-forecast' | 'other';
 export type Module = 'common' | 'maps' | Exclude<Page, 'other'>;
 export type Attribute = 'title' | 'placeholder' | 'aria-label' | 'alt';
 export interface Settings {
@@ -12,14 +12,18 @@ export interface Rule {
   module: Module;
   selector: string;
   target?: Attribute;
+  createMissing?: boolean;
   /** 可选的纯文本快速预判；必须无 DOM 副作用，不能排除可能命中的词条。 */
   candidate?: (source: string, settings: Settings) => boolean;
   /** selector 仅匹配 Text 的直属父元素，防止实体继承容器规则。 */
   translate: (source: string, settings: Settings) => string | undefined;
 }
-export interface SavedValue { source: string; rendered: string; ruleId?: string }
+export interface SavedValue { source: string; rendered: string; ruleId?: string; missing?: boolean }
 export function detectPage(path: string): Page {
   // 只接入已采样的列表/总览；Fantasy 阵容、联赛和账号子路由仍属 other。
+  if (/^\/coach\/\d+(?:\/|$)/.test(path)) return 'coach';
+  if (/^\/forums(?:\/|$)/.test(path)) return 'forum';
+  if (/^\/valve-ranking\/teams\/event\/\d+(?:\/|$)/.test(path)) return 'vrs-forecast';
   if (/^\/transfers\/?$/.test(path)) return 'transfers';
   if (/^\/fantasy\/?$/.test(path)) return 'fantasy';
   if (/^\/team\/\d+(?:\/|$)/.test(path)) return 'team';

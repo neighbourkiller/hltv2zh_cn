@@ -1,3 +1,4 @@
+import { expandSettings } from './menu-helpers';
 import { test, expect, type Page } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
 const script = await readFile(process.env.HLTV_SCRIPT_PATH ?? 'dist/hltv-zh-cn.user.js', 'utf8');
@@ -6,6 +7,7 @@ const sidebar = await readFile('tests/fixtures/home-sidebar.html', 'utf8');
 const playerProfile = await readFile('tests/fixtures/player.html', 'utf8');
 const playerStats = await readFile('tests/fixtures/player-stats.html', 'utf8');
 const eventDetail = await readFile('tests/fixtures/event-detail.html', 'utf8');
+const eventThunderpick = await readFile('tests/fixtures/event-thunderpick.html', 'utf8');
 const matchLineups = await readFile('tests/fixtures/match-lineups.html', 'utf8');
 const playerCompare = await readFile('tests/fixtures/player-compare.html', 'utf8');
 const playerComparePicker = await readFile('tests/fixtures/player-compare-picker.html', 'utf8');
@@ -28,6 +30,36 @@ const transfersEmptyD = await readFile('tests/fixtures/transfers-empty.html', 'u
 const fantasyD = await readFile('tests/fixtures/fantasy.html', 'utf8');
 const fantasyCelebrityD = await readFile('tests/fixtures/fantasy-celebrity.html', 'utf8');
 const fantasyCustomD = await readFile('tests/fixtures/fantasy-custom.html', 'utf8');
+
+test('菜单默认收起，展开与收起不刷新、不改配置，诊断与重新启用保持可用', async ({ page }) => {
+  await open(page);
+  const names = () => page.evaluate(() => (window as any).menus.map((m: any) => m.name));
+  expect(await names()).toEqual(['展开设置']);
+  await page.evaluate(() => { (window as any).menuPageMarker = true; });
+  for (let i = 0; i < 2; i++) {
+    await expandSettings(page);
+    const expanded = await names();
+    expect(expanded[0]).toBe('收起设置');
+    expect(new Set(expanded).size).toBe(expanded.length);
+    expect(expanded).toContain('查看汉化诊断（不含页面正文）');
+    await page.evaluate(() => (window as any).menus.find((m: any) => m.name === '收起设置').action());
+    expect(await names()).toEqual(['展开设置']);
+  }
+  expect(await page.evaluate(() => (window as any).menuPageMarker)).toBe(true);
+  expect(await page.evaluate(() => sessionStorage.getItem('hltv2zh-cn.settings.v1'))).toBeNull();
+  await expandSettings(page);
+  const dialog = page.waitForEvent('dialog');
+  const diagnosis = page.evaluate(() => (window as any).menus.find((m: any) => m.name.startsWith('查看汉化诊断')).action());
+  const alert = await dialog; expect(alert.message()).toContain('已检查节点：'); await alert.dismiss(); await diagnosis;
+  await page.evaluate(() => (window as any).menus.find((m: any) => m.name.startsWith('停用汉化')).action());
+  await expect(page.locator('.newsheader')).toHaveText("Today's news");
+  expect(await names()).toEqual(['展开设置']);
+  await expandSettings(page);
+  expect(await names()).not.toContain('查看汉化诊断（不含页面正文）');
+  await page.evaluate(() => (window as any).menus.find((m: any) => m.name.startsWith('启用汉化')).action());
+  await expect(page.locator('.newsheader')).toHaveText('今日新闻');
+  expect(await names()).toEqual(['展开设置']);
+});
 
 test('阶段 D：转会筛选、嵌套实体、动态换行与真实空结构', async ({ page }) => {
   await open(page, '/transfers', {schemaVersion:2,maps:'zh-CN'}, transfersD);
@@ -71,7 +103,7 @@ test('阶段 D：Fantasy 原节点展开、三类排行榜替换、数值与实�
   await page.evaluate(states=>{
     const w = window as any; w.dStates=states; w.monthClicks=0;
     document.querySelector('.hidden-month-button')!.addEventListener('click',()=>{
-      w.monthClicks++; const hidden = document.querySelector('.hidden-month')!; hidden.classList.remove('hidden-month');
+      w.monthClicks++; const hidden = document.querySelector('.hidden-month')!; hidden.setAttribute('data-test-expanded-month', ''); hidden.classList.remove('hidden-month');
       hidden.querySelector('.month-text')!.firstChild!.nodeValue='September 2026';
     });
     document.querySelectorAll('.season-standing-tabs .tab').forEach((tab,i)=>tab.addEventListener('click',()=>{
@@ -82,7 +114,7 @@ test('阶段 D：Fantasy 原节点展开、三类排行榜替换、数值与实�
   },[fantasyCelebrityD,fantasyCustomD]);
   await page.locator('.hidden-month-button').first().click();
   expect(await page.evaluate(()=>(window as any).monthClicks)).toBe(1);
-  await expect(page.locator('.month-text').filter({hasText:'2026年9月'})).toHaveCount(1);
+  await expect(page.locator('[data-test-expanded-month] .month-text')).toHaveText('2026年9月');
   expect(await page.locator('.points-table td').allTextContents()).toEqual(numbers);
   await page.evaluate(()=>{
     const pagination = document.createElement('div'); pagination.className='leaderboard-pagination';
@@ -104,9 +136,10 @@ test('阶段 D：Fantasy 原节点展开、三类排行榜替换、数值与实�
 test('阶段 D：新增菜单独立关闭、配置保存和未采样子路由保持', async ({ page }) => {
   await open(page,'/transfers',{schemaVersion:2,maps:'en',modules:{fantasy:false,team:false}},transfersD);
   await expect(page.locator('.transfer .standard-headline')).toHaveText('Counter-Strike 转会');
+  await expandSettings(page);
   const names = await page.evaluate(()=>(window as any).menus.map((m:any)=>m.name));
   expect(names).toContain('✓ 独立转会（切换并刷新）'); expect(names).toContain('○ Fantasy 总览（切换并刷新）');
-  await page.evaluate(()=>(window as any).menus.find((m:any)=>m.name.includes('独立转会')).action());
+  await expandSettings(page); await page.evaluate(()=>(window as any).menus.find((m:any)=>m.name.includes('独立转会')).action());
   await expect(page.locator('.transfer .standard-headline')).toHaveText('Counter-Strike transfers');
   await expect(page.locator('.nav-link')).toHaveText('新闻');
   expect(await page.evaluate(()=>JSON.parse(sessionStorage.getItem('hltv2zh-cn.settings.v1')!))).toMatchObject({maps:'en',modules:{transfers:false,fantasy:false,team:false}});
@@ -125,7 +158,7 @@ test('阶段 D：Fantasy 关闭恢复原文，动态未知状态与正文反例�
   });
   await expect(page.locator('.fantasy-frontpage').first().locator('.summary').first()).toHaveText('17 games (14 cancelled)');
   await expect(page.locator('.thread-message-text .live-btn')).toHaveText('LIVE');
-  await page.evaluate(()=>(window as any).menus.find((m:any)=>m.name.includes('Fantasy 总览')).action());
+  await expandSettings(page); await page.evaluate(()=>(window as any).menus.find((m:any)=>m.name.includes('Fantasy 总览')).action());
   await expect(page.locator('.season-headline').first()).toHaveText('Fantasy Fall season 2026');
   await expect(page.locator('.admin-input-search input')).toHaveAttribute('placeholder','Search for user ...');
 });
@@ -267,7 +300,9 @@ async function open(page: Page, path = '/', stored?: unknown, html: string | Rec
     w.menus = [];
     w.GM_getValue = (key: string) => JSON.parse(sessionStorage.getItem(key) ?? 'null') ?? initial;
     w.GM_setValue = (key: string, value: unknown) => sessionStorage.setItem(key, JSON.stringify(value));
-    w.GM_registerMenuCommand = (name: string, action: () => void) => w.menus.push({ name, action });
+    w.nextMenuId = 0;
+    w.GM_registerMenuCommand = (name: string, action: () => void) => { const id = w.nextMenuId++; w.menus.push({ id, name, action }); return id; };
+    w.GM_unregisterMenuCommand = (id: number) => { w.menus = w.menus.filter((m: any) => m.id !== id); };
     w.changes = 0;
     new MutationObserver(records => { w.changes += records.length; }).observe(document, { subtree: true, characterData: true, attributes: true, childList: true });
   }, stored ?? { schemaVersion: 2, maps: 'en' });
@@ -326,14 +361,14 @@ test('战队及两类排名详情菜单独立持久化，更新标题/实体保�
   const teamPath='/team/7020/spirit', hltvPath='/ranking/teams/2026/october/5/details/7020', valvePath='/valve-ranking/teams/details/2026/october/8';
   await open(page,teamPath,{schemaVersion:2,maps:'en',modules:{ranking:false,'valve-ranking':false}},{[teamPath]:teamProfile,[hltvPath]:hltvRankingDetail,[valvePath]:valveRankingDetail});
   await expect(page.locator('.teamProfile .tab').first()).toHaveText('资料');
-  await page.evaluate(() => (window as any).menus.find((m:any)=>m.name.includes('战队资料')).action()); await expect(page.locator('.teamProfile .tab').first()).toHaveText('Info');
+  await expandSettings(page); await page.evaluate(() => (window as any).menus.find((m:any)=>m.name.includes('战队资料')).action()); await expect(page.locator('.teamProfile .tab').first()).toHaveText('Info');
   expect(await page.locator('.fanbutton').evaluate(e=>getComputedStyle(e,'::after').content)).toContain('Remove fan');
   await page.goto('http://hltv.test'+hltvPath); await expect(page.locator('.ranking-details > .standard-headline').first()).toHaveText('Spirit 的 HLTV 排名计算明细');
-  await page.evaluate(()=>(window as any).menus.find((m:any)=>m.name.includes('HLTV 排名详情')).action()); await expect(page.locator('.ranking-details > .standard-headline').first()).toHaveText('Detailed breakdown of ranking calculations for Spirit');
+  await expandSettings(page); await page.evaluate(()=>(window as any).menus.find((m:any)=>m.name.includes('HLTV 排名详情')).action()); await expect(page.locator('.ranking-details > .standard-headline').first()).toHaveText('Detailed breakdown of ranking calculations for Spirit');
   await page.goto('http://hltv.test'+valvePath+'?lineup=16920%2C18317%2C19808%2C20423%2C21167&isFuture=false'); await expect(page.locator('.detail-head').first()).toHaveText('线下胜场');
   await page.evaluate(()=>{document.querySelector('.valve-ranking-details > .standard-headline')!.firstChild!.nodeValue='Ranking details for Mirage on 9 Oct 2026';document.querySelector('.teamLine .name')!.textContent='Dust2';});
   await expect(page.locator('.valve-ranking-details > .standard-headline')).toHaveText('Mirage 的V社排名详情（2026年10月9日）'); await expect(page.locator('.teamLine .name')).toHaveText('Dust2');
-  await page.evaluate(()=>(window as any).menus.find((m:any)=>m.name.includes('V社排名详情')).action()); await expect(page.locator('.detail-head').first()).toHaveText('LAN wins'); await page.reload(); await expect(page.locator('.detail-head').first()).toHaveText('LAN wins');
+  await expandSettings(page); await page.evaluate(()=>(window as any).menus.find((m:any)=>m.name.includes('V社排名详情')).action()); await expect(page.locator('.detail-head').first()).toHaveText('LAN wins'); await page.reload(); await expect(page.locator('.detail-head').first()).toHaveText('LAN wins');
   await expect(page.locator('.nav-link')).toHaveText('新闻'); expect(await page.evaluate(()=>JSON.parse(sessionStorage.getItem('hltv2zh-cn.settings.v1')!).maps)).toBe('en');
 });
 
@@ -396,15 +431,15 @@ test('Valve/VRS 模块分别持久化，动态日期/积分恢复源文案且旧
   });
   await expect(page.locator('.points').first()).toHaveText('(2010 V社 积分)');
   await expect(page.locator('.regional-ranking-header-text')).toHaveText('V社全球排名（2026年10月7日）测试版');
-  await page.evaluate(() => (window as any).menus.find((m: any) => m.name.includes('V社排名')).action());
+  await expandSettings(page); await page.evaluate(() => (window as any).menus.find((m: any) => m.name.includes('V社排名')).action());
   await expect(page.locator('.points').first()).toHaveText('(2003 Valve points)'); await page.reload();
   await expect(page.locator('.regional-beta-icon')).toHaveText('Beta'); await expect(page.locator('.nav-link')).toHaveText('新闻');
   expect(await page.evaluate(() => JSON.parse(sessionStorage.getItem('hltv2zh-cn.settings.v1')!).maps)).toBe('en');
-  await page.evaluate(() => (window as any).menus.find((m: any) => m.name.includes('V社排名')).action()); await expect(page.locator('.regional-beta-icon')).toHaveText('测试版');
-  await page.evaluate(() => (window as any).menus.find((m: any) => m.name.includes('VRS 邀请')).action());
+  await expandSettings(page); await page.evaluate(() => (window as any).menus.find((m: any) => m.name.includes('V社排名')).action()); await expect(page.locator('.regional-beta-icon')).toHaveText('测试版');
+  await expandSettings(page); await page.evaluate(() => (window as any).menus.find((m: any) => m.name.includes('VRS 邀请')).action());
   await expect(page.locator('.regional-beta-icon')).toHaveText('测试版');
   await page.goto('http://hltv.test/valve-ranking/invites'); await expect(page.locator('h1.regional-ranking-header')).toHaveText('Upcoming Events with VRS invite');
-  await page.evaluate(() => (window as any).menus.find((m: any) => m.name.includes('VRS 邀请')).action());
+  await expandSettings(page); await page.evaluate(() => (window as any).menus.find((m: any) => m.name.includes('VRS 邀请')).action());
   await expect(page.locator('h1.regional-ranking-header')).toHaveText('即将进行的 VRS 邀请赛事');
 });
 
@@ -451,10 +486,10 @@ test('排名原 Text/新队伍动态更新、输入与正文保持，菜单开�
   });
   await expect(page.locator('.points').first()).toHaveText('(999 HLTV 积分)'); await expect(page.locator('.points').last()).toHaveText('(33 HLTV 积分)');
   await expect(page.locator('input')).toHaveValue('World ranking'); await expect(page.locator('.newstext')).toHaveText('World ranking HLTV Team profile NEW TEAM Mirage');
-  await page.evaluate(() => (window as any).menus.find((m: any) => m.name.includes('队伍排名')).action());
+  await expandSettings(page); await page.evaluate(() => (window as any).menus.find((m: any) => m.name.includes('队伍排名')).action());
   await expect(page.locator('.moreLink').first()).toHaveText('HLTV Team profile'); await expect(page.locator('.points').first()).toHaveText('(1000 HLTV points)');
   await expect(page.locator('.nav-link')).toHaveText('新闻'); await page.reload(); await expect(page.locator('.details')).toHaveText('Ranking details');
-  await page.evaluate(() => (window as any).menus.find((m: any) => m.name.includes('队伍排名')).action());
+  await expandSettings(page); await page.evaluate(() => (window as any).menus.find((m: any) => m.name.includes('队伍排名')).action());
   await expect(page.locator('.details')).toHaveText('排名详情');
 });
 
@@ -499,12 +534,12 @@ test('全站地图覆盖未适配路由、缩写、属性及动态节点，下�
 test('新默认中文地图，英文偏好和全站地图开关可以保存且互相独立', async ({ page }) => {
   const html = '<!doctype html><html><head><meta charset="utf-8"></head><body><a class="nav-link">News</a><div id="map">NUKE</div></body></html>';
   await open(page, '/other', {}, html); await expect(page.locator('#map')).toHaveText('核子危机');
-  await page.evaluate(() => (window as any).menus.find((m: any) => m.name.startsWith('地图名称：')).action());
+  await expandSettings(page); await page.evaluate(() => (window as any).menus.find((m: any) => m.name.startsWith('地图名称：')).action());
   await expect(page.locator('#map')).toHaveText('NUKE'); await page.reload(); await expect(page.locator('#map')).toHaveText('NUKE');
   expect(await page.evaluate(() => JSON.parse(sessionStorage.getItem('hltv2zh-cn.settings.v1')!).schemaVersion)).toBe(2);
-  await page.evaluate(() => (window as any).menus.find((m: any) => m.name.startsWith('地图名称：')).action());
+  await expandSettings(page); await page.evaluate(() => (window as any).menus.find((m: any) => m.name.startsWith('地图名称：')).action());
   await expect(page.locator('#map')).toHaveText('核子危机');
-  await page.evaluate(() => (window as any).menus.find((m: any) => m.name.includes('地图名称（全站）')).action());
+  await expandSettings(page); await page.evaluate(() => (window as any).menus.find((m: any) => m.name.includes('地图名称（全站）')).action());
   await expect(page.locator('#map')).toHaveText('NUKE'); await expect(page.locator('.nav-link')).toHaveText('新闻');
 });
 
@@ -553,9 +588,9 @@ test('对比模块的地图偏好/动态摘要/旧配置与独立开关，输入
   await expect(page.locator('.selector-map-count').first()).toHaveText('基于 1,001 张地图');
   await expect(page.locator('.stats-player-compare > .stat-row-name')).toHaveText('存活率');
   expect(await page.evaluate(() => (window as any).originalChart === document.querySelector('canvas'))).toBe(true);
-  await page.evaluate(() => (window as any).menus.find((m: any) => m.name.startsWith('地图名称')).action());
+  await expandSettings(page); await page.evaluate(() => (window as any).menus.find((m: any) => m.name.startsWith('地图名称')).action());
   await expect(page.locator('option[value="de_mirage"]')).toHaveText(['荒漠迷城', '荒漠迷城', '荒漠迷城', '荒漠迷城']);
-  await page.evaluate(() => (window as any).menus.find((m: any) => m.name.includes('选手对比')).action());
+  await expandSettings(page); await page.evaluate(() => (window as any).menus.find((m: any) => m.name.includes('选手对比')).action());
   await expect(page.locator('.remove-player-link')).toHaveText(['remove player', 'remove player']);
   await expect(page.locator('option[value="de_mirage"]')).toHaveText(['荒漠迷城', '荒漠迷城', '荒漠迷城', '荒漠迷城']);
   await expect(page.locator('.nav-link')).toHaveText('数据');
@@ -664,7 +699,7 @@ test('阵容切换重新生成英文按钮后继续翻译，原点击事件/数�
     const w = window as any;
     return [w.lineupClicks, w.sourceData === document.querySelector('.lineups-compare-container')!.getAttribute('data-team1-players-data')];
   })).toEqual([1, true]);
-  await page.evaluate(() => (window as any).menus.find((m: any) => m.name.includes('比赛详情')).action());
+  await expandSettings(page); await page.evaluate(() => (window as any).menus.find((m: any) => m.name.includes('比赛详情')).action());
   await expect(page.locator('.profile-link > .gtSmartphone-only')).toHaveText(['Player profile', 'Player profile']);
   await expect(page.locator('.stats-link')).toHaveText(['Stats', 'Stats']);
   await expect(page.locator('.kpr .gtSmartphone-only')).toHaveText('Kills per round');
@@ -718,13 +753,62 @@ test('赛事实页结构：完整栏目、动态对阵及控件监听器与原�
   expect(errors).toEqual([]);
 });
 
+test('Thunderpick 赛事遗漏：小组轮次、日期、VRS、动态改写及关闭恢复', async ({ page }) => {
+  const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
+  await open(page, '/events/8932/thunderpick-world-championship-2026', undefined, eventThunderpick);
+  await expect(page.locator('#Brackets')).toHaveText('淘汰赛');
+  await expect(page.locator('.slotted-bracket-header .name')).toHaveText(['单败淘汰对阵图', 'A 组', 'B 组']);
+  await expect(page.locator('.event-page .round-header')).toHaveText(['半决赛', '首轮', '胜者组比赛', '淘汰赛', '出线决胜战']);
+  await expect(page.locator('.event-page .time-day-of-week')).toHaveText('今天');
+  await expect(page.locator('.event-text')).toHaveText('递补参赛（VRS 欧洲）');
+  await expect(page.locator('.transfer-team-status')).toHaveText('替补');
+  await expect(page.locator('.transfer-team-no-team')).toHaveText('无战队');
+  await expect(page.locator('a.button.colbutton')).toHaveText('全部转会');
+  await expect(page.locator('.sidebar-minigames-playnow-btn')).toHaveText('开始游戏');
+  await expect(page.locator('.format-data')).toHaveText('GSL 双败淘汰 BO3');
+  await expect(page.locator('.eventMeta td span span')).toHaveText('2026年10月18日');
+  await expect(page.locator('.eventMeta a')).toHaveText('计入排名');
+  await expect(page.locator('.eventMeta a')).toHaveAttribute('href', '/events?valveRanked=RANKED');
+  await expect(page.locator('.location .text-ellipsis')).toHaveText('马耳他');
+  await expect(page.locator('.vrs-event-stakes-head .vrs-event-stakes-with')).toHaveText('进入决赛');
+  await expect(page.locator('.vrs-event-stakes-head')).toHaveAttribute('title', '在本赛事进入决赛和未进入时的获邀概率');
+  await expect(page.locator('.vrs-event-stakes-row[href]')).toHaveText('BETBOOM98.5%70.2%');
+  await page.evaluate(() => {
+    const w = window as any;
+    w.thunderpickRound = document.querySelector('.event-page .round-header');
+    w.thunderpickClicks = 0;
+    w.thunderpickRound.addEventListener('click', () => { w.thunderpickClicks++; w.thunderpickRound.classList.toggle('collapsed'); });
+    document.querySelector('.event-page .time-day-of-week')!.firstChild!.nodeValue = 'Tomorrow';
+    document.querySelector('.eventMeta td span span')!.firstChild!.nodeValue = 'Oct 19th 2026';
+    document.querySelectorAll('.slotted-bracket-header .name')[1].firstChild!.nodeValue = 'Group C';
+  });
+  await expect(page.locator('.event-page .time-day-of-week')).toHaveText('明天');
+  await expect(page.locator('.eventMeta td span span')).toHaveText('2026年10月19日');
+  await expect(page.locator('.slotted-bracket-header .name').nth(1)).toHaveText('C 组');
+  await page.locator('.event-page .round-header').first().click();
+  expect(await page.evaluate(() => {
+    const w = window as any;
+    return [w.thunderpickRound === document.querySelector('.event-page .round-header'), w.thunderpickClicks];
+  })).toEqual([true, 1]);
+  await expandSettings(page); await page.evaluate(() => (window as any).menus.find((m: any) => m.name.includes('赛事详情')).action());
+  // 菜单保存配置并刷新；重新加载的夹具回到网站初始数据。
+  await expect(page.locator('.slotted-bracket-header .name')).toHaveText(['Single Elimination Bracket', 'Group A', 'Group B']);
+  await expect(page.locator('.event-page .time-day-of-week')).toHaveText('Today');
+  await expect(page.locator('.eventMeta td span span')).toHaveText('Oct 18th 2026');
+  await expect(page.locator('.eventMeta td span span')).toHaveAttribute('data-unix', '1792317600000');
+  await expect(page.locator('.vrs-event-stakes-head')).toHaveAttribute('title', 'Invite chance if they reach the final here, and if not');
+  await expect(page.locator('.eventMeta td:has(> img)')).toHaveAttribute('title', 'Malta');
+  await expect(page.locator('.thread-message-text')).toHaveText('Opening roundToday');
+  expect(errors).toEqual([]);
+});
+
 test('赛事详情模块兼容旧配置及不同赛事，地图菜单和独立开关持久化', async ({ page }) => {
   await open(page, '/events/1/another-event', { schemaVersion: 1, enabled: true, maps: 'en', modules: { events: false } }, eventDetail);
   await expect(page.locator('.show-lineups')).toHaveText('显示阵容');
   await expect(page.locator('.map-pool-map-name').first()).toHaveText('死城之谜');
-  await page.evaluate(() => (window as any).menus.find((m: any) => m.name.startsWith('地图名称')).action());
+  await expandSettings(page); await page.evaluate(() => (window as any).menus.find((m: any) => m.name.startsWith('地图名称')).action());
   await expect(page.locator('.map-pool-map-name').first()).toHaveText('Cache');
-  await page.evaluate(() => (window as any).menus.find((m: any) => m.name.includes('赛事详情')).action());
+  await expandSettings(page); await page.evaluate(() => (window as any).menus.find((m: any) => m.name.includes('赛事详情')).action());
   await expect(page.locator('.show-lineups')).toHaveText('Show lineups');
   await expect(page.locator('.map-pool-map-name').first()).toHaveText('Cache');
   await expect(page.locator('.team-tbd .team-name').first()).toHaveText('TBD');
@@ -802,7 +886,7 @@ test('统计整页展开指标、筛选值、动态计数与模块菜单兼容�
   await expect(page.locator('.player-summary-stat-box-right-map-count')).toHaveText('814 张地图');
   await expect(page.locator('.role-stats-title').last()).toHaveText('每回合闪光助攻');
   await expect(page.locator('.stats-row > span').nth(1)).toHaveText('16707');
-  await page.evaluate(() => (window as any).menus.find((m: any) => m.name.includes('选手数据')).action());
+  await expandSettings(page); await page.evaluate(() => (window as any).menus.find((m: any) => m.name.includes('选手数据')).action());
   await expect(page.locator('.player-summary-stat-box-right-map-count')).toHaveText('813 maps');
   await expect(page.locator('.nav-link')).toHaveText('数据');
 });
@@ -821,7 +905,7 @@ test('不同选手统计子页仍汉化，停用资料模块移除关注按钮�
   });
   await page.goto('http://hltv.test/player/21167/donk');
   await expect(page.locator('.primaryRole')).toHaveText('选手');
-  await page.evaluate(() => (window as any).menus.find((m: any) => m.name.includes('选手资料')).action());
+  await expandSettings(page); await page.evaluate(() => (window as any).menus.find((m: any) => m.name.includes('选手资料')).action());
   await expect(page.locator('.primaryRole')).toHaveText('Player');
   expect(await page.locator('.fanbutton').evaluate(e => getComputedStyle(e, '::after').content)).toBe('"Become fan"');
   await expect(page.locator('#hltv-zh-player-style')).toHaveCount(0);
@@ -934,9 +1018,9 @@ test('赛果分页及日期正确，分页链接仍可导航', async ({ page }) 
 test('GM 菜单模拟：保存地图偏好、刷新生效及停用', async ({ page }) => {
   await open(page, '/matches/123/sample');
   await expect(page.locator('.mapname')).toHaveText('Ancient');
-  await page.evaluate(() => (window as any).menus.find((m: any) => m.name.startsWith('地图名称')).action());
+  await expandSettings(page); await page.evaluate(() => (window as any).menus.find((m: any) => m.name.startsWith('地图名称')).action());
   await expect(page.locator('.mapname')).toHaveText('远古遗迹');
-  await page.evaluate(() => (window as any).menus.find((m: any) => m.name.startsWith('停用汉化')).action());
+  await expandSettings(page); await page.evaluate(() => (window as any).menus.find((m: any) => m.name.startsWith('停用汉化')).action());
   await expect(page.locator('.date')).toHaveText('8th of October 2026');
   await expect(page.locator('.mapname')).toHaveText('Ancient');
 });

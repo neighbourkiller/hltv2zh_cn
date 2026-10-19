@@ -1,9 +1,15 @@
 import type { Rule } from '../core/types';
 import { exact } from '../core/rules';
 import { dateText } from './templates';
+import { transferStatus } from '../locales/zh-CN/transfers';
 
 // 2026-10-08 用户已安装脚本的首页 DOM；只处理界面槽位，不处理卡片实体名称。
 export const homeSidebarRules: Rule[] = [
+  exact('common.sidebar-transfer-status', 'common', '.transfer-sidebar .transfer-team-status, .transfer-sidebar .transfer-team-no-team', transferStatus),
+  exact('common.sidebar-transfer-alt', 'common', '.transfer-sidebar .transfer-team-container:not(a) img', transferStatus, 'alt'),
+  exact('common.sidebar-transfer-title', 'common', '.transfer-sidebar .transfer-team-container:not(a) img', transferStatus, 'title'),
+  exact('common.sidebar-all-transfers', 'common', 'a.button.colbutton[href="/transfers"]', { 'All transfers': '全部转会' }),
+  exact('common.minigame-play', 'common', '.sidebar-minigames-playnow-btn', { Play: '开始游戏' }),
   exact('home.sponsors', 'common', '.presented-by-row h1 > a', {
     'AWARD BY': '颁奖给', 'RANKING BY': '排名',
   }),

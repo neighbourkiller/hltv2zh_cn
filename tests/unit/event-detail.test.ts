@@ -7,13 +7,58 @@ import { walk } from '../../src/core/walker';
 import { defaults, parseSettings } from '../../src/features/settings';
 
 afterEach(() => { document.body.innerHTML = ''; });
-function setup(path = '/events/8244/esl-pro-league-season-24') {
-  document.body.innerHTML = new DOMParser().parseFromString(readFileSync('tests/fixtures/event-detail.html', 'utf8'), 'text/html').body.innerHTML;
+function setup(path = '/events/8244/esl-pro-league-season-24', fixture = 'event-detail') {
+  document.body.innerHTML = new DOMParser().parseFromString(readFileSync(`tests/fixtures/${fixture}.html`, 'utf8'), 'text/html').body.innerHTML;
   const engine = new TranslationEngine(rules, detectPage(path), defaults());
   const run = () => { for (const node of walk(document.body)) engine.process(node); };
   return { engine, run };
 }
 const text = (selector: string) => document.querySelector(selector)!.textContent!.trim();
+
+it('Thunderpick 小组轮次、递补、嵌套日期和决赛获邀提示覆盖并可恢复', () => {
+  const { run, engine } = setup('/events/8932/thunderpick-world-championship-2026', 'event-thunderpick');
+  const original = document.body.innerHTML;
+  const nodes = [...document.querySelectorAll('*')];
+  run();
+  expect(text('#Brackets')).toBe('淘汰赛');
+  expect([...document.querySelectorAll('.slotted-bracket-header .name')].map(e => e.textContent)).toEqual(['单败淘汰对阵图', 'A 组', 'B 组']);
+  expect([...document.querySelectorAll('.event-page .round-header')].map(e => e.textContent)).toEqual(['半决赛', '首轮', '胜者组比赛', '淘汰赛', '出线决胜战']);
+  expect(text('.event-page .time-day-of-week')).toBe('今天');
+  expect(text('.event-text')).toBe('递补参赛（VRS 欧洲）');
+  expect(text('.transfer-team-status')).toBe('替补');
+  expect(text('.transfer-team-no-team')).toBe('无战队');
+  expect(text('a.button.colbutton')).toBe('全部转会');
+  expect(text('.sidebar-minigames-playnow-btn')).toBe('开始游戏');
+  expect(document.querySelector('.transfer-team-container img')!.getAttribute('alt')).toBe('PARIVISION');
+  expect(text('.format-data')).toBe('GSL 双败淘汰 BO3');
+  expect(text('.eventMeta td span span')).toBe('2026年10月18日');
+  expect(text('.eventMeta a')).toBe('计入排名');
+  expect(text('.location .text-ellipsis')).toBe('马耳他');
+  expect(text('.eventMeta td:has(> img)')).toBe('马耳他');
+  expect(text('.vrs-event-stakes-head .vrs-event-stakes-with')).toBe('进入决赛');
+  expect(document.querySelector('.vrs-event-stakes-head')!.getAttribute('title')).toBe('在本赛事进入决赛和未进入时的获邀概率');
+  expect(text('.thread-message-text')).toBe('Opening roundToday');
+  expect(text('.vrs-event-stakes-row[href]')).toBe('BETBOOM98.5%70.2%');
+  expect(text('.newsitem')).toBe('FURIA fend off BETBOOM to end day one of TWC');
+  expect([...document.querySelectorAll('*')]).toEqual(nodes);
+  const writes = engine.metrics.writes; run(); expect(engine.metrics.writes).toBe(writes);
+  engine.configure({ ...defaults(), enabled: false }); run();
+  expect(document.body.innerHTML).toBe(original);
+});
+
+it('Thunderpick 动态日期和小组更新，未知递补区域及同形实体继续保留', () => {
+  const { run } = setup('/events/8932/thunderpick-world-championship-2026', 'event-thunderpick'); run();
+  document.querySelectorAll('.slotted-bracket-header .name')[1].firstChild!.nodeValue = 'Group C';
+  document.querySelector('.event-page .time-day-of-week')!.firstChild!.nodeValue = 'Tomorrow';
+  document.querySelector('.eventMeta td span span')!.firstChild!.nodeValue = 'Oct 19th 2026';
+  document.querySelector('.event-text')!.firstChild!.nodeValue = 'Team Replacement (VRS Unknown)';
+  document.querySelector('.rounds .team-name')!.firstChild!.nodeValue = 'Group A'; run();
+  expect(document.querySelectorAll('.slotted-bracket-header .name')[1].textContent).toBe('C 组');
+  expect(text('.event-page .time-day-of-week')).toBe('明天');
+  expect(text('.eventMeta td span span')).toBe('2026年10月19日');
+  expect(text('.event-text')).toBe('Team Replacement (VRS Unknown)');
+  expect(text('.rounds .team-name')).toBe('Group A');
+});
 
 it('赛事详情与比赛子页路由独立识别，升级旧设置保留原开关', () => {
   for (const path of ['/events/8244/esl-pro-league-season-24', '/events/1', '/events/8244/matches']) expect(detectPage(path)).toBe('event-detail');

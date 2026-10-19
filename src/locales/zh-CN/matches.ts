@@ -1,3 +1,4 @@
+import { recentPeriods } from './shared';
 export const labels = {
   'Live Counter-Strike matches': '正在进行的 CS 比赛', 'Upcoming Counter-Strike matches': '即将开始的 CS 比赛',
   'Match filters': '比赛筛选', 'Clear all': '清除全部', Clear: '清除', Star: '星级',
@@ -20,8 +21,8 @@ export const labels = {
 export const filters = {
   Filters: '筛选', Stars: '星级', Time: '时间', 'Match type': '比赛类型', Map: '地图',
   Event: '赛事', Player: '选手', Team: '战队', Game: '游戏', 'Valve ranked': 'V社排名',
-  All: '全部', 'All time': '全部时间', 'Past month': '过去一个月', 'Past 3 months': '过去三个月',
-  'Past 6 months': '过去六个月', 'Past year': '过去一年', 'Today': '今天', 'Yesterday': '昨天',
+  ...recentPeriods, All: '全部',
+  'Past 6 months': '最近 6 个月', 'Past year': '最近 12 个月', 'Today': '今天', 'Yesterday': '昨天',
   Online: '线上赛', 'International LAN': '国际线下赛', 'Regional LAN': '区域线下赛',
   'Local LAN': '本地线下赛', Other: '其他', 'Featured results': '精选赛果',
 };

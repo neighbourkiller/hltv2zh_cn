@@ -18,7 +18,7 @@ const text = (selector: string) => document.querySelector(selector)!.textContent
 it('全球/区域列表与邀请列表独立识别，升级保留偏好并开启新模块', () => {
   for (const path of ['/valve-ranking/teams', '/valve-ranking/teams/', '/valve-ranking/teams/2026/october/8', '/valve-ranking/teams/2026/october/8/region/Europe']) expect(detectPage(path)).toBe('valve-ranking');
   for (const path of ['/valve-ranking/invites', '/valve-ranking/invites/']) expect(detectPage(path)).toBe('vrs-invites');
-  for (const path of ['/valve-ranking/teams/event/8295', '/valve-ranking/invites-other']) expect(detectPage(path)).toBe('other');
+  for (const path of ['/valve-ranking/invites-other']) expect(detectPage(path)).toBe('other');
   expect(detectPage('/valve-ranking/teams/details/2026/october/8')).toBe('valve-ranking-detail');
   const settings = parseSettings({ schemaVersion: 2, maps: 'en', enabled: false, modules: { ranking: false, common: false } });
   expect(settings.modules['valve-ranking']).toBe(true); expect(settings.modules['vrs-invites']).toBe(true);

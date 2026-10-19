@@ -1,0 +1,40 @@
+import { readFileSync } from 'node:fs';
+import { afterEach, expect, it } from 'vitest';
+import { rules } from '../../src/adapters';
+import { TranslationEngine } from '../../src/core/engine';
+import { walk } from '../../src/core/walker';
+import { defaults } from '../../src/features/settings';
+const fixture = readFileSync('tests/fixtures/coach-hally.html','utf8');
+afterEach(()=>{document.body.innerHTML='';history.replaceState({},'', '/');});
+it('教练六标签、实体数据及完全停用恢复',()=>{
+ history.replaceState({},'', '/coach/2154/hally'); document.body.innerHTML=fixture;
+ const before=document.body.innerHTML; const links=[...document.querySelectorAll('a')].map(e=>e.getAttribute('href'));
+ const engine=new TranslationEngine(rules,'coach',defaults()); const run=()=>{for(const n of walk(document.body))engine.process(n);};run();
+ expect([...document.querySelectorAll('.tab-holder .tab')].map(e=>e.textContent)).toEqual(['资料','战队','比赛','成就','奖杯','新闻']);
+ expect(document.querySelector('#coachInfoBox h2')!.textContent).toBe('hally 的执教数据（最近 3 个月）');
+ expect(document.querySelector('.playerNickname')!.textContent).toBe('hally');
+ expect(document.querySelector('.playerRealname')!.textContent).toContain('Sergey Shavaev');
+ expect(document.querySelector('.player-stat-of')!.textContent).toBe('基于 63 张地图');
+ expect(document.querySelector('.person-types .selected .role-name')!.textContent).toBe('教练');
+ expect([...document.querySelectorAll('a')].map(e=>e.getAttribute('href'))).toEqual(links);
+ expect(document.querySelector('#achievementBox')!.textContent).toContain('hally 的执教队伍 Major 成就');
+ expect(document.querySelector('#trophiesBox')!.textContent).toContain('hally 的执教队伍全部奖杯');
+ expect(document.querySelector('#newsBox')!.textContent).toContain('2026 年的新闻');
+ engine.configure({...defaults(),enabled:false});run();expect(document.body.innerHTML).toBe(before);
+});
+
+it('合并教练规则后兼容旧槽位，正文保持原文且停用可恢复', () => {
+ history.replaceState({}, '', '/coach/2154/hally');
+ document.body.innerHTML = '<h2>Team stats for B1ad3 as coach</h2><div class="sub-headline">Stats from entire coach period</div><div class="playerProfile"><div class="standard-headline">Team stats for hally as coach</div><div class="listLeft">Stats from entire coach period</div></div><div class="newstext"><h2>Team stats for B1ad3 as coach</h2></div>';
+ const before = document.body.innerHTML;
+ const engine = new TranslationEngine(rules, 'coach', defaults());
+ const run = () => { for (const node of walk(document.body)) engine.process(node); };
+ run();
+ expect(document.querySelector('h2')!.textContent).toBe('B1ad3 的执教队伍数据');
+ expect(document.querySelector('.sub-headline')!.textContent).toBe('执教期间全队数据');
+ expect(document.querySelector('.standard-headline')!.textContent).toBe('hally 的执教队伍数据');
+ expect(document.querySelector('.listLeft')!.textContent).toBe('执教期间全队数据');
+ expect(document.querySelector('.newstext h2')!.textContent).toBe('Team stats for B1ad3 as coach');
+ engine.configure({ ...defaults(), enabled: false }); run();
+ expect(document.body.innerHTML).toBe(before);
+});

@@ -6,7 +6,7 @@ export const navigation = {
   'Hall of Fame': '名人堂', 'Stats overview': '数据总览', 'Top players': '顶尖选手',
   'Top teams': '顶尖战队', Maps: '地图', 'Fantasy overview': 'Fantasy 总览',
   'Hardware & Tweaks': '硬件与优化', 'Bugs & Suggestions': '问题与建议', Galleries: '图集',
-  Overview: '概览', 'Sign in': '登录',
+  Overview: '概览', 'Sign in': '登录', Analytics: '数据分析', 'HLTV Confirmed': 'HLTV 官方访谈',
 };
 export const placeholders = {
   'Search...': '搜索…', 'Search team...': '搜索战队…', 'Search player': '搜索选手',

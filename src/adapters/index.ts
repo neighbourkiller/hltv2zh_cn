@@ -1,3 +1,6 @@
+import { months } from '../locales/zh-CN/shared';
+import { coachRules } from './coaches';
+import { legacyUiRules } from './legacy-ui';
 import type { Rule } from '../core/types';
 import { exact } from '../core/rules';
 import { navigation, placeholders, controls } from '../locales/zh-CN/common';
@@ -9,6 +12,7 @@ import { eventDetailRules } from './event-detail';
 import { playerCompareRules } from './player-compare';
 import { mapRules, mapName } from './maps';
 import { statisticsRules } from './statistics';
+import { matchStatsRules } from './match-stats';
 import { matchDetailRules, recommendedMatchRules } from './match-detail';
 import { rankingRules } from './ranking';
 import { valveRankingRules, vrsInviteRules } from './valve-ranking';
@@ -19,12 +23,15 @@ import { fantasyRules } from './fantasy';
 
 /** 选择器来自已抽样 DOM 或旧版；证据与遗漏见 docs/页面覆盖矩阵.md。 */
 export const rules: Rule[] = [
+  ...coachRules,
+  ...legacyUiRules,
   ...homeSidebarRules,
   ...playerRules,
   ...eventDetailRules,
   ...playerCompareRules,
   ...mapRules,
   ...statisticsRules,
+  ...matchStatsRules,
   ...matchDetailRules,
   ...recommendedMatchRules,
   ...rankingRules,
@@ -61,8 +68,7 @@ export const rules: Rule[] = [
   exact('matches.labels', 'matches', '.upcoming-headline, .matches-sidebar-filter-wrapper h3, #clear-all, .matches-sidebar-filter-title, .matches-sidebar-filter-clear-all, .matches-filter-name-text, .matches-filter-close-btn, .matches-quick-filters > *, .match-time, .match-meta, .starred-matches-title, .match-stage', labels),
   exact('matches.sort', 'matches', '.matches-sort-by-toggle, .matches-sort-by > span, .matches-sort-by-container > span', labels),
   exact('matches.calendar', 'matches', '.calendar-month, .calendar-day, [data-time-format="EEE"]', {
-    January: '一月', February: '二月', March: '三月', April: '四月', May: '五月', June: '六月',
-    July: '七月', August: '八月', September: '九月', October: '十月', November: '十一月', December: '十二月',
+    ...months,
     Mon: '周一', Tue: '周二', Wed: '周三', Thu: '周四', Fri: '周五', Sat: '周六', Sun: '周日',
   }),
   exact('matches.why', 'matches', '.starred-matches-description > [data-tooltip-id], .starred-matches-description > [data-tooltip-id] > span', {

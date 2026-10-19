@@ -17,6 +17,8 @@ export const statisticsTitles: Record<string, string> = {
   'Eco-adjusted deaths': '根据经济调整后的阵亡数', Headshots: '爆头数', 'Flash assists': '闪光助攻数',
   Traded: '阵亡后被队友补枪的次数', 'Eco-adjusted traded deaths': '根据经济调整后的被补枪阵亡数',
   'Round win %': '回合胜率',
+  'Clutches won': '残局获胜次数',
+  'Flash assists, a teammate killed an opponent while blinded, or pushed out of position by a flash by this player.': '闪光助攻：队友击杀了被该选手闪光弹致盲或逼离原位的敌人。',
   'Percentage of rounds where the team won the opening duel': '战队赢得首次交锋的回合占比。',
   "Multikills per round by the team's players": '战队选手每回合完成的多杀次数。',
   'Round win % after getting the opening kill': '取得首杀后的回合胜率。',

@@ -1,6 +1,6 @@
 {
   "name": "hltv-zh-cn",
-  "version": "0.1.14",
+  "version": "0.1.17",
   "private": true,
   "type": "module",
   "description": "保留网站结构与数据的 HLTV 简体中文界面脚本",

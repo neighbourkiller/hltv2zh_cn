@@ -67,9 +67,25 @@ export class TranslationEngine {
       }
     }
   }
+  /** 网站替换或清空文字后，撤销失效的隐式值；网站显式写入的值不归脚本所有。 */
+  private reconcileOption(option: HTMLOptionElement): void {
+    const injected = this.implicitOptionValues.get(option);
+    if (injected === undefined) return;
+    if (option.getAttribute('value') !== injected) { this.implicitOptionValues.delete(option); return; }
+    const walker = option.ownerDocument.createTreeWalker(option, NodeFilter.SHOW_TEXT);
+    let node: Node | null;
+    while ((node = walker.nextNode())) {
+      const saved = this.texts.get(node as Text);
+      if (saved && node.nodeValue === saved.rendered) return;
+    }
+    option.removeAttribute('value');
+    this.implicitOptionValues.delete(option);
+  }
   process(node: Node): void {
     this.metrics.visited++;
     if (!node.isConnected) return;
+    const option = node.nodeType === Node.ELEMENT_NODE ? (node as Element).closest('option') : node.parentElement?.closest('option');
+    if (option) this.reconcileOption(option);
     if (node.nodeType === Node.TEXT_NODE) {
       const text = node as Text;
       if (!text.parentElement) return;
@@ -94,7 +110,14 @@ export class TranslationEngine {
             option.removeAttribute('value'); this.implicitOptionValues.delete(option);
           }
           if (result && !option.hasAttribute('value')) {
-            const originalValue = source.replace(/\s+/g, ' ').trim();
+            const walker = option.ownerDocument.createTreeWalker(option, NodeFilter.SHOW_TEXT);
+            let part: Node | null;
+            let original = '';
+            while ((part = walker.nextNode())) {
+              const previous = this.texts.get(part as Text);
+              original += part === text ? source : previous && part.nodeValue === previous.rendered ? previous.source : part.nodeValue ?? '';
+            }
+            const originalValue = original.replace(/\s+/g, ' ').trim();
             option.setAttribute('value', originalValue);
             this.implicitOptionValues.set(option, originalValue);
           }
@@ -109,16 +132,20 @@ export class TranslationEngine {
       const targets = new Set<Attribute>([...saved.keys(), ...this.attributeTargets]);
       for (const target of targets) {
         const current = element.getAttribute(target);
-        if (current === null) { saved.delete(target); continue; }
+        if (current === null) {
+          saved.delete(target);
+          if (!this.active.some(rule => rule.target === target && rule.createMissing && element.matches(rule.selector))) continue;
+        }
         const state = saved.get(target);
-        const source = state && current === state.rendered ? state.source : current;
+        const source = state && current === state.rendered ? state.source : current ?? '';
         const result = this.resolve(source, element, target);
-        const value = result?.value ?? source;
+        const missing = current === null || !!(state?.missing && current === state.rendered);
+        const value = result?.value ?? (missing ? null : source);
         if (current !== value) {
           if (result && !this.permitWrite(element, target)) continue;
-          element.setAttribute(target, value); this.metrics.writes++;
+          if (value === null) element.removeAttribute(target); else element.setAttribute(target, value); this.metrics.writes++;
         }
-        if (result && value !== source) saved.set(target, { source, rendered: value, ruleId: result.ruleId });
+        if (result && value !== null && value !== source) saved.set(target, { source, rendered: value, ruleId: result.ruleId, missing });
         else saved.delete(target);
       }
       if (saved.size) this.attributes.set(element, saved); else this.attributes.delete(element);

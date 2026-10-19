@@ -19,7 +19,8 @@ const text = (s: string) => document.querySelector(s)!.textContent!.trim();
 it('阶段 D 仅识别已采样路由，旧配置补新模块且保留停用与英文偏好', () => {
   for (const route of ['/transfers','/transfers/']) expect(detectPage(route)).toBe('transfers');
   expect(detectPage('/fantasy')).toBe('fantasy');
-  for (const route of ['/fantasy/662/gameredirect','/fantasy/user/1/overview','/fantasy/rules','/transfers/123','/valve-ranking/teams/event/8295']) expect(detectPage(route)).toBe('other');
+  for (const route of ['/fantasy/662/gameredirect','/fantasy/user/1/overview','/fantasy/rules','/transfers/123']) expect(detectPage(route)).toBe('other');
+  expect(detectPage('/valve-ranking/teams/event/8295')).toBe('vrs-forecast');
   const migrated = parseSettings({ schemaVersion: 2, maps: 'en', enabled: false, modules: { team: false, maps: false } });
   expect(migrated.modules.transfers).toBe(true); expect(migrated.modules.fantasy).toBe(true);
   expect(migrated.modules.team).toBe(false); expect(migrated.enabled).toBe(false); expect(migrated.maps).toBe('en');

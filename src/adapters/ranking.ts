@@ -1,7 +1,7 @@
 import { exact } from '../core/rules';
 import type { Rule } from '../core/types';
 import { rankingDescription, rankingLabels, rankingMonths, rankingNavigation, rankingRegions } from '../locales/zh-CN/ranking';
-import { dateText } from './templates';
+import { dateText, ordinalDay } from './templates';
 
 /** 核对于 2026-10-05 世界/欧洲排名实页；保留双端 span、图片和原 Text。 */
 export const rankingRules: Rule[] = [
@@ -23,8 +23,5 @@ export const rankingRules: Rule[] = [
     const m = /^(\([\d,]+\s+(?:HLTV\s+)?)points\)$/i.exec(text);
     return m ? `${m[1]}积分)` : undefined;
   } },
-  { id: 'ranking.day', module: 'ranking', selector: '.filter-column-content a.sidebar-single-line-item[href^="/ranking/teams/"]', translate: text => {
-    const m = /^(\d{1,2})(?:st|nd|rd|th)$/i.exec(text);
-    return m && +m[1] >= 1 && +m[1] <= 31 ? `${m[1]}日` : undefined;
-  } },
+  { id: 'ranking.day', module: 'ranking', selector: '.filter-column-content a.sidebar-single-line-item[href^="/ranking/teams/"]', translate: ordinalDay },
 ];
