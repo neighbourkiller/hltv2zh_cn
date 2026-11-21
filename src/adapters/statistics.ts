@@ -3,7 +3,7 @@ import type { Rule } from '../core/types';
 import { statsLabels } from '../locales/zh-CN/player-stats';
 import { playerTooltips } from '../locales/zh-CN/player-tooltips';
 import { statsText } from './players';
-import { statisticsTitles, specialtyLabels } from '../locales/zh-CN/statistics';
+import { playerStatisticsColumns, playerStatisticsTabs, statisticsTitles, specialtyLabels } from '../locales/zh-CN/statistics';
 
 const labels = {
   ...statsLabels, ...specialtyLabels, 'Top players': '顶尖选手', 'Top teams': '顶尖战队', 'Top weapons': '常用武器',
@@ -26,13 +26,20 @@ const slots = [
   '.stats-section .tooltip-attributes > b',
   '.tooltip-box.tooltip-attributes > b',
 ].join(',');
-/** 已核对 /stats?event 和 /stats/maps?event；其他统计页复用同结构基础控件。 */
 export const statisticsRules: Rule[] = [
+  exact('statistics.player-tabs', 'statistics', '#stats-sidebar .sidebar-single-line-item .sub-tab', playerStatisticsTabs),
+  exact('statistics.player-headline', 'statistics', '.stats-role-headline > span:first-child', { Players: '选手' }),
+  exact('statistics.player-columns', 'statistics', '.player-ratings-table th > span', playerStatisticsColumns),
   exact('statistics.labels', 'statistics', slots, labels),
   { id: 'statistics.templates', module: 'statistics', selector: `${slots}, .pagination-data`, translate: text => /^Rating\b/i.test(text) ? undefined : statsText(text) },
   exact('statistics.live', 'statistics', '.event-hub-indicator', { Live: '进行中' }),
   exact('statistics.search', 'statistics', '.search-input-con input', { 'Add to context..': '加入选手对比…' }, 'placeholder'),
   exact('statistics.tooltips', 'statistics', '.sidebar-single-line-item[title]', playerTooltips, 'title'),
+  { id: 'statistics.opponent-rank-help', module: 'statistics', selector: '#stats-sidebar .sidebar-single-line-item[title]', target: 'title', translate: statsText },
+  exact('statistics.gender-help', 'statistics', '#stats-sidebar .sidebar-single-line-item[title]', {
+    'Only show male players and teams': '仅显示男子选手和战队',
+    'Only show female players and teams': '仅显示女子选手和战队',
+  }, 'title'),
   exact('statistics.table-titles', 'statistics', '.stats-section th[title], .stats-section th > span[title]', statisticsTitles, 'title'),
   exact('statistics.expanded-tooltips', 'statistics', '.stats-section .tooltip-box, .stats-section .tooltip-box > span, .tooltip-box.tooltip-attributes, .tooltip-box.tooltip-attributes > span', playerTooltips),
   exact('statistics.search-help', 'statistics', '.sidebar-con [title]', {

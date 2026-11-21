@@ -3,7 +3,7 @@ import type { Rule } from '../core/types';
 import { eventLabels, eventStages, eventTooltips, eventWeekdays } from '../locales/zh-CN/events';
 import { dateText } from './templates';
 
-/** 核对 ESL Pro League S24 与 Thunderpick 2026 实页，固定文案只匹配直属 Text。 */
+/** 固定文案只匹配界面元素的直属 Text。 */
 export const eventDetailRules: Rule[] = [
   exact('event-detail.sidebar', 'event-detail', '.sidebar-con .sidebar-headline, .sidebar-con .sidebar-single-line-item', eventLabels),
   exact('event-detail.labels', 'event-detail', [
@@ -17,7 +17,10 @@ export const eventDetailRules: Rule[] = [
     '.event-page .event-groups-container .table-header',
     '.event-page .eventMeta td > a[href^="/events?"]',
   ].join(','), { ...eventLabels, ...eventTooltips }),
-  exact('event-detail.stages', 'event-detail', '.event-page .slotted-bracket-header > .name, .event-page .round-header, .event-page .format-header, .event-page .section-header > span', eventStages),
+  exact('event-detail.stages', 'event-detail', [
+    '.event-page .slotted-bracket-header > .name', '.event-page .slotted-bracket-tier > .bracket-tier-header',
+    '.event-page .round-header', '.event-page .format-header', '.event-page .section-header > span',
+  ].join(','), eventStages),
   { id: 'event-detail.group', module: 'event-detail', selector: '.event-page .slotted-bracket-header > .name', translate: text => {
     const m = /^Group ([A-Z])$/.exec(text); return m ? `${m[1]} 组` : undefined;
   } },

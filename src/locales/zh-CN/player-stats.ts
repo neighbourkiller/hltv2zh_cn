@@ -1,6 +1,6 @@
 import { statsNavigation, matchFilters, lastPeriods } from './shared';
 export const statsLabels: Record<string, string> = {
-  ...statsNavigation, ...matchFilters, Individual: '个人指标', Career: '生涯',
+  ...statsNavigation, ...matchFilters, Individual: '个人指标', Advanced: '进阶数据', Career: '生涯',
   Weapons: '武器', Clutches: '残局', 'Multi-kills': '多杀', Opponents: '对手',
   'Player context': '选手对比', 'Context navigation': '对比导航',
   'Search stats': '搜索数据', Version: '游戏版本', Filters: '筛选',
@@ -16,6 +16,7 @@ export const statsLabels: Record<string, string> = {
   'Valve Ranked': 'Valve 排名赛事', Ranked: '计入排名', Unranked: '不计入排名',
   'Match type': '比赛阶段', 'Grand final': '总决赛', Playoffs: '淘汰赛', 'Pre-playoff': '淘汰赛前阶段',
   'Maps in filter': '筛选内地图数', 'Show player average': '显示选手平均值', 'Player profile': '选手资料',
+  'Eco-adjust stats': '按经济调整数据', 'Similar players': '相似选手',
   'Go to Player': '查看选手', 'Go to Team': '查看战队', 'Add to context': '加入对比', 'Create lineup': '创建阵容',
   Good: '优秀', Okay: '一般', Poor: '较差', 'N/A': '无数据', 'Avg.': '平均',
   'Round swing': '回合胜率影响', 'Multi-kill': '多杀', 'MK rating': '多杀评分', 'Multi-kill rating': '多杀评分',
@@ -56,4 +57,9 @@ export const statsLabels: Record<string, string> = {
   Wins: '胜场', Losses: '负场', Difference: '差值', Won: '获胜', Lost: '失利', Lineup: '阵容',
   Graph: '图表', 'Extended weapon overview': '武器详细数据', 'See matches': '查看比赛',
   'Fast multi-kills only': '仅显示快速多杀', 'Fast MK only': '仅快速多杀', 'Fast multi-kill:': '快速多杀：',
+};
+
+export const similarPlayerLabels = {
+  'Last 6 months': lastPeriods['Last 6 months'], 'Current filter': '当前筛选',
+  'Click a player to compare': '点击选手进行对比', Similar: '相似度',
 };

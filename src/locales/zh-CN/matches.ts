@@ -1,4 +1,10 @@
 import { recentPeriods } from './shared';
+export const matchStages = {
+  'Grand final': '总决赛', Semifinal: '半决赛', Quarterfinal: '四分之一决赛',
+  Playoffs: '淘汰赛', 'Group stage': '小组赛', 'Round of 16': '十六强',
+  'Upper bracket final': '胜者组决赛', 'Lower bracket final': '败者组决赛',
+  'Elimination match': '淘汰赛', 'Decider match': '出线决胜战',
+};
 export const labels = {
   'Live Counter-Strike matches': '正在进行的 CS 比赛', 'Upcoming Counter-Strike matches': '即将开始的 CS 比赛',
   'Match filters': '比赛筛选', 'Clear all': '清除全部', Clear: '清除', Star: '星级',
@@ -12,11 +18,33 @@ export const labels = {
   'Player of the match': '本场最佳选手', 'World rank:': '世界排名：',
   'Show all head to heads': '查看全部历史交锋', Rewatch: '回看', Highlights: '精彩集锦',
   'VRS forecast': 'VRS 预测', 'VRS result': 'VRS 结果', 'Pick': '选择',
-  'Grand final': '总决赛', Semifinal: '半决赛', Quarterfinal: '四分之一决赛',
-  Playoffs: '淘汰赛', 'Group stage': '小组赛', 'Round of 16': '十六强',
-  'Upper bracket final': '胜者组决赛', 'Lower bracket final': '败者组决赛',
-  'Elimination match': '淘汰赛', 'Decider match': '出线决胜战',
+  ...matchStages,
   'English stream:': '英语直播：', 'Russian stream:': '俄语直播：',
+};
+export const matchListTooltips = {
+  'Enable match filter': '启用比赛筛选', 'Disable match filter': '停用比赛筛选',
+  'Odds & prediction for match': '查看比赛赔率与预测', 'Toggle notificaton': '切换比赛通知',
+};
+
+export const matchDetailLabels = {
+  Information: '比赛信息', Betting: '博彩', 'Regional betting': '地区博彩',
+  'Analytics center': '分析中心', 'Go to analytics center': '前往分析中心',
+  'Find insights for your bet': '查看投注参考', 'Pick a winner': '预测胜者', Pick: '选择',
+  'Allstar Highlights:': 'Allstar 精彩集锦：',
+  'Win %': '胜率', 'Pick %': '选图率', 'Ban %': '禁图率', Core: '核心阵容', Team: '战队',
+  TBA: '待定',
+  'This is an initial prediction of points post-match, not the final impact of the match on the VRS, which will also take into account factors such as placement, prizemoney, etc.': '这是对赛后 VRS 积分的初步预测。最终积分还会计入赛事名次和奖金等因素。',
+};
+
+export const simulatedVetoLabels = {
+  Simulated: '模拟禁选', 'Veto simulation': '地图禁选模拟', Likeliest: '最可能',
+  '1st': '第 1 种', '2nd': '第 2 种', '3rd': '第 3 种', Confidence: '步骤概率', 'Map chances': '地图出场概率',
+};
+
+export const matchStreamLabels = {
+  Filter: '筛选', 'All streams': '全部直播', All: '全部', Platform: '平台', Country: '国家/地区',
+  'No stream from your countries here, showing all': '所选国家/地区暂无直播，已显示全部直播',
+  'No country matches': '未找到匹配的国家或地区', 'Remember filter': '记住筛选条件',
 };
 export const filters = {
   Filters: '筛选', Stars: '星级', Time: '时间', 'Match type': '比赛类型', Map: '地图',

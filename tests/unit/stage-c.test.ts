@@ -16,6 +16,43 @@ function setup(fixture: string, route: string) {
 }
 const text = (selector: string) => document.querySelector(selector)!.textContent!.trim();
 
+it('新版模拟 BP 翻译拆分步骤，地图偏好可切换，直播筛选保留输入和选项值', () => {
+  const { engine, run } = setup('match-detail', '/matches/2400204/vitality-vs-mouz-blast-rivals-2026-season-2');
+  document.body.innerHTML = `<main class="match-page">
+    <div class="veto-box"><div class="preformatted-text">Best of 3 (LAN)\n\n* Quarter-final</div></div>
+    <div class="simulated-veto-title">Veto simulation<select><option value="simulated-veto-alt-1">2nd</option></select></div>
+    <div class="simulated-veto-step"><span>1. <span class="simulated-veto-team-logo"><img alt="Vitality"></span><span class="simulated-veto-team-name">Vitality</span> removes Ancient</span><span class="simulated-veto-step-chance">72%</span></div>
+    <div class="simulated-veto-maps-line">Dust2, Mirage and Inferno played in 29% of simulations</div>
+    <div class="simulated-map"><div class="mapname">Dust2 - 67%</div></div>
+    <div class="map-stats-infobox-maps-played"><div title="% of 23 possibilities to pick Dust2">23 possibilities</div></div>
+  </main>`;
+  const team = document.querySelector('.simulated-veto-team-name');
+  run();
+  expect(text('.preformatted-text')).toBe('BO3（线下赛）\n\n* 四分之一决赛');
+  expect(text('.simulated-veto-step')).toBe('1. Vitality 禁用 远古遗迹72%');
+  expect(document.querySelector('.simulated-veto-team-name')).toBe(team);
+  expect(text('.simulated-veto-maps-line')).toBe('炽热沙城、荒漠迷城、炼狱小镇在 29% 的模拟中出场');
+  expect(text('.simulated-map .mapname')).toBe('炽热沙城 - 67%');
+  expect(text('option')).toBe('第 2 种');
+  expect(document.querySelector('select')!.value).toBe('simulated-veto-alt-1');
+  expect(document.querySelector('.map-stats-infobox-maps-played > div')!.getAttribute('title')).toBe('23 次机会中选择 炽热沙城 的比例');
+
+  document.body.insertAdjacentHTML('beforeend', `<div class="stream-filter-menu">
+    <input type="search" data-stream-country-search placeholder="Search all countries" aria-label="Search all countries" value="Russia">
+    <label class="stream-filter-menu-footer"><input type="checkbox" data-stream-filter-remember checked>Remember filter</label>
+  </div>`);
+  const settings = defaults(); settings.maps = 'en'; engine.configure(settings); run();
+  expect(text('.simulated-veto-step')).toBe('1. Vitality 禁用 Ancient72%');
+  expect(text('.simulated-map .mapname')).toBe('Dust2 - 67%');
+  const search = document.querySelector<HTMLInputElement>('[data-stream-country-search]')!;
+  expect(search.placeholder).toBe('搜索国家/地区'); expect(search.value).toBe('Russia');
+  expect(document.querySelector<HTMLInputElement>('[data-stream-filter-remember]')!.checked).toBe(true);
+  expect(text('.stream-filter-menu-footer')).toBe('记住筛选条件');
+  settings.modules['match-detail'] = false; engine.configure(settings); run();
+  expect(text('.simulated-veto-step')).toBe('1. Vitality removes Ancient72%');
+  expect(search.placeholder).toBe('Search all countries');
+});
+
 it('比赛双列解释与经济控件生效，统计数值、版本、实体和 Text 节点保持', () => {
   const { engine, run } = setup('match-detail', '/matches/2398751/example');
   const node = document.querySelector('.roundSwing')!.firstChild;

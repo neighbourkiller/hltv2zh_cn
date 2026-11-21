@@ -1,7 +1,7 @@
 import type { Rule } from '../core/types';
 import { exact } from '../core/rules';
 import { roles, profileLabels } from '../locales/zh-CN/players';
-import { statsLabels } from '../locales/zh-CN/player-stats';
+import { similarPlayerLabels, statsLabels } from '../locales/zh-CN/player-stats';
 import { playerTooltips } from '../locales/zh-CN/player-tooltips';
 import { dateText } from './templates';
 import { specialtyLabels, statisticsTitles } from '../locales/zh-CN/statistics';
@@ -102,7 +102,24 @@ const pageRules: Rule[] = [
   exact('player.partners', 'player', '.playerProfile .skins-partner-top, .playerProfile .skins-partner-bottom > div', profileLabels),
   { id: 'player.peak-time', module: 'player', selector: '.playerProfile .value.h-rank', translate: playerText },
   exact('stats.labels', 'player-stats', statsSlots, statsLabels),
-  exact('stats.roles', 'player-stats', '.role-stats-section-title', roles),
+  exact('stats.roles', 'player-stats', '.role-stats-section-title, .similar-players-section .similar-radar-label-name', roles),
+  exact('stats.similar-players', 'player-stats', [
+    '.similar-players-section .similar-radar-period', '.similar-players-section .similar-radar-hint',
+    '.similar-players-section .similar-player-similarity',
+  ].join(','), similarPlayerLabels),
+  exact('stats.economy-toggle', 'player-stats', '.showEcoAdjustedStats > span', statsLabels),
+  exact('stats.role-baseline', 'player-stats', '.role-stats-section-role-note, .role-stats-section-role-note > span', {
+    'Compared to everyone': '与所有选手对比', 'vs. all': '对比全体',
+  }),
+  { id: 'stats.role-explanation', module: 'player-stats', selector: '.stats-filters .stats-role-explanation-icon .tooltip-box', translate: text => {
+    const match = /^Main AWPer for (.+) as of (\d{4}-\d{2}-\d{2})$/.exec(text);
+    if (match) return `截至 ${match[2]}，担任 ${match[1]} 的主狙击手`;
+  } },
+  exact('stats.economy-tooltip-description', 'player-stats', '.player-summary-tooltip', statisticsTitles),
+  { id: 'stats.economy-tooltip-label', module: 'player-stats', selector: '.player-summary-tooltip > b', translate: text => {
+    const match = /^(DPR|KAST|ADR|KPR) \(eco-adjusted\)$/.exec(text);
+    if (match) return `${match[1]}（经济调整）`;
+  } },
   { id: 'stats.templates', module: 'player-stats', selector: `${statsSlots}, .rating-description, .rating-maps, .player-summary-stat-box-right-map-count, .pagination-data, .diagram-info, .stats-section .stats-row > span, .stats-section .stats-top-menu-item`, translate: statsText },
   { id: 'stats.age', module: 'player-stats', selector: '.player-summary-stat-box-left-player-age', translate: playerText },
   { id: 'stats.time-alive', module: 'player-stats', selector: '.role-stats-data', translate: text => {

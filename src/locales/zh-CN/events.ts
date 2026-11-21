@@ -25,6 +25,7 @@ export const eventStages = {
   'Semi-finals': '半决赛', Semis: '半决赛', 'Grand final': '总决赛', Final: '决赛',
   '3rd Place Decider Match': '季军决胜赛', Tiebreaker: '加赛', 'Round of 16': '十六强',
   'Upper bracket': '胜者组', 'Lower bracket': '败者组',
+  'Upper final': '胜者组决赛', 'Lower final': '败者组决赛',
   'Upper bracket final': '胜者组决赛', 'Lower bracket final': '败者组决赛',
   'Upper bracket semi-final': '胜者组半决赛', 'Lower bracket semi-final': '败者组半决赛',
 };

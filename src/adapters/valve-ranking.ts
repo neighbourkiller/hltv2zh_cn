@@ -4,7 +4,7 @@ import { rankingLabels, rankingMonths, rankingNavigation, rankingRegions } from 
 import { valveLabels, valveRegions, vrsLabels } from '../locales/zh-CN/valve-ranking';
 import { dateText, ordinalDay } from './templates';
 
-function navigationRules(module: 'valve-ranking' | 'vrs-invites'): Rule[] {
+export function navigationRules(module: 'valve-ranking' | 'vrs-invites' | 'vrs-forecast'): Rule[] {
   return [
     exact(`${module}.navigation`, module, '.nav > .navItem, .nav > .navItem > .gtSmartphone-only', rankingNavigation),
     exact(`${module}.hltv-regions`, module, '#ranking-region-selector > .sub-region-name, #ranking-region-selector > .ranking-country > a', rankingRegions),

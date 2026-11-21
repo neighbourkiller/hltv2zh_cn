@@ -5,7 +5,7 @@ export const moduleNames: Record<Module, string> = {
   player: '选手资料', 'player-stats': '选手数据', 'event-detail': '赛事详情', 'player-compare': '选手对比',
   statistics: '统计数据', ranking: '队伍排名', 'valve-ranking': 'V社排名', 'vrs-invites': 'VRS 邀请', maps: '地图名称（全站）',
   team: '战队资料', 'ranking-detail': 'HLTV 排名详情', 'valve-ranking-detail': 'V社排名详情',
-  transfers: '独立转会', fantasy: 'Fantasy 总览', coach: '教练资料', forum: '论坛界面', 'vrs-forecast': 'VRS 预测标签',
+  transfers: '独立转会', fantasy: 'Fantasy 总览', coach: '教练资料', forum: '论坛界面', 'vrs-forecast': 'VRS 赛事邀请预测',
 };
 export function defaults(): Settings {
   return { schemaVersion: 2, enabled: true, maps: 'zh-CN', modules: {

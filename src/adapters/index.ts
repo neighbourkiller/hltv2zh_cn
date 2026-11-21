@@ -4,7 +4,8 @@ import { legacyUiRules } from './legacy-ui';
 import type { Rule } from '../core/types';
 import { exact } from '../core/rules';
 import { navigation, placeholders, controls } from '../locales/zh-CN/common';
-import { labels, filters, maps, lineupComparison } from '../locales/zh-CN/matches';
+import { labels, filters, maps, lineupComparison, matchStages, matchListTooltips } from '../locales/zh-CN/matches';
+import { eventWeekdays } from '../locales/zh-CN/events';
 import { dateText, relativeTime } from './templates';
 import { homeSidebarRules } from './home-sidebar';
 import { playerRules } from './players';
@@ -12,6 +13,7 @@ import { eventDetailRules } from './event-detail';
 import { playerCompareRules } from './player-compare';
 import { mapRules, mapName } from './maps';
 import { statisticsRules } from './statistics';
+import { statisticsFilterRules } from './statistics-filters';
 import { matchStatsRules } from './match-stats';
 import { matchDetailRules, recommendedMatchRules } from './match-detail';
 import { rankingRules } from './ranking';
@@ -20,6 +22,7 @@ import { teamRules } from './teams';
 import { hltvRankingDetailRules, valveRankingDetailRules } from './ranking-details';
 import { transferRules } from './transfers';
 import { fantasyRules } from './fantasy';
+import { vrsForecastRules } from './vrs-forecast';
 
 /** 选择器来自已抽样 DOM 或旧版；证据与遗漏见 docs/页面覆盖矩阵.md。 */
 export const rules: Rule[] = [
@@ -30,6 +33,7 @@ export const rules: Rule[] = [
   ...eventDetailRules,
   ...playerCompareRules,
   ...mapRules,
+  ...statisticsFilterRules,
   ...statisticsRules,
   ...matchStatsRules,
   ...matchDetailRules,
@@ -37,6 +41,7 @@ export const rules: Rule[] = [
   ...rankingRules,
   ...valveRankingRules,
   ...vrsInviteRules,
+  ...vrsForecastRules,
   ...teamRules,
   ...hltvRankingDetailRules,
   ...valveRankingDetailRules,
@@ -80,6 +85,21 @@ export const rules: Rule[] = [
     return m ? `${regions[m[1].toLowerCase()]} (${m[2]})` : undefined;
   } },
   { id: 'matches.date', module: 'matches', selector: '[data-time-format="MMM d"], [data-time-format="MMMM y"], .match-day', translate: dateText },
+  { id: 'matches.event-date', module: 'matches', selector: '.eventpage-matches-list .matches-event-page > .event-headline', translate: text => {
+    const match = /^(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday) - (\d{4}-\d{2}-\d{2})$/.exec(text);
+    if (match) return `${eventWeekdays[match[1] as keyof typeof eventWeekdays]} - ${match[2]}`;
+  } },
+  { id: 'matches.event-winner', module: 'matches', selector: '.eventpage-matches-list .match-team:not(:has(.match-team-logo)) > .team', translate: text => {
+    const match = /^([^/]+\/[^/]+) winner$/i.exec(text);
+    if (match) return `${match[1]} 胜者`;
+  } },
+  { id: 'matches.event-stage-placeholder', module: 'matches', selector: '.eventpage-matches-list .match-no-info > .line-clamp-3', translate: text => {
+    const match = /^(.+) - (.+)$/.exec(text);
+    if (!match) return;
+    const stage = Object.entries(matchStages).find(([source]) => source.toLowerCase() === match[2].toLowerCase());
+    if (stage) return `${match[1]} - ${stage[1]}`;
+  } },
+  exact('matches.tooltips', 'matches', '.headline-flex .star-filter-btn, .matches-list .match-analytics-btn, .matches-list .match-notification', matchListTooltips, 'title'),
   exact('results.labels', 'results', '.standard-headline, .sidebar-headline, .filter-column-header, .filter-column-content .sidebar-single-line-item', filters),
   { id: 'results.date', module: 'results', selector: '.standard-headline', translate: dateText },
   { id: 'results.pagination', module: 'results', selector: '.pagination-data', translate: text => {
@@ -112,7 +132,8 @@ export const rules: Rule[] = [
       const ws = /^(\s*)(.*?)(\s*)$/.exec(line)!;
       const m = /^Best of (1|3|5) \((Online|LAN)\)$/.exec(ws[2]);
       const key = ws[2].replace(/^\*\s*/, '');
-      const translated = m ? `BO${m[1]}（${m[2] === 'Online' ? '线上赛' : '线下赛'}）` : labels[key as keyof typeof labels];
+      const stage = Object.entries(matchStages).find(([source]) => source.toLowerCase() === key.toLowerCase().replace(/^(quarter|semi)-final$/, '$1final'));
+      const translated = m ? `BO${m[1]}（${m[2] === 'Online' ? '线上赛' : '线下赛'}）` : stage?.[1] ?? labels[key as keyof typeof labels];
       if (translated) { changed = true; return ws[1] + (ws[2].startsWith('*') ? '* ' : '') + translated + ws[3]; }
       return line;
     }).join('\n');

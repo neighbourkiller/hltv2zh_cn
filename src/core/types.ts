@@ -34,10 +34,10 @@ export function detectPage(path: string): Page {
   if (/^\/ranking\/teams(?:\/|$)/.test(path)) return 'ranking';
   if (/^\/player\/\d+(?:\/|$)/.test(path)) return 'player';
   if (/^\/stats\/players\/compare(?:\/|$)/.test(path)) return 'player-compare';
-  if (/^\/stats\/players\/(?:\d+(?:\/|$)|(?:individual|matches|events|career|weapon|clutches|multikills)\/\d+(?:\/|$)|opponents\/(?:team|lineup)\/\d+(?:\/|$))/.test(path)) return 'player-stats';
+  if (/^\/stats\/players\/(?:\d+(?:\/|$)|(?:advanced|individual|matches|events|career|weapon|clutches|multikills)\/\d+(?:\/|$)|opponents\/(?:team|lineup)\/\d+(?:\/|$))/.test(path)) return 'player-stats';
   if (/^\/stats(?:\/|$)/.test(path)) return 'statistics';
   if (path === '/') return 'home';
-  if (/^\/matches\/?$/.test(path)) return 'matches';
+  if (/^\/(?:events\/\d+\/)?matches\/?$/.test(path)) return 'matches';
   if (/^\/matches\/\d+(?:\/|$)/.test(path)) return 'match-detail';
   if (/^\/results\/?$/.test(path)) return 'results';
   if (/^\/events\/?$/.test(path)) return 'events';

@@ -60,8 +60,9 @@ it('Thunderpick 动态日期和小组更新，未知递补区域及同形实体�
   expect(text('.rounds .team-name')).toBe('Group A');
 });
 
-it('赛事详情与比赛子页路由独立识别，升级旧设置保留原开关', () => {
-  for (const path of ['/events/8244/esl-pro-league-season-24', '/events/1', '/events/8244/matches']) expect(detectPage(path)).toBe('event-detail');
+it('赛事概览与赛程路由独立识别，升级旧设置保留原开关', () => {
+  for (const path of ['/events/8244/esl-pro-league-season-24', '/events/1']) expect(detectPage(path)).toBe('event-detail');
+  expect(detectPage('/events/8244/matches')).toBe('matches');
   expect(detectPage('/events')).toBe('events'); expect(detectPage('/events/archive')).toBe('other');
   const config = parseSettings({ schemaVersion: 1, enabled: false, maps: 'zh-CN', modules: { events: false, common: false } });
   expect(config.modules['event-detail']).toBe(true); expect(config.modules.events).toBe(false); expect(config.modules.common).toBe(false);

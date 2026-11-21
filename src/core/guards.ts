@@ -28,7 +28,18 @@ export const protectedSelector = [
   'a[href^="/out"]', 'a[href^="/betting"]',
   'a[href^="/coach/"]',
 ].join(',');
-export function protectedElement(element: Element): boolean {
+const forecastProtectedSelector = '.vrs-story-name,.vrs-power-name,.vrs-key-event-name,.vrs-what-if-event-name,.vrs-what-if-group > span,.vrs-what-if-team,.vrs-key-event-header img,.vrs-what-if-group img,.vrs-what-if-event-row img,.vrs-match-opponent img';
+export function protectedElement(element: Element, target?: string): boolean {
+  if (element.closest(forecastProtectedSelector)) return true;
+  // 赛事邀请预测只放行队伍卡片中的固定 UI 子槽位，名字和徽标仍保护。
+  if (element.matches('a.vrs-mover > .vrs-mover-text > .vrs-story-faded, a.vrs-mover > .vrs-mover-positions > span')
+    && !element.closest('a.vrs-mover')?.parentElement?.closest(protectedSelector)) return false;
+  if (element.matches('.vrs-details-more > a.moreLink[href^="/team/"]')
+    && !element.parentElement?.closest(protectedSelector)) return false;
+  if (element.matches('.vrs-rival > a.vrs-match-opponent > .vrs-mover-text > .vrs-story-faded')
+    && !element.closest('a.vrs-match-opponent')?.parentElement?.closest(protectedSelector)) return false;
+  if (target === 'title' && element.matches('a.vrs-story-team.vrs-mover[href^="/team/"]')
+    && !element.parentElement?.closest(protectedSelector)) return false;
   // 仅放行资料卡的身份切换标签；链接实体名称与正文中的同形结构继续保护。
   if (/^\/coach\/\d+(?:\/|$)/.test(element.ownerDocument.location.pathname)
     && element.matches('.playerProfile .person-types > a.person-type > .role-name, .playerProfile .person-types > a.person-type > .primary-role')
@@ -42,7 +53,7 @@ export function protectedElement(element: Element): boolean {
 
 /** 武器代码与地图同名时保留武器原文，不做地图替换。 */
 export const weaponSelector = '.stats-rows.standard-box';
-export const protectionClasses = new Set([...((protectedSelector + ',' + weaponSelector).matchAll(/\.([\w-]+)/g))].map(match => match[1]));
+export const protectionClasses = new Set([...((protectedSelector + ',' + forecastProtectedSelector + ',' + weaponSelector).matchAll(/\.([\w-]+)/g))].map(match => match[1]));
 
 /** 地图词条识别统计页实体链接；不影响其中明确 UI 文案的其他规则。 */
 export function protectedMapElement(element: Element): boolean {

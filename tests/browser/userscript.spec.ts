@@ -31,6 +31,68 @@ const fantasyD = await readFile('tests/fixtures/fantasy.html', 'utf8');
 const fantasyCelebrityD = await readFile('tests/fixtures/fantasy-celebrity.html', 'utf8');
 const fantasyCustomD = await readFile('tests/fixtures/fantasy-custom.html', 'utf8');
 
+test('选手统计新版筛选、专项导航和表头汉化，动态更新与停用恢复可用', async ({ page }) => {
+  const html = `<!doctype html><meta charset="utf-8"><body>
+    <a class="nav-link" href="/stats">Stats</a>
+    <div class="stats-section">
+      <div class="stats-filters">
+        <div class="stats-filter-title"><span class="standard-headline">Match filters</span><span class="stats-maps-readout">1,234 maps</span></div>
+        <div class="stats-filter-chip">
+          <button class="stats-filter-chip-toggle" type="button" aria-expanded="false"><span class="stats-filter-chip-label">Opp. rank</span><span class="stats-filter-chip-value">Top 20</span></button>
+          <div class="stats-filter-chip-options" hidden><a class="stats-filter-chip-option" href="/stats/players?rankingFilter=Top10" data-chip-value="Top 10">Top 10</a></div>
+        </div>
+        <span class="stats-filter-advanced-headline">Advanced filters</span>
+        <span class="stats-filter-chip-value"><span class="role-pill"><svg></svg></span><span class="stats-role-label">Everyone</span></span>
+        <button class="stats-round-filter-expand" type="button">Expand 12 filters</button>
+        <span class="stats-min-maps-option-rows">1 player</span>
+        <label class="stats-min-maps-other"><span>Other</span><input type="number" min="0" max="93" value="23"><span>maps</span><span class="stats-min-maps-other-max">max 93</span></label>
+      </div>
+      <div class="standard-headline stats-role-headline"><span>Players</span><span class="stats-table-padding-buttons"></span></div>
+      <table class="player-ratings-table"><thead><tr>
+        <th title="Kills minus deaths per 24 rounds."><span>Net Kills /24</span><span>K-D/24</span></th>
+        <th><span>Eco Swing</span></th><th><span>Rnd Swing</span></th><th>Rating<span>3.0</span></th>
+      </tr></thead><tbody><tr><td><a href="/stats/players/1234/all">All</a></td><td>+4.21</td></tr></tbody></table>
+    </div>
+    <div id="stats-sidebar"><a class="sidebar-single-line-item" href="/stats/players/entrying"><span><span class="sub-tab">Entrying</span></span></a></div>
+  </body>`;
+  await open(page, '/stats/players?rankingFilter=Top20', undefined, html);
+  await expect(page.locator('.stats-filter-title')).toHaveText('比赛筛选1,234 张地图');
+  await expect(page.locator('.stats-filter-chip-toggle')).toHaveText('对手排名前 20 名');
+  await expect(page.locator('.stats-filter-advanced-headline')).toHaveText('高级筛选');
+  await expect(page.locator('.stats-role-label')).toHaveText('所有选手');
+  await expect(page.locator('.role-pill svg')).toHaveCount(1);
+  await expect(page.locator('.stats-min-maps-option-rows')).toHaveText('1 名选手');
+  await expect(page.locator('.stats-min-maps-other-max')).toHaveText('最多 93');
+  await expect(page.locator('.stats-min-maps-other input')).toHaveValue('23');
+  await expect(page.locator('.stats-role-headline')).toHaveText('选手');
+  await expect(page.locator('.sub-tab')).toHaveText('突破');
+  await expect(page.locator('th')).toHaveText(['净击杀 /24K-D/24', '交锋胜率偏差', '回合胜率影响', 'Rating3.0']);
+  await expect(page.locator('th').first()).toHaveAttribute('title', '每 24 回合的击杀数减去阵亡数。');
+  await expect(page.locator('tbody td')).toHaveText(['All', '+4.21']);
+
+  await page.evaluate(() => {
+    document.querySelector('.stats-filter-chip-toggle')!.addEventListener('click', event => {
+      (event.currentTarget as HTMLButtonElement).setAttribute('aria-expanded', 'true');
+      document.querySelector<HTMLElement>('.stats-filter-chip-options')!.hidden = false;
+    });
+    document.querySelector('.stats-round-filter-expand')!.addEventListener('click', event => {
+      (event.currentTarget as HTMLButtonElement).textContent = 'Collapse 12 filters';
+    });
+  });
+  await page.locator('.stats-filter-chip-toggle').click();
+  const option = page.getByRole('link', { name: '前 10 名' });
+  await expect(option).toHaveAttribute('href', '/stats/players?rankingFilter=Top10');
+  await expect(option).toHaveAttribute('data-chip-value', 'Top 10');
+  await page.getByRole('button', { name: '展开 12 项筛选' }).click();
+  await expect(page.getByRole('button', { name: '收起 12 项筛选' })).toBeVisible();
+
+  await expandSettings(page);
+  await page.evaluate(() => (window as any).menus.find((item: any) => item.name.startsWith('停用汉化')).action());
+  await expect(page.locator('.stats-round-filter-expand')).toHaveText('Expand 12 filters');
+  await expect(page.locator('.stats-role-headline')).toHaveText('Players');
+  await expect(page.locator('th').first()).toHaveAttribute('title', 'Kills minus deaths per 24 rounds.');
+});
+
 test('菜单默认收起，展开与收起不刷新、不改配置，诊断与重新启用保持可用', async ({ page }) => {
   await open(page);
   const names = () => page.evaluate(() => (window as any).menus.map((m: any) => m.name));

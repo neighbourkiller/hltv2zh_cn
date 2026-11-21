@@ -16,12 +16,47 @@ function setup(file: string, path: string) {
 }
 it('识别任意选手和统计子页路由，旧配置自动启用新增模块', () => {
   for (const path of ['/player/21167/donk', '/player/7998/s1mple']) expect(detectPage(path)).toBe('player');
+  expect(detectPage('/stats/players/advanced/11893/zywoo')).toBe('player-stats');
   for (const path of ['/stats/players/21167/donk', '/stats/players/individual/7998/s1mple', '/stats/players/matches/21167/donk', '/stats/players/events/21167/donk', '/stats/players/career/21167/donk', '/stats/players/weapon/21167/donk', '/stats/players/clutches/21167/all/donk', '/stats/players/multikills/21167/two/donk', '/stats/players/opponents/team/21167/donk', '/stats/players/opponents/lineup/21167/donk']) expect(detectPage(path)).toBe('player-stats');
   expect(detectPage('/players')).toBe('other');
   for (const path of ['/stats', '/stats/players', '/stats/teams/7020/spirit']) expect(detectPage(path)).toBe('statistics');
   const migrated = parseSettings({ schemaVersion: 1, enabled: true, maps: 'zh-CN', modules: { home: false, common: false } });
   expect(migrated.modules.player).toBe(true); expect(migrated.modules['player-stats']).toBe(true);
   expect(migrated.modules.common).toBe(false); expect(migrated.maps).toBe('zh-CN');
+});
+
+it('选手概览共用新版筛选规则，雷达图换数据后仍按选手数据开关翻译', () => {
+  document.body.innerHTML = `<div class="stats-filters">
+    <div class="stats-filter-title"><span class="standard-headline">Match filters</span><span class="stats-maps-readout">14 maps</span></div>
+    <button class="stats-filter-chip-toggle"><span class="stats-filter-chip-label">Compared to</span><span class="stats-role-label">AWPers</span></button>
+    <a class="stats-filter-chip-option stats-role-selector" href="?event=8301&compareTo=everyone" data-role-stats="everyone"><span class="stats-role-label">Everyone</span></a>
+    <button class="stats-round-filter-expand">Expand 12 filters</button>
+  </div>
+  <div class="similar-players-section"><svg><text><tspan class="similar-radar-label-name">Closing</tspan></text></svg>
+    <button class="similar-radar-period" data-radar-period="filter">Current filter</button>
+    <div class="similar-player-similarity"><span>95%</span><br>Similar</div>
+  </div>`;
+  const settings = defaults();
+  settings.modules.statistics = false;
+  const engine = new TranslationEngine(rules, detectPage('/stats/players/11893/zywoo'), settings);
+  const run = () => { for (const node of walk(document.body)) engine.process(node); };
+  const label = (selector: string) => document.querySelector(selector)!.textContent;
+  run();
+  expect(label('.stats-filter-chip-label')).toBe('对比基准');
+  expect(label('.stats-maps-readout')).toBe('14 张地图');
+  expect(label('.stats-role-label')).toBe('狙击手');
+  expect(label('.stats-round-filter-expand')).toBe('展开 12 项筛选');
+  expect(label('.similar-radar-label-name')).toBe('收尾');
+  expect(label('.similar-player-similarity')).toBe('95%相似度');
+  expect(document.querySelector('.stats-role-selector')!.getAttribute('href')).toBe('?event=8301&compareTo=everyone');
+  const axis = document.querySelector('.similar-radar-label-name')!;
+  axis.replaceChildren('Firepower');
+  run();
+  expect(axis.textContent).toBe('火力');
+  settings.modules['player-stats'] = false;
+  engine.configure(settings); run();
+  expect(axis.textContent).toBe('Firepower');
+  expect(label('.stats-filter-chip-label')).toBe('Compared to');
 });
 it('资料页首屏、所有隐藏标签和下方库存照片均翻译，身份、新闻和节点保持', () => {
   const { run, engine } = setup('player', '/player/21167/donk');

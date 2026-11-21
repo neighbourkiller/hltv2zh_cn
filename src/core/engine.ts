@@ -49,7 +49,7 @@ export class TranslationEngine {
     for (const rule of this.active) {
       if (rule.target !== target || (rule.candidate && !rule.candidate(source, this.settings)) || !element.matches(rule.selector)) continue;
       if (!protectionChecked) {
-        if (protectedElement(element)) return;
+        if (protectedElement(element, target)) return;
         protectionChecked = true;
       }
       if (rule.module === 'maps' && protectedMapElement(element)) continue;

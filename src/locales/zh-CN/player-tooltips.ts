@@ -10,6 +10,8 @@ export const playerTooltips: Record<string, string> = {
   'The rating tells us if the player put up above or below average numbers, with 1.00 being the average': '评分反映选手表现高于还是低于平均水平，1.00 为平均值。',
   "How much, on average, a player changed their team's chances of winning a round based on team economy, side, kills, deaths, damage, trading, and flash assists.": '衡量选手平均改变战队回合获胜概率的幅度，依据战队经济、阵营、击杀、阵亡、伤害、补枪和闪光助攻。',
   'Deaths per round': '每回合阵亡', 'Kills per round': '每回合击杀', 'Average damage per round': '每回合平均伤害',
+  'Deaths per round. Adjusted to compensate for economy.': '每回合阵亡数，已根据经济进行调整。',
+  'Kills per round. Adjusted to compensate for economy.': '每回合击杀数，已根据经济进行调整。',
   'Percentage of rounds in which the player either had a kill, assist, survived or was traded': '选手完成击杀、助攻、存活或阵亡后被队友补枪的回合占比。',
   'The percentage of rounds where this player posted 2 or more kills': '选手完成两次及以上击杀的回合占比。',
   "Rating of the player's ability to post two or more kills during a round. Adjusted to compensate for economy.": '衡量选手每回合完成两次及以上击杀的能力，已根据经济进行调整。',

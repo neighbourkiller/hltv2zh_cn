@@ -1,7 +1,7 @@
 /** 角色维度为能力指标，不把 Entrying 译为选手身份。 */
 export const roles: Record<string, string> = {
   Firepower: '火力', Entrying: '突破', Trading: '补枪', Opening: '首杀',
-  Clutching: '残局', Sniping: '狙击', Utility: '道具',
+  Clutching: '残局', Closing: '收尾', Sniping: '狙击', Utility: '道具',
 };
 export const profileLabels: Record<string, string> = {
   Player: '选手', Coach: '教练', Age: '年龄', Born: '出生日期', 'Current team': '当前战队',
